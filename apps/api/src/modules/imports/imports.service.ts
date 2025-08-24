@@ -43,14 +43,16 @@ export class ImportsService {
     throw new NotFoundException('Libro Excel not found for quarter')
   }
 
-  async importLibroQuarter(input: { year: number; quarter: 1 | 2 | 3 | 4; createdById: string }) {
-    const { year, quarter, createdById } = input
+  async importLibroQuarter(input: { year: number; quarter: 1 | 2 | 3 | 4; createdById: string; dryRun?: boolean }) {
+    const { year, quarter, createdById, dryRun } = input
     if (!year || !quarter || !createdById) throw new Error('year, quarter, createdById required')
     const file = this.resolveLibroPath(year, quarter)
     const { out, in: inn } = parseLibroXlsx(file)
 
     let createdOut = 0
     let createdIn = 0
+    let skippedMissingNumber = 0
+    let skippedErrors = 0
 
     // Upsert helper for third parties
     const getOrCreateThird = async (type: 'CLIENT' | 'SUPPLIER', name?: string, nif?: string) => {
@@ -63,30 +65,37 @@ export class ImportsService {
 
     for (const row of out) {
       const client = await getOrCreateThird('CLIENT', row.counterpartyName, row.nif)
-      const number = row.number || ''
-      const series = row.series || undefined
+      const number = (row.number || '').trim()
+      const series = row.series?.toString().trim() || undefined
+      if (!number) {
+        skippedMissingNumber++
+        continue
+      }
       const base = Number(row.base) || 0
       const vatRate = Number(row.vatRate) || 0
       const vatAmount = Number(row.vatAmount) || round2(base * (vatRate / 100))
       const total = Number(row.total) || round2(base + vatAmount)
       try {
-        await this.invoices.createOut({
-          issueDate: row.issueDate,
-          series,
-          number,
-          clientId: client.id,
-          base,
-          vatRate,
-          vatAmount,
-          total,
-          currency: row.currency || 'EUR',
-          euOperation: row.euOperation ?? undefined,
-          notes: row.category,
-          createdById
-        })
+        if (!dryRun) {
+          await this.invoices.createOut({
+            issueDate: row.issueDate,
+            series,
+            number,
+            clientId: client.id,
+            base,
+            vatRate,
+            vatAmount,
+            total,
+            currency: row.currency || 'EUR',
+            euOperation: row.euOperation ?? undefined,
+            notes: row.category,
+            createdById
+          })
+        }
         createdOut++
       } catch (e: any) {
         // Likely duplicate series+number; skip
+        skippedErrors++
       }
     }
 
@@ -97,24 +106,27 @@ export class ImportsService {
       const vatAmount = Number(row.vatAmount) || round2(base * (vatRate / 100))
       const total = Number(row.total) || round2(base + vatAmount)
       try {
-        await this.invoices.createIn({
-          issueDate: row.issueDate,
-          supplierId: supplier.id,
-          base,
-          vatRate,
-          vatAmount,
-          total,
-          currency: row.currency || 'EUR',
-          deductible: true,
-          category: row.category,
-          assetFlag: false,
-          euOperation: row.euOperation ?? undefined,
-          notes: undefined,
-          createdById
-        })
+        if (!dryRun) {
+          await this.invoices.createIn({
+            issueDate: row.issueDate,
+            supplierId: supplier.id,
+            base,
+            vatRate,
+            vatAmount,
+            total,
+            currency: row.currency || 'EUR',
+            deductible: true,
+            category: row.category,
+            assetFlag: false,
+            euOperation: row.euOperation ?? undefined,
+            notes: undefined,
+            createdById
+          })
+        }
         createdIn++
       } catch (e: any) {
         // Skip duplicates or bad rows
+        skippedErrors++
       }
     }
 
@@ -123,6 +135,8 @@ export class ImportsService {
       quarter,
       file: path.basename(file),
       created: { out: createdOut, in: createdIn },
+      skipped: { missingNumber: skippedMissingNumber, errors: skippedErrors },
+      dryRun: !!dryRun,
       totals: {
         out: out.length,
         in: inn.length
@@ -130,4 +144,3 @@ export class ImportsService {
     }
   }
 }
-
