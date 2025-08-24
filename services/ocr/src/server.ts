@@ -3,6 +3,9 @@ import multer from 'multer'
 import pdfParse from 'pdf-parse'
 import { cleanText, parseFromText } from './parser'
 
+const app = express()
+const upload = multer()
+
 app.post('/parse', upload.single('file'), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'file required' })
   try {
