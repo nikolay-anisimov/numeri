@@ -5,6 +5,7 @@
   "type": "commonjs",
   "scripts": {
     "pretypecheck": "prisma generate",
+    "prebuild": "prisma generate",
     "start": "node dist/main.js",
     "dev:build": "tsc -p tsconfig.build.json -w",
     "start:dist": "node --watch dist/main.js",
