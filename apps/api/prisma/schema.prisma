@@ -185,4 +185,5 @@ model Attachment {
   @@index([invoiceOutId])
   @@index([invoiceInId])
   @@unique([invoiceOutId, relPath])
+  @@unique([invoiceInId, relPath])
 }

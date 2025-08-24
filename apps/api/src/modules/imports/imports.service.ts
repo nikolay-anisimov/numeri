@@ -162,14 +162,15 @@ export class ImportsService {
     const y = reg.years.find((y: any) => y.year === year)
     if (!y) throw new NotFoundException('year not found in registry')
     const { start, end } = this.quarterRange(year, quarter)
-    let linked = 0
-    let missing = 0
+    let linkedOut = 0
+    let missingOut = 0
+    const usedRel = new Set<string>()
     for (const e of y.entries as any[]) {
       if (e.kind !== 'factura-emitida') continue
       if (e.quarter !== quarter) continue
       const invoiceNo = e.invoiceNo as string | undefined
       if (!invoiceNo) {
-        missing++
+        missingOut++
         continue
       }
       const inv = await this.prisma.invoiceOut.findFirst({
@@ -179,7 +180,7 @@ export class ImportsService {
         }
       })
       if (!inv) {
-        missing++
+        missingOut++
         continue
       }
       const relPath: string = e.relPath
@@ -190,12 +191,101 @@ export class ImportsService {
           update: {},
           create: { invoiceOutId: inv.id, relPath, filename, kind: 'pdf' }
         })
-        linked++
+        usedRel.add(relPath)
+        linkedOut++
       } catch (err) {
         // ignore duplicates or constraint issues
       }
     }
-    return { year, quarter, linked, missing }
+
+    // Link purchases by heuristic
+    const gastoKinds = new Set(['gasto-soft', 'gasto-compras', 'gasto-taxscouts'])
+    const gastos = (y.entries as any[]).filter((e) => e.quarter === quarter && gastoKinds.has(e.kind))
+    const inDb = await this.prisma.invoiceIn.findMany({ where: { issueDate: { gte: start, lte: end } } })
+    let linkedIn = 0
+    let missingIn = 0
+
+    function normalize(s: string) {
+      return s
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, ' ')
+        .trim()
+    }
+    function tokens(s: string) {
+      return normalize(s).split(/\s+/).filter(Boolean)
+    }
+    function vendorAliases(name: string): string[] {
+      const n = normalize(name)
+      const a: string[] = []
+      if (n.includes('openai')) a.push('openai')
+      if (n.includes('anthropic')) a.push('anthropic')
+      if (n.includes('jetbrains')) a.push('jetbrains')
+      if (n.includes('microsoft')) a.push('microsoft')
+      if (n.includes('amazon')) a.push('amazon')
+      if (n.includes('taxscout') || n.includes('taxcout')) a.push('taxscouts')
+      if (n.includes('openrouter')) a.push('openrouter')
+      if (n.includes('ofiprix')) a.push('ofiprix')
+      if (n.includes('alg') && n.includes('legal')) a.push('alg')
+      return a.length ? a : tokens(name).slice(0, 2)
+    }
+    function extractDateFromName(fn: string): Date | undefined {
+      const s = fn
+      let m = s.match(/(20\d{2})[-_./](\d{1,2})[-_./](\d{1,2})/)
+      if (m) return new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])))
+      m = s.match(/(20\d{2})(\d{2})(\d{2})/)
+      if (m) return new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])))
+      return undefined
+    }
+
+    const usedGasto = new Set<string>()
+    for (const inv of inDb as any[]) {
+      const aliases = vendorAliases(inv.supplierName || inv.supplier?.name || '')
+      const invDate: Date = inv.issueDate
+      let best: any | undefined
+      let bestScore = -1
+      for (const e of gastos) {
+        const relPath: string = e.relPath
+        if (usedRel.has(relPath) || usedGasto.has(relPath)) continue
+        const name = e.filename as string
+        const nm = normalize(name)
+        let score = 0
+        for (const al of aliases) if (nm.includes(al)) score += 2
+        // token overlap fallback
+        if (score === 0) {
+          const t1 = new Set(tokens(inv.supplier?.name || ''))
+          for (const t of tokens(name)) if (t1.has(t)) score += 1
+        }
+        const d = extractDateFromName(name)
+        if (d) {
+          const days = Math.abs((+d - +invDate) / (1000 * 60 * 60 * 24))
+          if (days <= 5) score += 2
+          else if (days <= 15) score += 1
+        }
+        if (score > bestScore) {
+          bestScore = score
+          best = e
+        }
+      }
+      if (best && bestScore > 0) {
+        try {
+          await (this.prisma as any).attachment.upsert({
+            where: { invoiceInId_relPath: { invoiceInId: inv.id, relPath: best.relPath } },
+            update: {},
+            create: { invoiceInId: inv.id, relPath: best.relPath, filename: best.filename, kind: 'pdf' }
+          })
+          usedGasto.add(best.relPath)
+          linkedIn++
+        } catch (e) {
+          // ignore
+        }
+      } else {
+        missingIn++
+      }
+    }
+
+    return { year, quarter, out: { linked: linkedOut, missing: missingOut }, in: { linked: linkedIn, missing: missingIn } }
   }
 
   async validateQuarter(input: { year: number; quarter: 1 | 2 | 3 | 4 }) {
