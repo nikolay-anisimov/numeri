@@ -2,10 +2,12 @@
   "name": "@apps/api",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "start": "node dist/main.js",
-    "start:dev": "tsx watch src/main.ts",
+    "dev:build": "tsc -p tsconfig.build.json -w",
+    "start:dist": "node --watch dist/main.js",
+    "start:dev": "concurrently -n build,run -c cyan,green \"pnpm dev:build\" \"pnpm start:dist\"",
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "typecheck": "tsc -p tsconfig.json --noEmit",
@@ -17,6 +19,7 @@
     "fx:seed": "ts-node src/scripts/fx-seed.ts"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "@packages/utils": "workspace:*",
     "@nestjs/common": "^10.3.10",
     "@nestjs/core": "^10.3.10",
