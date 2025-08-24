@@ -3,8 +3,15 @@
   "compilerOptions": {
     "outDir": "dist",
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "moduleResolution": "Node",
+    "baseUrl": ".",
+    "paths": {
+      "@packages/utils": ["../../packages/utils/src/index.ts"],
+      "@packages/ui": ["../../packages/ui/src/index.ts"],
+      "@utils/*": ["../../packages/utils/src/*"],
+      "@ui/*": ["../../packages/ui/src/*"]
+    }
   },
   "include": ["src", "prisma"]
 }
-
