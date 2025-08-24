@@ -124,6 +124,17 @@ model FxRate {
   @@unique([date, base, quote])
 }
 
+model PeriodLock {
+  id        String   @id @default(uuid())
+  from      DateTime @db.Date
+  to        DateTime @db.Date
+  locked    Boolean  @default(true)
+  note      String?
+  createdAt DateTime @default(now())
+
+  @@unique([from, to])
+}
+
 // Fixed assets and depreciation schedule (MVP minimal)
 model FixedAsset {
   id               String     @id @default(uuid())

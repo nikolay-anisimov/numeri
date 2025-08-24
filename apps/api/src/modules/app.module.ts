@@ -7,6 +7,7 @@ import { TaxesModule } from './taxes/taxes.module'
 import { ThirdPartiesModule } from './third-parties/third-parties.module'
 import { FilesModule } from './files/files.module'
 import { PrismaModule } from './prisma/prisma.module'
+import { ImportsModule } from './imports/imports.module'
 
 @Module({
   imports: [
@@ -17,8 +18,8 @@ import { PrismaModule } from './prisma/prisma.module'
     FxModule,
     TaxesModule,
     ThirdPartiesModule,
-    FilesModule
+    FilesModule,
+    ImportsModule
   ]
 })
 export class AppModule {}
-
