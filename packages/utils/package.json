@@ -12,9 +12,12 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "format": "prettier -w ."
   },
-  "dependencies": {},
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  },
   "devDependencies": {
     "@packages/config": "workspace:*",
+    "@types/xlsx": "^0.18.5",
     "eslint": "9.34.0",
     "prettier": "^3.3.3",
     "typescript": "^5.4.5",

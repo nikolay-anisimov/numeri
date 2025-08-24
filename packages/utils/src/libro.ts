@@ -104,7 +104,7 @@ export function parseLibroXlsx(filePath: string): { out: LibroInvoiceRow[]; in: 
   const wb = XLSX.readFile(filePath, { cellDates: true })
   const out: LibroInvoiceRow[] = []
   const inn: LibroInvoiceRow[] = []
-  wb.SheetNames.forEach((sheetName, i) => {
+  wb.SheetNames.forEach((sheetName: string, i: number) => {
     const ws = wb.Sheets[sheetName]
     if (!ws) return
     const rows: any[][] = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' }) as any
@@ -156,4 +156,3 @@ export function parseLibroXlsx(filePath: string): { out: LibroInvoiceRow[]; in: 
   })
   return { out, in: inn }
 }
-
