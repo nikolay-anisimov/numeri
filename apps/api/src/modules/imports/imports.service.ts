@@ -143,4 +143,85 @@ export class ImportsService {
       }
     }
   }
+
+  private quarterRange(year: number, quarter: 1 | 2 | 3 | 4) {
+    const q = Number(quarter)
+    const startMonth = (q - 1) * 3
+    const start = new Date(Date.UTC(year, startMonth, 1))
+    const end = new Date(Date.UTC(year, startMonth + 3, 0))
+    return { start, end }
+  }
+
+  async attachQuarterPdfs(input: { year: number; quarter: 1 | 2 | 3 | 4 }) {
+    const { year, quarter } = input
+    const root = this.findRepoRoot(process.cwd())
+    const td = path.join(root, 'testdata')
+    const regPath = path.join(td, 'registry.json')
+    if (!fs.existsSync(regPath)) throw new NotFoundException('registry.json not found')
+    const reg = JSON.parse(fs.readFileSync(regPath, 'utf8')) as any
+    const y = reg.years.find((y: any) => y.year === year)
+    if (!y) throw new NotFoundException('year not found in registry')
+    const { start, end } = this.quarterRange(year, quarter)
+    let linked = 0
+    let missing = 0
+    for (const e of y.entries as any[]) {
+      if (e.kind !== 'factura-emitida') continue
+      if (e.quarter !== quarter) continue
+      const invoiceNo = e.invoiceNo as string | undefined
+      if (!invoiceNo) {
+        missing++
+        continue
+      }
+      const inv = await this.prisma.invoiceOut.findFirst({
+        where: {
+          number: invoiceNo,
+          issueDate: { gte: start, lte: end }
+        }
+      })
+      if (!inv) {
+        missing++
+        continue
+      }
+      const relPath: string = e.relPath
+      const filename: string = e.filename
+      try {
+        await (this.prisma as any).attachment.upsert({
+          where: { invoiceOutId_relPath: { invoiceOutId: inv.id, relPath } },
+          update: {},
+          create: { invoiceOutId: inv.id, relPath, filename, kind: 'pdf' }
+        })
+        linked++
+      } catch (err) {
+        // ignore duplicates or constraint issues
+      }
+    }
+    return { year, quarter, linked, missing }
+  }
+
+  async validateQuarter(input: { year: number; quarter: 1 | 2 | 3 | 4 }) {
+    const { year, quarter } = input
+    const { start, end } = this.quarterRange(year, quarter)
+    const libro = parseLibroXlsx(this.resolveLibroPath(year, quarter))
+    const outDb = await this.prisma.invoiceOut.findMany({ where: { issueDate: { gte: start, lte: end } } })
+    const inDb = await this.prisma.invoiceIn.findMany({ where: { issueDate: { gte: start, lte: end } } })
+
+    const sum = (rows: any[], key: 'base' | 'vatAmount') => rows.reduce((acc, r) => acc + Number(r[key] ?? 0), 0)
+    const libroOut = { count: libro.out.length, base: sum(libro.out as any, 'base'), vat: sum(libro.out as any, 'vatAmount') }
+    const libroIn = { count: libro.in.length, base: sum(libro.in as any, 'base'), vat: sum(libro.in as any, 'vatAmount') }
+    const dbOut = { count: outDb.length, base: sum(outDb as any, 'base'), vat: sum(outDb as any, 'vatAmount') }
+    const dbIn = { count: inDb.length, base: sum(inDb as any, 'base'), vat: sum(inDb as any, 'vatAmount') }
+
+    // missing attachments (emitidas)
+    const outIds = outDb.map((o: any) => o.id)
+    const attachments = await (this.prisma as any).attachment.findMany({ where: { invoiceOutId: { in: outIds } } })
+    const attachedSet = new Set<string>(attachments.map((a: any) => a.invoiceOutId))
+    const missingAttachmentNumbers = outDb.filter((o: any) => !attachedSet.has(o.id)).map((o: any) => o.number)
+
+    return {
+      year,
+      quarter,
+      libro: { out: libroOut, in: libroIn },
+      db: { out: dbOut, in: dbIn, missingAttachmentNumbers }
+    }
+  }
 }
