@@ -1,7 +1,7 @@
 import { Controller, Get, Query } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { PrismaService } from '../prisma/prisma.service'
-import { calcModelo303BaseAndVat, exportAeatCsv, type BookEntry, build349Lines, calc130Ytd } from '@packages/utils'
+import { calcModelo303BaseAndVat, exportAeatCsv, type BookEntry, build349Lines, calc130Ytd, calc303 } from '@packages/utils'
 
 @ApiTags('taxes')
 @Controller('taxes')
@@ -13,31 +13,18 @@ export class TaxesController {
     const start = new Date(from)
     const end = new Date(to)
     const inRows = await this.prisma.invoiceIn.findMany({
-      where: { issueDate: { gte: start, lte: end } }
+      where: { issueDate: { gte: start, lte: end } },
+      select: { issueDate: true, base: true, vatRate: true, vatAmount: true, assetFlag: true }
     })
     const outRows = await this.prisma.invoiceOut.findMany({
-      where: { issueDate: { gte: start, lte: end } }
+      where: { issueDate: { gte: start, lte: end } },
+      select: { issueDate: true, base: true, vatRate: true, vatAmount: true }
     })
-    const entries: BookEntry[] = [
-      ...outRows.map((r: any) => ({
-        date: r.issueDate.toISOString().slice(0, 10),
-        type: 'INGRESO' as const,
-        base: Number(r.base),
-        vatRate: Number(r.vatRate),
-        vatAmount: Number(r.vatAmount),
-        total: Number(r.total)
-      })),
-      ...inRows.map((r: any) => ({
-        date: r.issueDate.toISOString().slice(0, 10),
-        type: 'GASTO' as const,
-        base: Number(r.base),
-        vatRate: Number(r.vatRate),
-        vatAmount: Number(r.vatAmount),
-        total: Number(r.total)
-      }))
+    const entries = [
+      ...outRows.map((r: any) => ({ type: 'INGRESO' as const, base: Number(r.base), vatRate: Number(r.vatRate), vatAmount: Number(r.vatAmount) })),
+      ...inRows.map((r: any) => ({ type: 'GASTO' as const, base: Number(r.base), vatRate: Number(r.vatRate), vatAmount: Number(r.vatAmount), asset: Boolean(r.assetFlag) }))
     ]
-    const res = calcModelo303BaseAndVat(entries)
-    return res
+    return calc303(entries)
   }
 
   @Get('349')
