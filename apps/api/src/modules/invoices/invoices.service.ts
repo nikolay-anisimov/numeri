@@ -55,7 +55,28 @@ export class InvoicesService {
     createdById: string
   }) {
     const fxToEUR = await this.computeFxToEUR(body.issueDate, body.currency, body.fxToEUR)
-    return this.prisma.invoiceOut.create({ data: { ...body, fxToEUR, issueDate: new Date(body.issueDate) } })
+    // EU B2B rule of thumb (services): if client has EU VAT, mark as EU operation and set VAT 0
+    const client = await this.prisma.thirdParty.findUnique({ where: { id: body.clientId } })
+    let vatRate = body.vatRate
+    let vatAmount = body.vatAmount
+    let total = body.total
+    let euOperation = body.euOperation ?? false
+    if (client?.euVatNumber && client.euVatNumber.trim().length > 0) {
+      euOperation = true
+      vatRate = 0
+      vatAmount = 0
+      total = body.base // base equals total when no VAT
+    }
+    return this.prisma.invoiceOut.create({
+      data: {
+        ...body,
+        vatRate,
+        vatAmount,
+        total,
+        euOperation,
+        fxToEUR,
+        issueDate: new Date(body.issueDate)
+      }
+    })
   }
 }
-

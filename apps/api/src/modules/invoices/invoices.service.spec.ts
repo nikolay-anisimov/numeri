@@ -34,6 +34,7 @@ describe('InvoicesService', () => {
   it('computes fxToEUR from ECB rate for USD (out)', async () => {
     prismaMock.invoiceOut.create.mockImplementation(({ data }: any) => ({ id: '2', fxToEUR: data.fxToEUR }))
     fxMock.getRateByDate.mockResolvedValue({ rate: 1.1 }) // EUR->USD 1.1 quote per EUR
+    prismaMock.thirdParty = { findUnique: jest.fn().mockResolvedValue({ id: 'cli', euVatNumber: null }) }
     const svc = new InvoicesService(prismaMock, fxMock)
     const res = await svc.createOut({
       issueDate: '2024-02-15',
@@ -50,5 +51,29 @@ describe('InvoicesService', () => {
     // 1 / 1.1 = 0.909090..., rounded to 6 decimals -> 0.909091
     expect(res.fxToEUR).toBeCloseTo(0.909091, 6)
   })
-})
 
+  it('marks EU B2B and zero VAT when client has EU VAT', async () => {
+    // Arrange mocks
+    prismaMock.invoiceOut.create.mockImplementation(({ data }: any) => data)
+    prismaMock.thirdParty = { findUnique: jest.fn().mockResolvedValue({ id: 'cli', euVatNumber: 'PL123456789' }) }
+    fxMock.getRateByDate.mockResolvedValue({ rate: 1.1 })
+    const svc = new InvoicesService(prismaMock, fxMock)
+    // Act
+    const res = await svc.createOut({
+      issueDate: '2024-03-10',
+      number: 'A-2',
+      clientId: 'cli',
+      base: 100,
+      vatRate: 21,
+      vatAmount: 21,
+      total: 121,
+      currency: 'USD',
+      createdById: 'u1'
+    } as any)
+    // Assert
+    expect(res.euOperation).toBe(true)
+    expect(res.vatRate).toBe(0)
+    expect(res.vatAmount).toBe(0)
+    expect(res.total).toBe(100)
+  })
+})
