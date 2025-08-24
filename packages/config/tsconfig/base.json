@@ -15,8 +15,9 @@
     "baseUrl": ".",
     "paths": {
       "@ui/*": ["../../packages/ui/src/*"],
-      "@utils/*": ["../../packages/utils/src/*"]
+      "@utils/*": ["../../packages/utils/src/*"],
+      "@packages/ui": ["../../packages/ui/src/index.ts"],
+      "@packages/utils": ["../../packages/utils/src/index.ts"]
     }
   }
 }
-
