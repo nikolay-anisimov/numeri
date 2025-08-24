@@ -1,0 +1,27 @@
+{
+  "name": "numeri-monorepo",
+  "private": true,
+  "packageManager": "pnpm@10.15.0",
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n web,api,ocr -c blue,green,magenta \"pnpm --filter @apps/web dev\" \"pnpm --filter @apps/api start:dev\" \"pnpm --filter @services/ocr dev\"",
+    "build": "pnpm -r --parallel run build",
+    "lint": "pnpm -r run lint",
+    "format": "pnpm -r run format",
+    "typecheck": "pnpm -r run typecheck",
+    "test": "pnpm -r run test",
+    "e2e": "pnpm --filter @apps/web run e2e",
+    "use:pnpm-local": "node scripts/set-pnpm-version.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "eslint": "9.34.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.4.5"
+  }
+}

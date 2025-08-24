@@ -1,0 +1,16 @@
+node_modules
+.pnpm-store
+.turbo
+.next
+dist
+build
+coverage
+.DS_Store
+.env
+.env.local
+pnpm-lock.yaml
+playwright-report
+test-results
+*.log
+*.sqlite
+tmp

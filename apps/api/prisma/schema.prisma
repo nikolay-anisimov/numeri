@@ -1,0 +1,114 @@
+// Prisma schema for Numeri minimal MVP
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String  @id @default(uuid())
+  email        String  @unique
+  passwordHash String
+  role         String
+  createdAt    DateTime @default(now())
+}
+
+model ThirdParty {
+  id          String @id @default(uuid())
+  type        ThirdPartyType
+  name        String
+  nif         String
+  euVatNumber String?
+  countryCode String
+  invoicesIn  InvoiceIn[]
+  invoicesOut InvoiceOut[] @relation("ClientInvoices")
+}
+
+enum ThirdPartyType {
+  CLIENT
+  SUPPLIER
+}
+
+model InvoiceOut {
+  id          String   @id @default(uuid())
+  issueDate   DateTime @db.Date
+  series      String?
+  number      String
+  client      ThirdParty @relation("ClientInvoices", fields: [clientId], references: [id])
+  clientId    String
+  base        Decimal  @db.Decimal(18, 2)
+  vatRate     Decimal  @db.Decimal(5, 2)
+  vatAmount   Decimal  @db.Decimal(18, 2)
+  total       Decimal  @db.Decimal(18, 2)
+  currency    String
+  fxToEUR     Decimal  @db.Decimal(18, 6)
+  notes       String?
+  euOperation Boolean  @default(false)
+  createdBy   User     @relation(fields: [createdById], references: [id])
+  createdById String
+
+  ledgerEntries LedgerEntry[]
+
+  @@index([issueDate])
+  @@unique([series, number])
+}
+
+model InvoiceIn {
+  id           String   @id @default(uuid())
+  issueDate    DateTime @db.Date
+  supplier     ThirdParty @relation(fields: [supplierId], references: [id])
+  supplierId   String
+  base         Decimal  @db.Decimal(18, 2)
+  vatRate      Decimal  @db.Decimal(5, 2)
+  vatAmount    Decimal  @db.Decimal(18, 2)
+  total        Decimal  @db.Decimal(18, 2)
+  currency     String
+  fxToEUR      Decimal  @db.Decimal(18, 6)
+  deductible   Boolean  @default(true)
+  notes        String?
+  euOperation  Boolean  @default(false)
+  createdBy    User     @relation(fields: [createdById], references: [id])
+  createdById  String
+
+  ledgerEntries LedgerEntry[]
+
+  @@index([issueDate])
+}
+
+model LedgerEntry {
+  id           String   @id @default(uuid())
+  date         DateTime @db.Date
+  type         LedgerType
+  amount       Decimal  @db.Decimal(18, 2)
+  currency     String
+  fxToEUR      Decimal  @db.Decimal(18, 6)
+  invoiceInId  String?
+  invoiceOutId String?
+  invoiceIn    InvoiceIn?  @relation(fields: [invoiceInId], references: [id])
+  invoiceOut   InvoiceOut? @relation(fields: [invoiceOutId], references: [id])
+  notes        String?
+
+  @@index([date])
+}
+
+enum LedgerType {
+  SALE
+  PURCHASE
+  OTHER
+}
+
+model FxRate {
+  id    String  @id @default(uuid())
+  date  DateTime @db.Date
+  base  String
+  quote String
+  rate  Decimal @db.Decimal(18, 6)
+
+  @@index([date])
+  @@index([quote])
+}
+
