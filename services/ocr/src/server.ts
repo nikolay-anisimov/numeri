@@ -33,14 +33,11 @@ app.post('/parse', upload.single('file'), async (req, res) => {
   const text = fakeOcrToText(req.file.buffer)
   const json = mapTextToInvoiceJson(text)
   // Simple logging
-  // eslint-disable-next-line no-console
   console.log('OCR parsed:', { name: req.file.originalname, json })
   res.json({ ok: true, parsed: json, rawText: text })
 })
 
 const port = Number(process.env.PORT || 4100)
 app.listen(port, () => {
-  // eslint-disable-next-line no-console
   console.log(`OCR service stub on http://localhost:${port}`)
 })
-

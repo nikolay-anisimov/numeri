@@ -39,6 +39,10 @@ const base = {
       }
     ],
     '@typescript-eslint/no-explicit-any': 'off',
+    // Allow unused args prefixed with _ (common in stubs)
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    // TypeScript projects don't need prop-types
+    'react/prop-types': 'off',
     // React 17+ new JSX transform: no need to import React
     'react/react-in-jsx-scope': 'off'
   }
