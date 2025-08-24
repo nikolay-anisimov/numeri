@@ -1,3 +1,5 @@
+import vendorAliases from './config/vendors.json'
+
 export function cleanText(text: string) {
   return text.replace(/\r/g, '').replace(/[\t ]+/g, ' ').trim()
 }
@@ -145,24 +147,9 @@ export function genericParse(text: string, filename?: string) {
   }
 }
 
-let cachedAliases: { id: string; patterns: string[] }[] | null = null
-function loadAliases(): { id: string; patterns: string[] }[] {
-  if (cachedAliases) return cachedAliases
-  try {
-    // Using require to load JSON under ESM/TS transpile; in runtime we have CJS
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const json = require('./config/vendors.json') as { id: string; patterns: string[] }[]
-    cachedAliases = json
-    return json
-  } catch {
-    cachedAliases = []
-    return []
-  }
-}
-
 export function chooseVendor(text: string, filename?: string) {
   const hay = ((filename || '') + ' ' + text).toLowerCase()
-  for (const { id, patterns } of loadAliases()) {
+  for (const { id, patterns } of vendorAliases as any) {
     for (const p of patterns) {
       if (hay.includes(p.toLowerCase())) return id
     }
