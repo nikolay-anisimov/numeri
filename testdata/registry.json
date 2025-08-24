@@ -1,0 +1,896 @@
+{
+  "generatedAt": "2025-08-24T14:36:40.169Z",
+  "root": "testdata",
+  "years": [
+    {
+      "year": 2024,
+      "entries": [
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "factura-emitida",
+          "invoiceNo": "F-0001-2024",
+          "filename": "Nikolai Anisimov F-0001-2024.pdf",
+          "relPath": "2024/trimestre-2/facturas/Nikolai Anisimov F-0001-2024.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "factura-emitida",
+          "invoiceNo": "F-0002-2024",
+          "filename": "Nikolai Anisimov F-0002-2024.pdf",
+          "relPath": "2024/trimestre-2/facturas/Nikolai Anisimov F-0002-2024.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "factura-emitida",
+          "invoiceNo": "F-0003-2024",
+          "filename": "Nikolai Anisimov F-0003-2024.pdf",
+          "relPath": "2024/trimestre-2/facturas/Nikolai Anisimov F-0003-2024.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_1 [1].pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/invoice_2024_4_1 [1].pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_1 [2].pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/invoice_2024_4_1 [2].pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_10GBtransceiver.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/invoice_2024_4_10GBtransceiver.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_2.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/invoice_2024_4_2.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_3 [1-2].pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/invoice_2024_4_3 [1-2].pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_3 [3].pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/invoice_2024_4_3 [3].pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_cables.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/invoice_2024_4_cables.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_organizador_13.99.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/invoice_2024_4_organizador_13.99.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_organizadordecables.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/invoice_2024_4_organizadordecables.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_pasacables.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/invoice_2024_4_pasacables.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_6_1_bateria_macbook.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/invoice_2024_6_1_bateria_macbook.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_cables_2.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/invoice_2024_cables_2.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024-05-02_KVMSwitch.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/invoice_2024-05-02_KVMSwitch.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_1.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/orig/invoice_2024_4_1.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_10GBtransceiver.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/orig/invoice_2024_4_10GBtransceiver.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_3.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/orig/invoice_2024_4_3.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_cables_organizador.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/orig/invoice_2024_4_cables_organizador.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_cables.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/orig/invoice_2024_4_cables.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_organizador_10GBtransceiver.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/orig/invoice_2024_4_organizador_10GBtransceiver.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_organizador.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/orig/invoice_2024_4_organizador.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_organizadordecables.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/orig/invoice_2024_4_organizadordecables.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-compras",
+          "filename": "invoice_2024_4_pasacables.pdf",
+          "relPath": "2024/trimestre-2/gastos/compras/orig/invoice_2024_4_pasacables.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-soft",
+          "filename": "Invoice-OpenAI-728FD5FD-0010.pdf",
+          "relPath": "2024/trimestre-2/gastos/soft/Invoice-OpenAI-728FD5FD-0010.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-soft",
+          "filename": "Invoice-OpenAI-728FD5FD-0011.pdf",
+          "relPath": "2024/trimestre-2/gastos/soft/Invoice-OpenAI-728FD5FD-0011.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-soft",
+          "filename": "Invoice-OpenAI-728FD5FD-0012.pdf",
+          "relPath": "2024/trimestre-2/gastos/soft/Invoice-OpenAI-728FD5FD-0012.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-taxscouts",
+          "filename": "Invoice-202AFAF2-76689.pdf",
+          "relPath": "2024/trimestre-2/gastos/taxscouts/Invoice-202AFAF2-76689.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-taxscouts",
+          "filename": "Invoice-202AFAF2-81024.pdf",
+          "relPath": "2024/trimestre-2/gastos/taxscouts/Invoice-202AFAF2-81024.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "gasto-taxscouts",
+          "filename": "Invoice-202AFAF2-85444.pdf",
+          "relPath": "2024/trimestre-2/gastos/taxscouts/Invoice-202AFAF2-85444.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "libro",
+          "filename": "Libro-T2-2024-Nikolai Anisimov.xlsx",
+          "relPath": "2024/trimestre-2/Libro-T2-2024-Nikolai Anisimov.xlsx"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "renta-modelo",
+          "model": "130",
+          "filename": "MOD+130+2ºT+2024+NIKOLAI.pdf",
+          "relPath": "2024/trimestre-2/renta/MOD+130+2ºT+2024+NIKOLAI.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "renta-modelo",
+          "model": "303",
+          "filename": "MOD+303+2ºT+2024+NIKOLAI.pdf",
+          "relPath": "2024/trimestre-2/renta/MOD+303+2ºT+2024+NIKOLAI.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 2,
+          "kind": "renta-modelo",
+          "model": "349",
+          "filename": "MOD+349+2ºT+2024+NIKOLAI.pdf",
+          "relPath": "2024/trimestre-2/renta/MOD+349+2ºT+2024+NIKOLAI.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "factura-emitida",
+          "invoiceNo": "F-0004-2024",
+          "filename": "F-0004-2024.pdf",
+          "relPath": "2024/trimestre-3/facturas/F-0004-2024.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "factura-emitida",
+          "invoiceNo": "F-0005-2024",
+          "filename": "F-0005-2024.pdf",
+          "relPath": "2024/trimestre-3/facturas/F-0005-2024.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "factura-emitida",
+          "invoiceNo": "F-0006-2024",
+          "filename": "F-0006-2024.pdf",
+          "relPath": "2024/trimestre-3/facturas/F-0006-2024.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "gasto-compras",
+          "filename": "Cartuchos_de_tinta_20240824.pdf",
+          "relPath": "2024/trimestre-3/gastos/compras/Cartuchos_de_tinta_20240824.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "gasto-compras",
+          "filename": "OFIPRIX SL – Envío factura 2461003438.pdf",
+          "relPath": "2024/trimestre-3/gastos/compras/OFIPRIX SL – Envío factura 2461003438.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "gasto-soft",
+          "filename": "____orig_Anthropic_Invoice-A4346AC6-0001.pdf",
+          "relPath": "2024/trimestre-3/gastos/soft/____orig_Anthropic_Invoice-A4346AC6-0001.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "gasto-soft",
+          "filename": "Anthropic_agosto24_Invoice-A4346AC6-0001.pdf",
+          "relPath": "2024/trimestre-3/gastos/soft/Anthropic_agosto24_Invoice-A4346AC6-0001.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "gasto-soft",
+          "filename": "Anthropic_septiemre24_Invoice-A4346AC6-0002.pdf",
+          "relPath": "2024/trimestre-3/gastos/soft/Anthropic_septiemre24_Invoice-A4346AC6-0002.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "gasto-soft",
+          "filename": "JetBrains_Invoice_INVCZ8068241.pdf",
+          "relPath": "2024/trimestre-3/gastos/soft/JetBrains_Invoice_INVCZ8068241.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "gasto-soft",
+          "filename": "OpenAI_agosto_24_Invoice-728FD5FD-0014.pdf",
+          "relPath": "2024/trimestre-3/gastos/soft/OpenAI_agosto_24_Invoice-728FD5FD-0014.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "gasto-soft",
+          "filename": "OpenAI_api_sep1_Invoice-55C940B4-0002.pdf",
+          "relPath": "2024/trimestre-3/gastos/soft/OpenAI_api_sep1_Invoice-55C940B4-0002.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "gasto-soft",
+          "filename": "OpenAI_julio24_Invoice-728FD5FD-0013.pdf",
+          "relPath": "2024/trimestre-3/gastos/soft/OpenAI_julio24_Invoice-728FD5FD-0013.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "gasto-soft",
+          "filename": "OpenAI_septiembre24_Invoice-728FD5FD-0015.pdf",
+          "relPath": "2024/trimestre-3/gastos/soft/OpenAI_septiembre24_Invoice-728FD5FD-0015.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "gasto-taxscouts",
+          "filename": "Invoice-202AFAF2-90184.pdf",
+          "relPath": "2024/trimestre-3/gastos/taxscouts/Invoice-202AFAF2-90184.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "gasto-taxscouts",
+          "filename": "Invoice-202AFAF2-94862.pdf",
+          "relPath": "2024/trimestre-3/gastos/taxscouts/Invoice-202AFAF2-94862.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "gasto-taxscouts",
+          "filename": "Invoice-202AFAF2-99692.pdf",
+          "relPath": "2024/trimestre-3/gastos/taxscouts/Invoice-202AFAF2-99692.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "libro",
+          "filename": "Libro-T3-2024-Nikolai Anisimov.xlsx",
+          "relPath": "2024/trimestre-3/Libro-T3-2024-Nikolai Anisimov.xlsx"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "renta-borrador",
+          "filename": "1304287263596YCM5XH01A.pdf",
+          "relPath": "2024/trimestre-3/renta/borradores/1304287263596YCM5XH01A.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "renta-borrador",
+          "model": "130",
+          "filename": "borrador+mod+130+NIKOLAI.pdf",
+          "relPath": "2024/trimestre-3/renta/borradores/borrador+mod+130+NIKOLAI.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "renta-borrador",
+          "model": "303",
+          "filename": "borrador+mod+303+NIKOLAI.pdf",
+          "relPath": "2024/trimestre-3/renta/borradores/borrador+mod+303+NIKOLAI.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "renta-borrador",
+          "model": "349",
+          "filename": "borrador+mod+349+NIKOLAI.pdf",
+          "relPath": "2024/trimestre-3/renta/borradores/borrador+mod+349+NIKOLAI.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "renta-modelo",
+          "filename": "justificante_130_1304287263596YCM5XH01A.pdf",
+          "relPath": "2024/trimestre-3/renta/justificante_130_1304287263596YCM5XH01A.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "renta-modelo",
+          "model": "130",
+          "filename": "MOD+130+3ºT+2024+NIKOLAI.pdf",
+          "relPath": "2024/trimestre-3/renta/MOD+130+3ºT+2024+NIKOLAI.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "renta-modelo",
+          "model": "303",
+          "filename": "MOD+303+3ºT+2024+NIKOLAI.pdf",
+          "relPath": "2024/trimestre-3/renta/MOD+303+3ºT+2024+NIKOLAI.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 3,
+          "kind": "renta-modelo",
+          "model": "349",
+          "filename": "MOD+349+3ºT+2024+NIKOLAI.pdf",
+          "relPath": "2024/trimestre-3/renta/MOD+349+3ºT+2024+NIKOLAI.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "factura-emitida",
+          "invoiceNo": "F-0007-2024",
+          "filename": "F-0007-2024.pdf",
+          "relPath": "2024/trimestre-4/facturas/F-0007-2024.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "factura-emitida",
+          "invoiceNo": "F-0008-2024",
+          "filename": "F-0008-2024.pdf",
+          "relPath": "2024/trimestre-4/facturas/F-0008-2024.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "factura-emitida",
+          "invoiceNo": "F-0009-2024",
+          "filename": "F-0009-2024.pdf",
+          "relPath": "2024/trimestre-4/facturas/F-0009-2024.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "gasto-compras",
+          "filename": "ssd_external_invoice.pdf",
+          "relPath": "2024/trimestre-4/gastos/compras/ssd_external_invoice.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "gasto-compras",
+          "filename": "ssd_internal_invoice.pdf",
+          "relPath": "2024/trimestre-4/gastos/compras/ssd_internal_invoice.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "gasto-compras",
+          "filename": "usb_mini_to_type_c.pdf",
+          "relPath": "2024/trimestre-4/gastos/compras/usb_mini_to_type_c.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "gasto-soft",
+          "filename": "Anthropic_Invoice-A4346AC6-0003.pdf",
+          "relPath": "2024/trimestre-4/gastos/soft/Anthropic_Invoice-A4346AC6-0003.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "gasto-soft",
+          "filename": "Anthropic_Invoice-A4346AC6-0004.pdf",
+          "relPath": "2024/trimestre-4/gastos/soft/Anthropic_Invoice-A4346AC6-0004.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "gasto-soft",
+          "filename": "Anthropic_Invoice-A4346AC6-0005.pdf",
+          "relPath": "2024/trimestre-4/gastos/soft/Anthropic_Invoice-A4346AC6-0005.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "gasto-soft",
+          "filename": "OpenAI_Invoice-728FD5FD-0016.pdf",
+          "relPath": "2024/trimestre-4/gastos/soft/OpenAI_Invoice-728FD5FD-0016.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "gasto-soft",
+          "filename": "OpenAI_Invoice-728FD5FD-0017.pdf",
+          "relPath": "2024/trimestre-4/gastos/soft/OpenAI_Invoice-728FD5FD-0017.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "gasto-soft",
+          "filename": "OpenAI_Invoice-728FD5FD-0018.pdf",
+          "relPath": "2024/trimestre-4/gastos/soft/OpenAI_Invoice-728FD5FD-0018.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "gasto-taxscouts",
+          "filename": "Invoice-202AFAF2-104947.pdf",
+          "relPath": "2024/trimestre-4/gastos/taxscouts/Invoice-202AFAF2-104947.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "gasto-taxscouts",
+          "filename": "Invoice-202AFAF2-110223.pdf",
+          "relPath": "2024/trimestre-4/gastos/taxscouts/Invoice-202AFAF2-110223.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "gasto-taxscouts",
+          "filename": "Invoice-202AFAF2-115623.pdf",
+          "relPath": "2024/trimestre-4/gastos/taxscouts/Invoice-202AFAF2-115623.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "libro",
+          "filename": "Libro-T4-2024-Nikolai Anisimov.xlsx",
+          "relPath": "2024/trimestre-4/Libro-T4-2024-Nikolai Anisimov.xlsx"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "renta-borrador",
+          "model": "130",
+          "filename": "mod+130+4ºt+nikolai.pdf",
+          "relPath": "2024/trimestre-4/renta/borradores/mod+130+4ºt+nikolai.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "renta-borrador",
+          "model": "303",
+          "filename": "mod+303+4ºt+nikolai.pdf",
+          "relPath": "2024/trimestre-4/renta/borradores/mod+303+4ºt+nikolai.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "renta-borrador",
+          "model": "349",
+          "filename": "mod+349+4ºt+2024+nikolai.pdf",
+          "relPath": "2024/trimestre-4/renta/borradores/mod+349+4ºt+2024+nikolai.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "renta-modelo",
+          "model": "130",
+          "filename": "mod+130+4ºt+2024+nikolai.pdf",
+          "relPath": "2024/trimestre-4/renta/mod+130+4ºt+2024+nikolai.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "renta-modelo",
+          "model": "303",
+          "filename": "mod+303+4ºt+2024+nikolai.pdf",
+          "relPath": "2024/trimestre-4/renta/mod+303+4ºt+2024+nikolai.pdf"
+        },
+        {
+          "year": 2024,
+          "quarter": 4,
+          "kind": "renta-modelo",
+          "model": "349",
+          "filename": "mod+349+4ºt+2024+nikolai(1).pdf",
+          "relPath": "2024/trimestre-4/renta/mod+349+4ºt+2024+nikolai(1).pdf"
+        },
+        {
+          "year": 2024,
+          "kind": "resumen-anual",
+          "model": "390",
+          "filename": "mod+390+2024+nikolai.pdf",
+          "relPath": "2024/resumen anual/mod+390+2024+nikolai.pdf"
+        }
+      ]
+    },
+    {
+      "year": 2025,
+      "entries": [
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "factura-emitida",
+          "invoiceNo": "F-0001-2025",
+          "filename": "F-0001-2025.pdf",
+          "relPath": "2025/trimestre-1/facturas/F-0001-2025.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "factura-emitida",
+          "invoiceNo": "F-0002-2025",
+          "filename": "F-0002-2025.pdf",
+          "relPath": "2025/trimestre-1/facturas/F-0002-2025.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "gasto-soft",
+          "filename": "Anthropic Invoice-A4346AC6-0006.pdf",
+          "relPath": "2025/trimestre-1/gastos/soft/Anthropic Invoice-A4346AC6-0006.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "gasto-soft",
+          "filename": "Microsoft 365 Amazon.es - Pedido 405-3123594-9041136.pdf",
+          "relPath": "2025/trimestre-1/gastos/soft/Microsoft 365 Amazon.es - Pedido 405-3123594-9041136.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "gasto-soft",
+          "filename": "OpenAI-Invoice-728FD5FD-0019.pdf",
+          "relPath": "2025/trimestre-1/gastos/soft/OpenAI-Invoice-728FD5FD-0019.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "gasto-soft",
+          "filename": "OpenAI-Invoice-728FD5FD-0020.pdf",
+          "relPath": "2025/trimestre-1/gastos/soft/OpenAI-Invoice-728FD5FD-0020.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "gasto-soft",
+          "filename": "OpenAI-Invoice-728FD5FD-0021.pdf",
+          "relPath": "2025/trimestre-1/gastos/soft/OpenAI-Invoice-728FD5FD-0021.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "gasto-taxscouts",
+          "filename": "Invoice-202AFAF2-121376.pdf",
+          "relPath": "2025/trimestre-1/gastos/taxscouts/Invoice-202AFAF2-121376.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "gasto-taxscouts",
+          "filename": "Invoice-202AFAF2-127298.pdf",
+          "relPath": "2025/trimestre-1/gastos/taxscouts/Invoice-202AFAF2-127298.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "gasto-taxscouts",
+          "filename": "Invoice-202AFAF2-133272.pdf",
+          "relPath": "2025/trimestre-1/gastos/taxscouts/Invoice-202AFAF2-133272.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "libro",
+          "filename": "Libro-T1-2025-Nikolai Anisimov.xlsx",
+          "relPath": "2025/trimestre-1/Libro-T1-2025-Nikolai Anisimov.xlsx"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "renta-borrador",
+          "model": "130",
+          "filename": "mod+130+1ºt+2025+NIK.pdf",
+          "relPath": "2025/trimestre-1/renta/borradores/mod+130+1ºt+2025+NIK.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "renta-borrador",
+          "model": "303",
+          "filename": "mod+303+1ºt+2025+NIK.pdf",
+          "relPath": "2025/trimestre-1/renta/borradores/mod+303+1ºt+2025+NIK.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "renta-borrador",
+          "model": "349",
+          "filename": "mod+349+1ºt+2025+NIK (1).pdf",
+          "relPath": "2025/trimestre-1/renta/borradores/mod+349+1ºt+2025+NIK (1).pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "renta-modelo",
+          "model": "130",
+          "filename": "mod+130+1ºt+2025+niko.pdf",
+          "relPath": "2025/trimestre-1/renta/mod+130+1ºt+2025+niko.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "renta-modelo",
+          "model": "303",
+          "filename": "mod+303+1ºt+2025+niko.pdf",
+          "relPath": "2025/trimestre-1/renta/mod+303+1ºt+2025+niko.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 1,
+          "kind": "renta-modelo",
+          "model": "349",
+          "filename": "mod+349+1ºt+2025+niko.pdf",
+          "relPath": "2025/trimestre-1/renta/mod+349+1ºt+2025+niko.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "factura-emitida",
+          "invoiceNo": "F-0003-2025",
+          "filename": "F-0003-2025.pdf",
+          "relPath": "2025/trimestre-2/facturas/F-0003-2025.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "factura-emitida",
+          "invoiceNo": "F-0004-2025",
+          "filename": "F-0004-2025.pdf",
+          "relPath": "2025/trimestre-2/facturas/F-0004-2025.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "factura-emitida",
+          "invoiceNo": "F-0005-2025",
+          "filename": "F-0005-2025.pdf",
+          "relPath": "2025/trimestre-2/facturas/F-0005-2025.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "gasto-soft",
+          "filename": "OpenAI API Invoice-55C940B4-0003.pdf",
+          "relPath": "2025/trimestre-2/gastos/soft/OpenAI API Invoice-55C940B4-0003.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "gasto-soft",
+          "filename": "OpenAI Invoice-728FD5FD-0022.pdf",
+          "relPath": "2025/trimestre-2/gastos/soft/OpenAI Invoice-728FD5FD-0022.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "gasto-soft",
+          "filename": "OpenAI Invoice-728FD5FD-0023.pdf",
+          "relPath": "2025/trimestre-2/gastos/soft/OpenAI Invoice-728FD5FD-0023.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "gasto-soft",
+          "filename": "OpenAI Invoice-728FD5FD-0024.pdf",
+          "relPath": "2025/trimestre-2/gastos/soft/OpenAI Invoice-728FD5FD-0024.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "gasto-soft",
+          "filename": "OpenRouter Invoice-CE7803C7-0001.pdf",
+          "relPath": "2025/trimestre-2/gastos/soft/OpenRouter Invoice-CE7803C7-0001.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "gasto-taxscouts",
+          "filename": "Invoice-202AFAF2-139661.pdf",
+          "relPath": "2025/trimestre-2/gastos/taxcouts/Invoice-202AFAF2-139661.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "gasto-taxscouts",
+          "filename": "Invoice-202AFAF2-146133.pdf",
+          "relPath": "2025/trimestre-2/gastos/taxcouts/Invoice-202AFAF2-146133.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "gasto-taxscouts",
+          "filename": "Invoice-202AFAF2-152702.pdf",
+          "relPath": "2025/trimestre-2/gastos/taxcouts/Invoice-202AFAF2-152702.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "libro",
+          "filename": "Libro-T2-2025-Nikolai Anisimov.xlsx",
+          "relPath": "2025/trimestre-2/Libro-T2-2025-Nikolai Anisimov.xlsx"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "renta-borrador",
+          "model": "130",
+          "filename": "borrador+mod+130+2ºt+2025+nik.pdf",
+          "relPath": "2025/trimestre-2/renta/borradores/borrador+mod+130+2ºt+2025+nik.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "renta-borrador",
+          "model": "303",
+          "filename": "borrador+mod+303+2ºt+2025+nik.pdf",
+          "relPath": "2025/trimestre-2/renta/borradores/borrador+mod+303+2ºt+2025+nik.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "renta-borrador",
+          "model": "349",
+          "filename": "borrador+mod+349+2ºt+2025+nik.pdf",
+          "relPath": "2025/trimestre-2/renta/borradores/borrador+mod+349+2ºt+2025+nik.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "renta-modelo",
+          "model": "130",
+          "filename": "mod+130+2ºt+2025+nik.pdf",
+          "relPath": "2025/trimestre-2/renta/mod+130+2ºt+2025+nik.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "renta-modelo",
+          "model": "303",
+          "filename": "mod+303+2ºt+2025+nik.pdf",
+          "relPath": "2025/trimestre-2/renta/mod+303+2ºt+2025+nik.pdf"
+        },
+        {
+          "year": 2025,
+          "quarter": 2,
+          "kind": "renta-modelo",
+          "model": "349",
+          "filename": "mod+349+2ºt+2025+nik.pdf",
+          "relPath": "2025/trimestre-2/renta/mod+349+2ºt+2025+nik.pdf"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total": 118,
+    "byKind": {
+      "factura-emitida": 14,
+      "gasto-soft": 27,
+      "gasto-compras": 27,
+      "gasto-taxscouts": 15,
+      "libro": 5,
+      "renta-modelo": 16,
+      "renta-borrador": 13,
+      "resumen-anual": 1
+    }
+  }
+}

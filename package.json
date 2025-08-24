@@ -16,7 +16,9 @@
     "typecheck": "pnpm -r run typecheck",
     "test": "pnpm -r run test",
     "e2e": "pnpm --filter @apps/web run e2e",
-    "use:pnpm-local": "node scripts/set-pnpm-version.js"
+    "use:pnpm-local": "node scripts/set-pnpm-version.js",
+    "testdata:registry": "ts-node scripts/build-testdata-registry.ts",
+    "testdata:test": "pnpm --filter @packages/utils test -t testdata parser"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
