@@ -1,6 +1,7 @@
 import express from 'express'
 import multer from 'multer'
-import pdfParse from 'pdf-parse'
+// Import library entry directly to avoid debug harness in pdf-parse index
+import pdfParse from 'pdf-parse/lib/pdf-parse.js'
 import { cleanText, parseFromText } from './parser'
 
 const app = express()
