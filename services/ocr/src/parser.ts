@@ -145,24 +145,50 @@ export function genericParse(text: string, filename?: string) {
   }
 }
 
+let cachedAliases: { id: string; patterns: string[] }[] | null = null
+function loadAliases(): { id: string; patterns: string[] }[] {
+  if (cachedAliases) return cachedAliases
+  try {
+    // Using require to load JSON under ESM/TS transpile; in runtime we have CJS
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const json = require('./config/vendors.json') as { id: string; patterns: string[] }[]
+    cachedAliases = json
+    return json
+  } catch {
+    cachedAliases = []
+    return []
+  }
+}
+
 export function chooseVendor(text: string, filename?: string) {
-  const t = (filename || '') + ' ' + text
-  const low = t.toLowerCase()
-  if (low.includes('openai') || /invoice-728fd5fd/i.test(t)) return 'openai'
-  if (low.includes('anthropic') || /invoice-a4346ac6/i.test(t)) return 'anthropic'
-  if (low.includes('taxscouts') || /202afaf2/i.test(t)) return 'taxscouts'
+  const hay = ((filename || '') + ' ' + text).toLowerCase()
+  for (const { id, patterns } of loadAliases()) {
+    for (const p of patterns) {
+      if (hay.includes(p.toLowerCase())) return id
+    }
+  }
+  // default fallbacks
+  if (/invoice-728fd5fd/i.test(hay)) return 'openai'
+  if (/invoice-a4346ac6/i.test(hay)) return 'anthropic'
+  if (/202afaf2/i.test(hay)) return 'taxscouts'
   return 'generic'
 }
 
 export function parseFromText(text: string, filename?: string) {
   const vendor = chooseVendor(text, filename)
-  const parsed =
-    vendor === 'openai'
-      ? parseOpenAI(text, filename)
-      : vendor === 'anthropic'
-        ? parseAnthropic(text, filename)
-        : vendor === 'taxscouts'
-          ? parseTaxScouts(text, filename)
-          : genericParse(text, filename)
+  let parsed
+  switch (vendor) {
+    case 'openai':
+      parsed = parseOpenAI(text, filename)
+      break
+    case 'anthropic':
+      parsed = parseAnthropic(text, filename)
+      break
+    case 'taxscouts':
+      parsed = parseTaxScouts(text, filename)
+      break
+    default:
+      parsed = genericParse(text, filename)
+  }
   return { vendor, parsed }
 }

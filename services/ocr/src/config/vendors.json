@@ -1,0 +1,12 @@
+[
+  { "id": "openai", "patterns": ["openai", "728FD5FD"] },
+  { "id": "anthropic", "patterns": ["anthropic", "A4346AC6"] },
+  { "id": "taxscouts", "patterns": ["taxscouts", "202AFAF2", "taxcouts"] },
+  { "id": "openrouter", "patterns": ["openrouter", "CE7803C7"] },
+  { "id": "jetbrains", "patterns": ["jetbrains", "INVCZ"] },
+  { "id": "microsoft", "patterns": ["microsoft", "microsoft 365"] },
+  { "id": "amazon", "patterns": ["amazon", "amazon.es", "pedido "] },
+  { "id": "ofiprix", "patterns": ["ofiprix"] },
+  { "id": "alg", "patterns": ["alg legal", "alg_legal", "alg legal faktura"] }
+]
+

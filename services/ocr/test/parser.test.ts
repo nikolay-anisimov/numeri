@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { cleanText, parseFromText } from '../src/parser'
+import { cleanText, parseFromText, chooseVendor } from '../src/parser'
 
 describe('OCR parser for gastos', () => {
   it('parses OpenAI invoice', () => {
@@ -44,5 +44,11 @@ describe('OCR parser for gastos', () => {
     expect(parsed.vatAmount).toBe(0)
     expect(parsed.totalAmount).toBe(80)
   })
-})
 
+  it('detects OpenRouter via config aliases', () => {
+    const filename = 'OpenRouter Invoice-CE7803C7-0001.pdf'
+    const raw = `Invoice # CE7803C7-0001\nDate: 2025-06-21\nSubtotal 10.00\nVAT 0% 0.00\nTotal 10.00\n`
+    const vendor = chooseVendor(cleanText(raw), filename)
+    expect(vendor).toBe('openrouter')
+  })
+})
