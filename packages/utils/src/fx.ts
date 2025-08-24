@@ -17,6 +17,6 @@ export function convertToEur(amount: number, currency: Currency, rateMap: Record
 }
 
 export function round2(n: number): number {
-  return Math.round(n * 100) / 100
+  // Avoid floating point issues (e.g., 1.005 * 100 = 100.499...)
+  return Number(n.toFixed(2))
 }
-
