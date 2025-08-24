@@ -7,7 +7,14 @@ const reactPlugin = require('eslint-plugin-react')
 const reactHooks = require('eslint-plugin-react-hooks')
 
 const ignores = {
-  ignores: ['**/node_modules/**', '**/dist/**', '**/.next/**', '**/coverage/**', '**/build/**']
+  ignores: [
+    '**/node_modules/**',
+    '**/dist/**',
+    '**/.next/**',
+    '**/coverage/**',
+    '**/build/**',
+    '**/next-env.d.ts'
+  ]
 }
 
 const base = {
