@@ -43,6 +43,16 @@ export class ImportsService {
     throw new NotFoundException('Libro Excel not found for quarter')
   }
 
+  private async ocrParse(name: string, buf: Buffer): Promise<any> {
+    const axios = await import('axios')
+    const FormData = (await import('form-data')).default
+    const ocrUrl = process.env.OCR_SERVICE_URL || 'http://localhost:4100'
+    const form = new FormData()
+    form.append('file', buf, { filename: name, contentType: 'application/pdf' })
+    const res = await axios.default.post(`${ocrUrl}/parse`, form, { headers: form.getHeaders() })
+    return res.data?.parsed ?? res.data
+  }
+
   async importLibroQuarter(input: { year: number; quarter: 1 | 2 | 3 | 4; createdById: string; dryRun?: boolean }) {
     const { year, quarter, createdById, dryRun } = input
     if (!year || !quarter || !createdById) throw new Error('year, quarter, createdById required')
@@ -141,6 +151,76 @@ export class ImportsService {
         out: out.length,
         in: inn.length
       }
+    }
+  }
+
+  async importInvoiceFromFile(input: { relPath: string; direction: 'in' | 'out'; createdById: string; dryRun?: boolean }) {
+    const { relPath, direction, createdById, dryRun } = input
+    if (!relPath || !direction || !createdById) throw new Error('relPath, direction, createdById required')
+    const root = this.findRepoRoot(process.cwd())
+    const abs = path.join(root, 'testdata', relPath)
+    if (!fs.existsSync(abs)) throw new NotFoundException('file not found under testdata')
+    const buf = fs.readFileSync(abs)
+    const parsed = await this.ocrParse(path.basename(abs), buf)
+    const issueDate = (parsed.issueDate as string) || new Date().toISOString().slice(0, 10)
+    const currency = parsed.currency || 'EUR'
+    const euFlag = !!parsed.euCustomer
+    const base = Number(parsed.baseAmount) || 0
+    const vatRate = Number(parsed.vatRate) || 0
+    const vatAmount = Number(parsed.vatAmount) || (direction === 'out' ? 0 : Math.round(base * (vatRate / 100) * 100) / 100)
+    const total = Number(parsed.totalAmount) || base + vatAmount
+
+    if (direction === 'in') {
+      const supplierName = parsed.sellerName || 'Unknown Supplier'
+      const supplierNif = parsed.sellerNIF || 'UNKNOWN'
+      const supplier =
+        (await this.prisma.thirdParty.findFirst({ where: { type: 'SUPPLIER', name: supplierName } })) ||
+        (await this.prisma.thirdParty.create({ data: { type: 'SUPPLIER', name: supplierName, nif: supplierNif, countryCode: 'ES' } }))
+      let inv
+      if (!dryRun) {
+        inv = await this.invoices.createIn({
+          issueDate,
+          supplierId: supplier.id,
+          base,
+          vatRate,
+          vatAmount,
+          total,
+          currency,
+          createdById,
+          euOperation: euFlag
+        })
+        try {
+          await (this.prisma as any).attachment.create({ data: { invoiceInId: (inv as any).id, relPath, filename: path.basename(abs), kind: 'pdf' } })
+        } catch {}
+      }
+      return { direction, created: !dryRun, parsed, invoice: inv ?? null }
+    } else {
+      const clientName = parsed.buyerName || 'Unknown Client'
+      const clientNif = parsed.buyerNIF || 'UNKNOWN'
+      const client =
+        (await this.prisma.thirdParty.findFirst({ where: { type: 'CLIENT', name: clientName } })) ||
+        (await this.prisma.thirdParty.create({ data: { type: 'CLIENT', name: clientName, nif: clientNif, countryCode: 'ES' } }))
+      const number = String(parsed.invoiceNumber || '').trim() || 'UNKNOWN'
+      let inv
+      if (!dryRun) {
+        inv = await this.invoices.createOut({
+          issueDate,
+          series: undefined,
+          number,
+          clientId: client.id,
+          base,
+          vatRate,
+          vatAmount,
+          total,
+          currency,
+          createdById,
+          euOperation: euFlag
+        })
+        try {
+          await (this.prisma as any).attachment.create({ data: { invoiceOutId: (inv as any).id, relPath, filename: path.basename(abs), kind: 'pdf' } })
+        } catch {}
+      }
+      return { direction, created: !dryRun, parsed, invoice: inv ?? null }
     }
   }
 

@@ -19,4 +19,17 @@ export class ImportsController {
   validate(@Body() body: { year: number; quarter: 1 | 2 | 3 | 4 }) {
     return this.svc.validateQuarter(body)
   }
+
+  @Post('ocr-file')
+  ocrImportFile(
+    @Body()
+    body: {
+      relPath: string
+      direction: 'in' | 'out'
+      createdById: string
+      dryRun?: boolean
+    }
+  ) {
+    return this.svc.importInvoiceFromFile(body)
+  }
 }
