@@ -22,4 +22,11 @@ export class FxController {
   async upsertRate(@Body() body: { date: string; quote: string; rate: number; base?: string }) {
     return this.fxService.upsertRate(body)
   }
+
+  @Get('rates/one')
+  async one(@Query('date') date: string, @Query('quote') quote: string) {
+    const row = await this.fxService.getRateByDate(date, quote)
+    if (!row) return { ok: false, error: 'not_found' }
+    return row
+  }
 }

@@ -1,11 +1,12 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { PrismaService } from '../prisma/prisma.service'
+import { InvoicesService } from './invoices.service'
 
 @ApiTags('invoices')
 @Controller('invoices')
 export class InvoicesController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private svc: InvoicesService) {}
 
   @Get('in')
   async listIn() {
@@ -23,14 +24,16 @@ export class InvoicesController {
       vatAmount: number
       total: number
       currency: string
-      fxToEUR: number
+      fxToEUR?: number
       deductible?: boolean
+      category?: string
+      assetFlag?: boolean
       notes?: string
       euOperation?: boolean
       createdById: string
     }
   ) {
-    return this.prisma.invoiceIn.create({ data: { ...body, issueDate: new Date(body.issueDate) } })
+    return this.svc.createIn(body)
   }
 
   @Get('out')
@@ -51,13 +54,13 @@ export class InvoicesController {
       vatAmount: number
       total: number
       currency: string
-      fxToEUR: number
+      fxToEUR?: number
       notes?: string
       euOperation?: boolean
       createdById: string
     }
   ) {
-    return this.prisma.invoiceOut.create({ data: { ...body, issueDate: new Date(body.issueDate) } })
+    return this.svc.createOut(body)
   }
 
   @Get(':id')
@@ -68,4 +71,3 @@ export class InvoicesController {
     return _in
   }
 }
-
