@@ -53,6 +53,21 @@ pnpm --filter @apps/api prisma:migrate
 pnpm --filter @apps/api prisma migrate dev
 ```
 
+## Dev API estable (CJS + dist)
+
+Para evitar problemas de metadatos de decoradores en Nest al usar ESM en dev, la API se ejecuta desde el código compilado CommonJS:
+
+- `pnpm -w dev` ya usa: compilar `@apps/api` con `tsc -w` y ejecutar `dist/main.js` con Node.
+- Si arrancas solo la API: `pnpm --filter @apps/api start:dev` (equivale a lo anterior).
+- Swagger en dev: si no aparece, compila explícitamente y arranca: `pnpm --filter @apps/api build && node apps/api/dist/main.js`.
+
+## .env y Prisma
+
+- Prisma busca `.env` junto al `schema.prisma` o en el paquete de la API. Si usas un `.env` en la raíz del repo, crea un symlink/copia en `apps/api/.env`.
+  - Symlink (Linux/macOS/WSL): `ln -s ../../.env apps/api/.env`
+  - Copia: `cp .env apps/api/.env`
+- La API carga variables en runtime mediante `dotenv`.
+
 ## Scripts de calidad
 
 ```bash
