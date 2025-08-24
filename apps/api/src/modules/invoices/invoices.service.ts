@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service'
 import { FxService } from '../fx/fx.service'
+import { round2 } from '@packages/utils'
 
 function round6(n: number) {
   return Math.round(n * 1_000_000) / 1_000_000
@@ -77,6 +78,61 @@ export class InvoicesService {
         fxToEUR,
         issueDate: new Date(body.issueDate)
       }
+    })
+  }
+
+  private incrementNumberStr(input?: string): string | undefined {
+    if (!input) return input
+    const m = input.match(/(.*?)(\d+)$/)
+    if (!m) return input
+    const prefix = m[1]
+    const digits = m[2]
+    const next = String(Number(digits) + 1).padStart(digits.length, '0')
+    return prefix + next
+  }
+
+  private addOneMonthSameDay(date: Date): Date {
+    const d = new Date(date)
+    const day = d.getDate()
+    d.setMonth(d.getMonth() + 1)
+    // adjust if month rolled over
+    if (d.getDate() !== day) {
+      d.setDate(0) // last day of previous month
+    }
+    return d
+  }
+
+  async emitFromLast(body: { createdById: string; clientId?: string; base?: number; issueDate?: string }) {
+    // Find last invoice (optionally for given client)
+    const where = body.clientId ? { clientId: body.clientId } : {}
+    const last = await this.prisma.invoiceOut.findFirst({ where, orderBy: { issueDate: 'desc' } })
+    if (!last) throw new Error('No previous invoice to copy from')
+    const clientId = body.clientId ?? last.clientId
+    const client = await this.prisma.thirdParty.findUnique({ where: { id: clientId } })
+    const euVat = client?.euVatNumber?.trim()
+    const series = last.series ?? undefined
+    const number = this.incrementNumberStr(last.number) || last.number
+    const base = body.base != null ? body.base : Number(last.base)
+    // VAT per EU rule or copy last
+    let vatRate = euVat ? 0 : Number(last.vatRate)
+    let vatAmount = euVat ? 0 : round2(base * (Number(last.vatRate) / 100))
+    const total = round2(base + vatAmount)
+    const issueDate = body.issueDate ? new Date(body.issueDate) : this.addOneMonthSameDay(last.issueDate)
+    const currency = last.currency
+
+    return this.createOut({
+      issueDate: issueDate.toISOString().slice(0, 10),
+      series,
+      number,
+      clientId,
+      base,
+      vatRate,
+      vatAmount,
+      total,
+      currency,
+      notes: last.notes ?? undefined,
+      euOperation: !!euVat,
+      createdById: body.createdById
     })
   }
 }

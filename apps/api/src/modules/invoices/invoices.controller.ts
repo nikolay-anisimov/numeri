@@ -63,6 +63,19 @@ export class InvoicesController {
     return this.svc.createOut(body)
   }
 
+  @Post('out/emit')
+  async emitFromLast(
+    @Body()
+    body: {
+      createdById: string
+      clientId?: string
+      base?: number
+      issueDate?: string // optional override
+    }
+  ) {
+    return this.svc.emitFromLast(body)
+  }
+
   @Get(':id')
   async getAny(@Param('id') id: string) {
     const out = await this.prisma.invoiceOut.findUnique({ where: { id } })
