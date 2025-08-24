@@ -7,9 +7,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { logger: ['log', 'error', 'warn'] })
   app.enableCors({ origin: true, credentials: true })
 
-  const config = new DocumentBuilder().setTitle('Numeri API').setVersion('0.1').build()
-  const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('docs', app, document)
+  try {
+    const config = new DocumentBuilder().setTitle('Numeri API').setVersion('0.1').build()
+    const document = SwaggerModule.createDocument(app, config)
+    SwaggerModule.setup('docs', app, document)
+  } catch (err: any) {
+    // eslint-disable-next-line no-console
+    console.warn('Swagger disabled (init failed):', err?.message || err)
+  }
 
   const port = Number(process.env.PORT || 4000)
   await app.listen(port)
@@ -18,4 +23,3 @@ async function bootstrap() {
 }
 
 bootstrap()
-
