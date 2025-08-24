@@ -73,12 +73,16 @@ model InvoiceIn {
   currency     String
   fxToEUR      Decimal  @db.Decimal(18, 6)
   deductible   Boolean  @default(true)
+  // Classification flags for deductions and assets
+  category     String?
+  assetFlag    Boolean  @default(false)
   notes        String?
   euOperation  Boolean  @default(false)
   createdBy    User     @relation(fields: [createdById], references: [id])
   createdById  String
 
   ledgerEntries LedgerEntry[]
+  fixedAsset    FixedAsset?
 
   @@index([issueDate])
 }
@@ -95,6 +99,9 @@ model LedgerEntry {
   invoiceIn    InvoiceIn?  @relation(fields: [invoiceInId], references: [id])
   invoiceOut   InvoiceOut? @relation(fields: [invoiceOutId], references: [id])
   notes        String?
+
+  // Optional link when generated from a depreciation run
+  depreciationRun DepreciationRun?
 
   @@index([date])
 }
@@ -114,4 +121,37 @@ model FxRate {
 
   @@index([date])
   @@index([quote])
+}
+
+// Fixed assets and depreciation schedule (MVP minimal)
+model FixedAsset {
+  id               String     @id @default(uuid())
+  invoiceIn        InvoiceIn  @relation(fields: [invoiceInId], references: [id])
+  invoiceInId      String     @unique
+  name             String
+  acquisitionDate  DateTime   @db.Date
+  costEUR          Decimal    @db.Decimal(18, 2)
+  usefulLifeMonths Int
+  method           String     @default("SL") // Straight-line
+  salvageValueEUR  Decimal    @db.Decimal(18, 2) @default(0)
+  createdAt        DateTime   @default(now())
+
+  runs DepreciationRun[]
+
+  @@index([acquisitionDate])
+}
+
+model DepreciationRun {
+  id           String      @id @default(uuid())
+  asset        FixedAsset  @relation(fields: [assetId], references: [id])
+  assetId      String
+  periodStart  DateTime    @db.Date
+  periodEnd    DateTime    @db.Date
+  amountEUR    Decimal     @db.Decimal(18, 2)
+  posted       Boolean     @default(false)
+  ledgerEntry  LedgerEntry? @relation(fields: [ledgerEntryId], references: [id])
+  ledgerEntryId String? @unique
+
+  @@index([assetId])
+  @@index([periodStart, periodEnd])
 }
