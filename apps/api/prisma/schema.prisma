@@ -15,6 +15,10 @@ model User {
   passwordHash String
   role         String
   createdAt    DateTime @default(now())
+
+  // Relations
+  invoicesOut InvoiceOut[]
+  invoicesIn  InvoiceIn[]
 }
 
 model ThirdParty {
@@ -111,4 +115,3 @@ model FxRate {
   @@index([date])
   @@index([quote])
 }
-
