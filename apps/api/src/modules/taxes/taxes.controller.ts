@@ -1,7 +1,7 @@
 import { Controller, Get, Query } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { PrismaService } from '../prisma/prisma.service'
-import { calcModelo303BaseAndVat, exportAeatCsv, type BookEntry } from '@packages/utils'
+import { calcModelo303BaseAndVat, exportAeatCsv, type BookEntry, build349Lines, calc130Ytd } from '@packages/utils'
 
 @ApiTags('taxes')
 @Controller('taxes')
@@ -42,25 +42,31 @@ export class TaxesController {
 
   @Get('349')
   async modelo349(@Query('from') from: string, @Query('to') to: string) {
-    // Placeholder: list UE operations
     const start = new Date(from)
     const end = new Date(to)
     const outRows = await this.prisma.invoiceOut.findMany({
       where: { issueDate: { gte: start, lte: end }, euOperation: true },
       include: { client: true }
     })
-    return outRows.map((r: any) => ({
-      date: r.issueDate,
-      client: r.client.name,
-      euVat: r.client.euVatNumber,
-      base: r.base,
-      total: r.total
-    }))
+    const periodLabel = `${start.getFullYear()}-${String(start.getMonth() + 1).padStart(2, '0')}`
+    const lines = build349Lines(
+      outRows.map((r: any) => ({
+        date: r.issueDate.toISOString().slice(0, 10),
+        partnerVat: r.client?.euVatNumber ?? null,
+        partnerName: r.client?.name ?? null,
+        base: Number(r.base),
+        currency: r.currency,
+        fxToEUR: Number(r.fxToEUR),
+        euOperation: Boolean(r.euOperation),
+        clave: 'S'
+      })),
+      { periodLabel }
+    )
+    return lines
   }
 
   @Get('130')
   async modelo130(@Query('from') from: string, @Query('to') to: string) {
-    // Placeholder: IRPF provisional - NOT OFFICIAL
     const start = new Date(from)
     const end = new Date(to)
     const purchases = await this.prisma.invoiceIn.findMany({
@@ -71,9 +77,8 @@ export class TaxesController {
     })
     const basePurch = purchases.reduce((a: number, r: any) => a + Number(r.base), 0)
     const baseSales = sales.reduce((a: number, r: any) => a + Number(r.base), 0)
-    const rendimientoNeto = baseSales - basePurch
-    const pagoTrimestral = Math.max(0, Math.round(rendimientoNeto * 0.2 * 100) / 100)
-    return { rendimientoNeto, pagoTrimestral }
+    const res = calc130Ytd({ grossIncomeYtd: baseSales, deductibleExpensesYtd: basePurch })
+    return { ytd: res }
   }
 
   @Get('aeat-books.csv')

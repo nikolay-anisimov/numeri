@@ -3,4 +3,4 @@ export * from './aeat'
 export * from './dates'
 export * from './money'
 export * from './csv'
-
+export * from './tax'
