@@ -1,66 +1,65 @@
-import express from 'express'
-import multer from 'multer'
-import pdfParse from 'pdf-parse'
-import { cleanText, parseFromText } from './parser'
-
-const app = express()
-const upload = multer()
-
-function cleanText(text: string) {
+export function cleanText(text: string) {
   return text.replace(/\r/g, '').replace(/[\t ]+/g, ' ').trim()
 }
 
-function parseDate(text: string): string | undefined {
-  // Try ISO first
+export function parseDate(text: string): string | undefined {
   let m = text.match(/(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})/)
   if (m) return new Date(Date.UTC(+m[1], +m[2] - 1, +m[3])).toISOString().slice(0, 10)
-  // Try DD/MM/YYYY
   m = text.match(/(\d{1,2})[\/-](\d{1,2})[\/-](20\d{2})/)
   if (m) return new Date(Date.UTC(+m[3], +m[2] - 1, +m[1])).toISOString().slice(0, 10)
   return undefined
 }
 
-function parseNumber(s?: string): number | undefined {
+export function parseNumber(s?: string): number | undefined {
   if (!s) return undefined
   const t = s.replace(/[^0-9.,-]/g, '').replace(/\.(?=\d{3}(\D|$))/g, '').replace(',', '.')
   const n = Number(t)
   return Number.isFinite(n) ? n : undefined
 }
 
-function findLabeledAmount(text: string, labels: string[]): number | undefined {
-  const lower = text.toLowerCase()
+function escRe(s: string) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+export function findLabeledAmount(text: string, labels: string[], pick: 'first' | 'last' = 'first'): number | undefined {
   for (const label of labels) {
-    const i = lower.indexOf(label)
-    if (i >= 0) {
-      const tail = text.slice(i + label.length, i + label.length + 100)
-      const m = tail.match(/([0-9][0-9.,]+)/)
-      const n = parseNumber(m?.[1])
-      if (n != null) return n
+    const re = new RegExp(`\\b${escRe(label)}\\b`, 'i')
+    const m = re.exec(text)
+    if (m && typeof m.index === 'number') {
+      const idx = m.index + m[0].length
+      const tail = text.slice(idx, idx + 160)
+      const line = tail.split(/\n/)[0]
+      const nums = line.match(/([0-9][0-9.,]+)/g)
+      if (nums && nums.length) {
+        const chosen = pick === 'last' ? nums[nums.length - 1] : nums[0]
+        const n = parseNumber(chosen)
+        if (n != null) return n
+      }
     }
   }
   return undefined
 }
 
-function detectCurrency(text: string): string {
+export function detectCurrency(text: string): string {
   if (/\bUSD\b|\$/i.test(text)) return 'USD'
   if (/\bGBP\b|£/i.test(text)) return 'GBP'
   return 'EUR'
 }
 
-function fromFilenameInvoice(filename?: string): string | undefined {
+export function fromFilenameInvoice(filename?: string): string | undefined {
   if (!filename) return undefined
   const m = filename.match(/(Invoice[-_# ]?([A-Z0-9-]+)|F-\d{4}-\d{4})/i)
   if (m) return (m[2] || m[1]).replace(/^Invoice[-_# ]?/, '')
   return undefined
 }
 
-function parseOpenAI(text: string, filename?: string) {
+export function parseOpenAI(text: string, filename?: string) {
   const issueDate = parseDate(text) || new Date().toISOString().slice(0, 10)
   const invoiceNumber = fromFilenameInvoice(filename) || text.match(/Invoice\s*(?:No|#)\s*([A-Z0-9-]+)/i)?.[1]
-  const base = findLabeledAmount(text, ['subtotal', 'base imponible', 'base'])
+  const base = findLabeledAmount(text, ['subtotal', 'base imponible', 'base'], 'first')
   const vatRate = parseNumber(text.match(/\b(VAT|IVA)\s*(\d{1,2}[.,]?\d*)%/i)?.[2]) || 0
-  const vat = findLabeledAmount(text, ['vat', 'iva']) || (base != null ? Math.round(base * ((vatRate || 0) / 100) * 100) / 100 : undefined)
-  const total = findLabeledAmount(text, ['total']) || (base != null && vat != null ? base + vat : undefined)
+  const vat = findLabeledAmount(text, ['vat', 'iva'], 'last') || (base != null ? Math.round(base * ((vatRate || 0) / 100) * 100) / 100 : undefined)
+  const total = findLabeledAmount(text, ['total'], 'first') || (base != null && vat != null ? base + vat : undefined)
   return {
     issueDate,
     invoiceNumber: invoiceNumber || 'UNKNOWN',
@@ -77,13 +76,13 @@ function parseOpenAI(text: string, filename?: string) {
   }
 }
 
-function parseAnthropic(text: string, filename?: string) {
+export function parseAnthropic(text: string, filename?: string) {
   const issueDate = parseDate(text) || new Date().toISOString().slice(0, 10)
   const invoiceNumber = fromFilenameInvoice(filename) || text.match(/Invoice\s*(?:No|#)\s*([A-Z0-9-]+)/i)?.[1]
-  const base = findLabeledAmount(text, ['subtotal', 'base imponible', 'base'])
+  const base = findLabeledAmount(text, ['subtotal', 'base imponible', 'base'], 'first')
   const vatRate = parseNumber(text.match(/\b(VAT|IVA)\s*(\d{1,2}[.,]?\d*)%/i)?.[2]) || 0
-  const vat = findLabeledAmount(text, ['vat', 'iva']) || (base != null ? Math.round(base * ((vatRate || 0) / 100) * 100) / 100 : undefined)
-  const total = findLabeledAmount(text, ['total']) || (base != null && vat != null ? base + vat : undefined)
+  const vat = findLabeledAmount(text, ['vat', 'iva'], 'last') || (base != null ? Math.round(base * ((vatRate || 0) / 100) * 100) / 100 : undefined)
+  const total = findLabeledAmount(text, ['total'], 'first') || (base != null && vat != null ? base + vat : undefined)
   return {
     issueDate,
     invoiceNumber: invoiceNumber || 'UNKNOWN',
@@ -100,13 +99,13 @@ function parseAnthropic(text: string, filename?: string) {
   }
 }
 
-function parseTaxScouts(text: string, filename?: string) {
+export function parseTaxScouts(text: string, filename?: string) {
   const issueDate = parseDate(text) || new Date().toISOString().slice(0, 10)
   const invoiceNumber = fromFilenameInvoice(filename) || text.match(/Invoice\s*(?:No|#)\s*([A-Z0-9-]+)/i)?.[1]
-  const base = findLabeledAmount(text, ['base imponible', 'base']) || findLabeledAmount(text, ['subtotal'])
+  const base = findLabeledAmount(text, ['base imponible', 'base'], 'first') || findLabeledAmount(text, ['subtotal'], 'first')
   const vatRate = parseNumber(text.match(/\bIVA\s*(\d{1,2}[.,]?\d*)%/i)?.[1]) || parseNumber(text.match(/\bVAT\s*(\d{1,2}[.,]?\d*)%/i)?.[1]) || 21
-  const vat = findLabeledAmount(text, ['iva', 'vat']) || (base != null ? Math.round(base * ((vatRate || 0) / 100) * 100) / 100 : undefined)
-  const total = findLabeledAmount(text, ['total']) || (base != null && vat != null ? base + vat : undefined)
+  const vat = findLabeledAmount(text, ['iva', 'vat'], 'last') || (base != null ? Math.round(base * ((vatRate || 0) / 100) * 100) / 100 : undefined)
+  const total = findLabeledAmount(text, ['total'], 'first') || (base != null && vat != null ? base + vat : undefined)
   return {
     issueDate,
     invoiceNumber: invoiceNumber || 'UNKNOWN',
@@ -123,13 +122,13 @@ function parseTaxScouts(text: string, filename?: string) {
   }
 }
 
-function genericParse(text: string, filename?: string) {
+export function genericParse(text: string, filename?: string) {
   const issueDate = parseDate(text) || new Date().toISOString().slice(0, 10)
   const invoiceNumber = fromFilenameInvoice(filename) || text.match(/Invoice\s*(?:No|#)\s*([A-Z0-9-]+)/i)?.[1] || text.match(/Factura\s*(?:No|Nº)\s*([\w-]+)/i)?.[1]
-  const base = findLabeledAmount(text, ['base imponible', 'base', 'subtotal'])
+  const base = findLabeledAmount(text, ['base imponible', 'base', 'subtotal'], 'first')
   const vatRate = parseNumber(text.match(/\b(VAT|IVA)\s*(\d{1,2}[.,]?\d*)%/i)?.[2]) || 0
-  const vat = findLabeledAmount(text, ['iva', 'vat']) || (base != null ? Math.round(base * ((vatRate || 0) / 100) * 100) / 100 : undefined)
-  const total = findLabeledAmount(text, ['total']) || (base != null && vat != null ? base + vat : undefined)
+  const vat = findLabeledAmount(text, ['iva', 'vat'], 'last') || (base != null ? Math.round(base * ((vatRate || 0) / 100) * 100) / 100 : undefined)
+  const total = findLabeledAmount(text, ['total'], 'first') || (base != null && vat != null ? base + vat : undefined)
   return {
     issueDate,
     invoiceNumber: (invoiceNumber || 'UNKNOWN').toString(),
@@ -146,7 +145,7 @@ function genericParse(text: string, filename?: string) {
   }
 }
 
-function chooseVendor(text: string, filename?: string) {
+export function chooseVendor(text: string, filename?: string) {
   const t = (filename || '') + ' ' + text
   const low = t.toLowerCase()
   if (low.includes('openai') || /invoice-728fd5fd/i.test(t)) return 'openai'
@@ -155,20 +154,15 @@ function chooseVendor(text: string, filename?: string) {
   return 'generic'
 }
 
-app.post('/parse', upload.single('file'), async (req, res) => {
-  if (!req.file) return res.status(400).json({ error: 'file required' })
-  try {
-    const data = await pdfParse(req.file.buffer)
-    const text = cleanText(data.text || '')
-    const { vendor, parsed } = parseFromText(text, req.file.originalname)
-    res.json({ ok: true, vendor, parsed, rawText: process.env.OCR_INCLUDE_TEXT ? text : undefined })
-  } catch (err: any) {
-    console.error('OCR error', err?.message)
-    res.status(500).json({ ok: false, error: 'parse_failed', message: err?.message })
-  }
-})
-
-const port = Number(process.env.PORT || 4100)
-app.listen(port, () => {
-  console.log(`OCR service on http://localhost:${port}`)
-})
+export function parseFromText(text: string, filename?: string) {
+  const vendor = chooseVendor(text, filename)
+  const parsed =
+    vendor === 'openai'
+      ? parseOpenAI(text, filename)
+      : vendor === 'anthropic'
+        ? parseAnthropic(text, filename)
+        : vendor === 'taxscouts'
+          ? parseTaxScouts(text, filename)
+          : genericParse(text, filename)
+  return { vendor, parsed }
+}

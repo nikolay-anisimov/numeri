@@ -9,6 +9,7 @@
     "start": "node dist/server.js",
     "lint": "eslint 'src/**/*.ts'",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
     "format": "prettier -w ."
   },
   "dependencies": {
@@ -24,6 +25,7 @@
     "prettier": "^3.3.3",
     "ts-node-dev": "^2.0.0",
     "tsx": "^4.19.1",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.1"
   }
 }
