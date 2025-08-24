@@ -121,6 +121,7 @@ model FxRate {
 
   @@index([date])
   @@index([quote])
+  @@unique([date, base, quote])
 }
 
 // Fixed assets and depreciation schedule (MVP minimal)
