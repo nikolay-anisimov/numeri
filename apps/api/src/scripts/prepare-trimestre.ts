@@ -11,8 +11,6 @@ Usage:
 import * as path from 'node:path'
 import * as fs from 'node:fs'
 import { PrismaClient } from '@prisma/client'
-import yargs from 'yargs/yargs'
-import { hideBin } from 'yargs/helpers'
 import {
   writeLibroFromTemplate,
   mapInvoiceInToUnifiedRow,
@@ -36,13 +34,19 @@ function fileName(year: number, nif: string, tipo: 'T' | 'C' | 'D', name: string
 }
 
 async function main() {
-  const args = yargs(hideBin(process.argv)).argv as any
-  const year = Number(args.year)
-  const quarter = Number(args.quarter)
-  const nif = String(args.nif || process.env.TAX_NIF || '').trim()
-  const name = String(args.name || process.env.TAX_NAME || '').trim()
-  const template = String(args.template || path.resolve(__dirname, '../../../docs/AEAT/LSI.xlsx'))
-  const outDir = String(args.outDir || path.resolve(__dirname, '../../../testdata', String(year), `trimestre-${quarter}`, 'artifacts'))
+  // Minimal argv parser: supports --key value pairs
+  const argv = process.argv.slice(2)
+  const getArg = (key: string): string | undefined => {
+    const idx = argv.findIndex((a) => a === `--${key}`)
+    if (idx >= 0 && idx + 1 < argv.length) return argv[idx + 1]
+    return undefined
+  }
+  const year = Number(getArg('year'))
+  const quarter = Number(getArg('quarter'))
+  const nif = String(getArg('nif') || process.env.TAX_NIF || '').trim()
+  const name = String(getArg('name') || process.env.TAX_NAME || '').trim()
+  const template = String(getArg('template') || path.resolve(__dirname, '../../../docs/AEAT/LSI.xlsx'))
+  const outDir = String(getArg('outDir') || path.resolve(__dirname, '../../../testdata', String(year), `trimestre-${quarter}`, 'artifacts'))
   if (!year || !quarter || !nif || !name) throw new Error('--year --quarter --nif --name required')
 
   const prisma = new PrismaClient()
