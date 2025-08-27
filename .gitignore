@@ -15,6 +15,7 @@ test-results
 tmp
 # Office temporary lock files in testdata
 testdata/**/~$*
+docs/AEAT/**/~$*
 # TypeScript build info
 **/*.tsbuildinfo
 scripts/openai-invoices/invoices/

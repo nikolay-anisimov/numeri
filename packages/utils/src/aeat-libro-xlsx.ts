@@ -1,7 +1,6 @@
 import * as XLSX from 'xlsx'
 import { round2 } from './fx'
 import type { BookEntry } from './aeat'
-import * as fs from 'fs'
 
 export interface BuildLibroOptions {
   sheetNames?: {
@@ -164,7 +163,6 @@ export function writeLibroFromTemplate(
   recibidasRows: any[][],
   opts: { sheetNames?: { expedidas?: string; recibidas?: string }; startRow?: number } = {}
 ) {
-  if (!fs.existsSync(templatePath)) throw new Error(`Template not found: ${templatePath}`)
   const wb = XLSX.readFile(templatePath, { cellDates: true })
   const shex = opts.sheetNames?.expedidas ?? 'EXPEDIDAS_INGRESOS'
   const shrx = opts.sheetNames?.recibidas ?? 'RECIBIDAS_GASTOS'
