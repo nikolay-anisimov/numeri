@@ -8,11 +8,20 @@ Usage:
     --template ../../docs/AEAT/LSI.xlsx \
     --outDir ../../testdata/2025/trimestre-1/artifacts
 */
-import { PrismaClient } from '@prisma/client'
 import * as path from 'node:path'
 import * as fs from 'node:fs'
-import { writeLibroFromTemplate, mapInvoiceInToUnifiedRow, mapInvoiceOutToUnifiedRow, build303Entries } from '@packages/utils'
-import { calc303, build349Inputs, build349Lines } from '@packages/utils'
+import { PrismaClient } from '@prisma/client'
+import yargs from 'yargs/yargs'
+import { hideBin } from 'yargs/helpers'
+import {
+  writeLibroFromTemplate,
+  mapInvoiceInToUnifiedRow,
+  mapInvoiceOutToUnifiedRow,
+  build303Entries,
+  calc303,
+  build349Inputs,
+  build349Lines
+} from '@packages/utils'
 
 function quarterRange(year: number, quarter: number) {
   const startMonth = (quarter - 1) * 3
@@ -27,8 +36,7 @@ function fileName(year: number, nif: string, tipo: 'T' | 'C' | 'D', name: string
 }
 
 async function main() {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const args = require('yargs/yargs')(process.argv.slice(2)).argv as any
+  const args = yargs(hideBin(process.argv)).argv as any
   const year = Number(args.year)
   const quarter = Number(args.quarter)
   const nif = String(args.nif || process.env.TAX_NIF || '').trim()
@@ -135,4 +143,3 @@ main().catch((e: any) => {
   console.error(e)
   process.exit(1)
 })
-
