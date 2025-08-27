@@ -17,10 +17,21 @@ Verification Checklist (to do with the PDF)
 - [ ] Confirm whether non-EUR currency is permitted and how to report it.
 
 Sheets To Produce
-- IVA – Libro registro de facturas expedidas [verify exact title]
-- IVA – Libro registro de facturas recibidas [verify exact title]
-- IRPF – Libro registro de ingresos (estimación directa) [verify applicability]
-- IRPF – Libro registro de gastos (estimación directa) [verify applicability]
+- IVA – Libro registro de facturas expedidas → sheet name: EXPEDIDAS
+- IVA – Libro registro de facturas recibidas → sheet name: RECIBIDAS
+- IRPF – Libro registro de ingresos (estimación directa) → sheet name: INGRESOS
+- IRPF – Libro registro de gastos (estimación directa) → sheet name: GASTOS
+- Bienes de inversión (si procede) → sheet name: BIENES-INVERSIÓN
+
+File Naming (Excel XLSX)
+- One file for IVA books and another for IRPF, unless unified.
+- Unified file allowed containing both taxes.
+- Filename must be: `Ejercicio` + `NIF` + `Tipo` + `Nombre/Razón social` (concatenated, spec does not state separator) [confirm separators].
+  - Tipo values:
+    - C: All IVA books in one XLSX, with sheets: EXPEDIDAS, RECIBIDAS, BIENES-INVERSIÓN (if applies).
+    - D: All IRPF books in one XLSX, with sheets: INGRESOS, GASTOS, BIENES-INVERSIÓN (if applies).
+    - T: Unified IVA+IRPF in one XLSX, with sheets: EXPEDIDAS_INGRESOS, RECIBIDAS_GASTOS, BIENES-INVERSIÓN (if applies).
+  - File type: XLSX.
 
 Data Types & Formats (global)
 - Date: Excel date (no time), displayed as `dd/mm/yyyy` [verify]

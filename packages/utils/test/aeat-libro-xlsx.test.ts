@@ -37,11 +37,11 @@ describe('aeat-libro-xlsx writer', () => {
     ]
 
     const wb = buildLibroWorkbook(expedidas, recibidas)
-    expect(wb.SheetNames).toContain('IVA-Expedidas')
-    expect(wb.SheetNames).toContain('IVA-Recibidas')
+    expect(wb.SheetNames).toContain('EXPEDIDAS')
+    expect(wb.SheetNames).toContain('RECIBIDAS')
 
-    const wsExp = wb.Sheets['IVA-Expedidas']
-    const wsRec = wb.Sheets['IVA-Recibidas']
+    const wsExp = wb.Sheets['EXPEDIDAS']
+    const wsRec = wb.Sheets['RECIBIDAS']
     const rowsExp: any[][] = XLSX.utils.sheet_to_json(wsExp, { header: 1 }) as any
     const rowsRec: any[][] = XLSX.utils.sheet_to_json(wsRec, { header: 1 }) as any
 
@@ -92,4 +92,3 @@ describe('aeat-libro-xlsx writer', () => {
     expect(rowsRec[1][14]).toBe(121) // Total
   })
 })
-

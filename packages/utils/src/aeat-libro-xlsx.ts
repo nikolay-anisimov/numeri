@@ -128,8 +128,9 @@ export function buildLibroWorkbook(
   opts: BuildLibroOptions = {}
 ): XLSX.WorkBook {
   const wb = XLSX.utils.book_new()
-  const shex = opts.sheetNames?.expedidas ?? 'IVA-Expedidas'
-  const shrx = opts.sheetNames?.recibidas ?? 'IVA-Recibidas'
+  // Official AEAT sheet names for IVA books
+  const shex = opts.sheetNames?.expedidas ?? 'EXPEDIDAS'
+  const shrx = opts.sheetNames?.recibidas ?? 'RECIBIDAS'
 
   const dataExp = [HEADERS_EXPEDIDAS, ...expedidas.map(rowForExpedida)]
   const wsExp = XLSX.utils.aoa_to_sheet(dataExp)
@@ -151,4 +152,3 @@ export function writeLibroXlsx(
   const wb = buildLibroWorkbook(expedidas, recibidas, opts)
   XLSX.writeFile(wb, filePath)
 }
-
