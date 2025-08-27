@@ -12,7 +12,7 @@
   - Add recurring non-invoice expense: Seguridad Social (monthly).
   - Click “Cerrar trimestre” to compute models and generate the Libro en formato AEAT (XLSX), plus a filing guide with exact steps/casillas for AEAT forms.
 - Outputs (under `testdata/2025/trimestre-1/artifacts/`):
-  - `libro-registro-aeat.xlsx` (conforme al Formato Electrónico Común IVA/IRPF)
+  - `2025_Z1664779K_T_NIKOLAI_ANISIMOV.xlsx` (ejemplo de nombre conforme al patrón AEAT `Ejercicio_NIF_Tipo_Nombre`)
   - `guia-presentacion-130-303-349.md` (instrucciones paso a paso y casillas)
   - Optional for debugging only: `calc-130.json`, `calc-303.json`, `calc-349.json` (not user-facing)
 
@@ -22,7 +22,8 @@
   - Internals: continue using `packages/utils` tax calculators (`calc130Ytd`, `calc303`, `build349Lines`).
   - Libro AEAT XLSX (unified Tipo T): generate an XLSX with sheets `EXPEDIDAS_INGRESOS` and `RECIBIDAS_GASTOS` (and `BIENES-INVERSIÓN` if aplica) per `docs/AEAT/LSI.xlsx` and `docs/AEAT/Ejemplo_2_1T_2023.xlsx`.
   - Prefer template-driven writer: load a clean LSI.xlsx template and write data rows at the correct offsets to preserve header/dictionary/validation rows.
-- Filing guide generator: produce a markdown with instructions for AEAT portals (links), what options to choose, and what values to put in each casilla (sourced from our calcs). Include the XLSX filename pattern (Ejercicio+NIF+Tipo+Nombre). If AEAT allows importing libros to prefill anything, document the precise path; otherwise, give explicit manual steps.
+- Filing guide generator: produce a markdown with instructions for AEAT portals (links), options to choose, y valores por casilla (desde nuestros cálculos). Incluir el patrón de nombre del XLSX (`Ejercicio_NIF_Tipo_Nombre`). Si AEAT permite importar libros para pre-rellenar, documentar la ruta exacta; si no, pasos manuales.
+  - Añadir enlace a la herramienta oficial de validación del Libro: https://www2.agenciatributaria.gob.es/wlpl/PACM-SERV/validarLLRs.html (también se mostrará en la UI junto al botón de descarga).
 
 **Work Plan**
 1) Confirm AEAT Libro spec
@@ -56,7 +57,7 @@
 - Location: `apps/api/test/quarter-close.int.test.ts`.
 - Setup: seed 3 months of data (1 income/month, some expenses, Seguridad Social entries).
 - Run: call the quarter close function (not a subprocess).
-- Assert: XLSX file exists and has expected unified sheet names; headers untouched; data rows present; guide markdown exists and contains key casillas/values; calculators return consistent totals.
+- Assert: XLSX file exists y tiene los nombres de pestañas unificadas esperados; cabeceras intactas; filas de datos presentes; el nombre del fichero sigue el patrón AEAT; la guía contiene casillas/valores clave; los cálculos son consistentes.
 
 7) Unit tests (coverage focus)
 - Mappers: DB entities → 303 entries, → 349 inputs, → Libro rows.

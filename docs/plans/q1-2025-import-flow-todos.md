@@ -12,6 +12,7 @@
   - 349 inputs (`InvoiceOutFor349[]`).
 - Quarter-close service: implement `closeQuarter(year, q)` in API to compute 130/303/349 and call the writer. Return artifact paths.
 - Filing guide: implement generator for `guia-presentacion-130-303-349.md` with exact AEAT steps and casillas; include filename pattern (Ejercicio+NIF+Tipo+Nombre) and unified sheet names.
+ - Include AEAT validator link (https://www2.agenciatributaria.gob.es/wlpl/PACM-SERV/validarLLRs.html) and display it in the UI near the download button.
 - Integration test: seed 3 months (income, gastos, Seguridad Social), run quarter-close, assert XLSX sheets (`EXPEDIDAS_INGRESOS`, `RECIBIDAS_GASTOS`), header preservation, and guide contents.
 - Unit tests: expand coverage for calculators (130/303/349) and mappers; add writer structure tests (template load, data row positions, numeric formatting).
 - Scripts: add `pnpm prepare:trimestre` to run the pipeline and write artifacts into `testdata/2025/trimestre-1/artifacts/`. Add `pnpm --filter @packages/utils dump:aeat` to inspect templates (wrapper for `packages/utils/scripts/aeat-dump.js`).

@@ -24,14 +24,18 @@ Sheets To Produce
   - Note: Separate IVA (C) and IRPF (D) files remain supported by spec (EXPEDIDAS/RECIBIDAS and INGRESOS/GASTOS), but we will target the unified format.
 
 File Naming (Excel XLSX)
-- One file for IVA books and another for IRPF, unless unified.
-- Unified file allowed containing both taxes.
-- Filename must be: `Ejercicio` + `NIF` + `Tipo` + `Nombre/Razón social` (concatenated, spec does not state separator) [confirm separators].
+- One file for IVA books and another for IRPF, unless unified; unified file (Tipo T) allowed.
+- Filename pattern (confirmed): `Ejercicio`_`NIF`_`Tipo`_`Nombre/RazonSocial` with underscores as separators, name uppercased and spaces as underscores.
+  - Example: `2025_Z1664779K_T_NIKOLAI_ANISIMOV.xlsx`
   - Tipo values:
     - C: All IVA books in one XLSX, with sheets: EXPEDIDAS, RECIBIDAS, BIENES-INVERSIÓN (if applies).
     - D: All IRPF books in one XLSX, with sheets: INGRESOS, GASTOS, BIENES-INVERSIÓN (if applies).
     - T: Unified IVA+IRPF in one XLSX, with sheets: EXPEDIDAS_INGRESOS, RECIBIDAS_GASTOS, BIENES-INVERSIÓN (if applies).
   - File type: XLSX.
+
+Verification Tool (AEAT)
+- AEAT online validator for Libros Registro: https://www2.agenciatributaria.gob.es/wlpl/PACM-SERV/validarLLRs.html
+- We will surface this link in the UI near the “Descargar libro” action to verify generated files.
 
 Unified (T) — Column Headers (from docs/AEAT/Ejemplo_2_1T_2023.xlsx)
 
