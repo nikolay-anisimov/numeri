@@ -1,18 +1,19 @@
 # Q1 2025 Import & Quarter Close — TODOs
 
-- AEAT mapping: confirm unified (Tipo T) structure using `docs/AEAT/LSI.xlsx` and `docs/AEAT/Ejemplo_2_1T_2023.xlsx`; update `docs/AEAT/mapping-libro.md` with exact column names/order and required fields.
-- Domain check: ensure DB models support Client, InvoiceOut, InvoiceIn, and manual Expense (Seguridad Social). Identify any gaps.
-- Libro writer: update `packages/utils/src/aeat-libro-xlsx.ts` to target unified sheets `EXPEDIDAS_INGRESOS` and `RECIBIDAS_GASTOS`.
-  - Prefer template-driven approach: load a clean copy of `LSI.xlsx` and write data starting at the first data row after header block.
-  - Preserve header rows and any validations; don’t alter column order.
-  - Unit tests: verify header rows preserved and data row offsets correct.
-- Mappers: add pure mappers from DB entities to
-  - AEAT Libro rows (writer input),
-  - 303 entries (`Tax303Entry[]`),
-  - 349 inputs (`InvoiceOutFor349[]`).
-- Quarter-close service: implement `closeQuarter(year, q)` in API to compute 130/303/349 and call the writer. Return artifact paths.
-- Filing guide: implement generator for `guia-presentacion-130-303-349.md` with exact AEAT steps and casillas; include filename pattern (Ejercicio+NIF+Tipo+Nombre) and unified sheet names.
- - Include AEAT validator link (https://www2.agenciatributaria.gob.es/wlpl/PACM-SERV/validarLLRs.html) and display it in the UI near the download button.
-- Integration test: seed 3 months (income, gastos, Seguridad Social), run quarter-close, assert XLSX sheets (`EXPEDIDAS_INGRESOS`, `RECIBIDAS_GASTOS`), header preservation, and guide contents.
-- Unit tests: expand coverage for calculators (130/303/349) and mappers; add writer structure tests (template load, data row positions, numeric formatting).
-- Scripts: add `pnpm prepare:trimestre` to run the pipeline and write artifacts into `testdata/2025/trimestre-1/artifacts/`. Add `pnpm --filter @packages/utils dump:aeat` to inspect templates (wrapper for `packages/utils/scripts/aeat-dump.js`).
+Done
+- AEAT mapping (unified Tipo T): extracted sheet names, filename pattern, data row offsets; docs updated in `docs/AEAT/mapping-libro.md` and `docs/AEAT/template-notes.md`.
+- Libro writer (template-driven): added `writeLibroFromTemplate` targeting `EXPEDIDAS_INGRESOS` and `RECIBIDAS_GASTOS`; tests added in utils.
+
+Next
+- Domain check: ensure DB models support the flow (Client, InvoiceOut, InvoiceIn) and manual monthly Seguridad Social.
+  - Option A: model Seguridad Social as `LedgerEntry` with `type=OTHER` and link to a special ThirdParty (TGSS). Add small UI form.
+  - Option B: add a dedicated `ManualExpense` entity and map to 303 deductible entries. Decide and implement minimal path (A likely sufficient).
+- Mappers (pure functions):
+  - DB → unified Libro rows (column order per template; non-applicable fields blank initially).
+  - DB → 303 entries (`Tax303Entry[]`).
+  - DB → 349 inputs (`InvoiceOutFor349[]`).
+- Quarter-close service (API): implement `closeQuarter(year, q)` to compute 130/303/349 and call the template writer; return artifact paths and suggested filename `Ejercicio_NIF_T_NOMBRE.xlsx`.
+- Filing guide: generate `guia-presentacion-130-303-349.md` with AEAT steps, casillas, filename pattern; include validator link (https://www2.agenciatributaria.gob.es/wlpl/PACM-SERV/validarLLRs.html). Surface link in UI next to download.
+- Integration test: seed 3 months (income, gastos, Seguridad Social), run quarter-close, assert unified sheets present, headers preserved, data rows written, guide contains key values.
+- Unit tests: expand coverage for calculators (130/303/349), mappers, and writer (template load, row positions, numeric formatting).
+- Scripts: add `prepare:trimestre` runner and a small wrapper to inspect templates (uses `packages/utils/scripts/aeat-dump.js`).
