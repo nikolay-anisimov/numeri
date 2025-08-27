@@ -13,3 +13,7 @@ test-results
 *.log
 *.sqlite
 tmp
+# Office temporary lock files in testdata
+testdata/**/~$*
+scripts/openai-invoices/invoices/
+scripts/openai-invoices/pw-openai-profile/
