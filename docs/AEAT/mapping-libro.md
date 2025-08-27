@@ -23,6 +23,9 @@ Sheets To Produce
   - BIENES-INVERSIÓN (si procede)
   - Note: Separate IVA (C) and IRPF (D) files remain supported by spec (EXPEDIDAS/RECIBIDAS and INGRESOS/GASTOS), but we will target the unified format.
 
+Data Row Offsets
+- Headers occupy two rows; data begins on Excel row 3 (0-based index 2) in both unified sheets, per `Ejemplo_2_1T_2023.xlsx`.
+
 File Naming (Excel XLSX)
 - One file for IVA books and another for IRPF, unless unified; unified file (Tipo T) allowed.
 - Filename pattern (confirmed): `Ejercicio`_`NIF`_`Tipo`_`Nombre/RazonSocial` with underscores as separators, name uppercased and spaces as underscores.

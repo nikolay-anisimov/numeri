@@ -1,6 +1,7 @@
 import * as XLSX from 'xlsx'
 import { round2 } from './fx'
 import type { BookEntry } from './aeat'
+import * as fs from 'fs'
 
 export interface BuildLibroOptions {
   sheetNames?: {
@@ -152,4 +153,38 @@ export function writeLibroXlsx(
 ) {
   const wb = buildLibroWorkbook(expedidas, recibidas, opts)
   XLSX.writeFile(wb, filePath)
+}
+
+// Template-driven writer: load an AEAT template (e.g., docs/AEAT/LSI.xlsx) and append
+// data rows after the header block (default: start at row index 2 → Excel row 3).
+export function writeLibroFromTemplate(
+  templatePath: string,
+  outPath: string,
+  expedidasRows: any[][],
+  recibidasRows: any[][],
+  opts: { sheetNames?: { expedidas?: string; recibidas?: string }; startRow?: number } = {}
+) {
+  if (!fs.existsSync(templatePath)) throw new Error(`Template not found: ${templatePath}`)
+  const wb = XLSX.readFile(templatePath, { cellDates: true })
+  const shex = opts.sheetNames?.expedidas ?? 'EXPEDIDAS_INGRESOS'
+  const shrx = opts.sheetNames?.recibidas ?? 'RECIBIDAS_GASTOS'
+  const startRow = opts.startRow ?? 2 // 0-based index → Excel row 3
+  const wsExp = wb.Sheets[shex]
+  const wsRec = wb.Sheets[shrx]
+  if (!wsExp || !wsRec) throw new Error(`Template missing required sheets ${shex} or ${shrx}`)
+
+  // Read existing sheet to AoA, pad to startRow, and append rows
+  function appendRows(wsName: string, ws: any, rows: any[][]) {
+    const data: any[][] = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' }) as any
+    while (data.length < startRow) data.push([])
+    for (const r of rows) data.push(r)
+    const next = XLSX.utils.aoa_to_sheet(data)
+    // Replace sheet in workbook by name
+    wb.Sheets[wsName] = next
+    return next
+  }
+
+  appendRows(shex, wsExp, expedidasRows)
+  appendRows(shrx, wsRec, recibidasRows)
+  XLSX.writeFile(wb, outPath)
 }
