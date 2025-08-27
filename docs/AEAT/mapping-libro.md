@@ -17,11 +17,11 @@ Verification Checklist (to do with the PDF)
 - [ ] Confirm whether non-EUR currency is permitted and how to report it.
 
 Sheets To Produce
-- IVA – Libro registro de facturas expedidas → sheet name: EXPEDIDAS
-- IVA – Libro registro de facturas recibidas → sheet name: RECIBIDAS
-- IRPF – Libro registro de ingresos (estimación directa) → sheet name: INGRESOS
-- IRPF – Libro registro de gastos (estimación directa) → sheet name: GASTOS
-- Bienes de inversión (si procede) → sheet name: BIENES-INVERSIÓN
+- Prefer unified file (Tipo T) with sheets:
+  - EXPEDIDAS_INGRESOS
+  - RECIBIDAS_GASTOS
+  - BIENES-INVERSIÓN (si procede)
+  - Note: Separate IVA (C) and IRPF (D) files remain supported by spec (EXPEDIDAS/RECIBIDAS and INGRESOS/GASTOS), but we will target the unified format.
 
 File Naming (Excel XLSX)
 - One file for IVA books and another for IRPF, unless unified.
@@ -32,6 +32,20 @@ File Naming (Excel XLSX)
     - D: All IRPF books in one XLSX, with sheets: INGRESOS, GASTOS, BIENES-INVERSIÓN (if applies).
     - T: Unified IVA+IRPF in one XLSX, with sheets: EXPEDIDAS_INGRESOS, RECIBIDAS_GASTOS, BIENES-INVERSIÓN (if applies).
   - File type: XLSX.
+
+Unified (T) — Column Headers (from docs/AEAT/Ejemplo_2_1T_2023.xlsx)
+
+- EXPEDIDAS_INGRESOS
+  - Row 0 (titles): Autoliquidación | Actividad | Tipo de Factura | Concepto de Ingreso | Ingreso Computable | Fecha Expedición | Fecha Operación | Identificación de la factura (Serie, Número, Número-final) | NIF Destinatario (Tipo, Código país, Identificación) | Nombre Destinatario | Clave Operación | Calificación de la Operación | Operación Exenta | Total Factura | Base Imponible | Tipo de IVA | Cuota IVA Repercutida | Tipo de Recargo Eq. | Cuota Recargo Eq. | Cobro (Fecha, Importe, Medio utilizado, Identificación medio utilizado) | Tipo Retención del IRPF | Importe Retenido del IRPF | Registro Acuerdo Facturación | Inmueble (Situación, Referencia Catastral) | Referencia Externa
+  - Row 1 (field names): Ejercicio | Periodo | Código | Tipo | Grupo o Epígrafe del IAE | Factura Tipo | Ingreso | Computable | Expedición | Operación | Serie | Número | Número-final | Tipo | Código país | Identificación | Destinatario | Operación | Operación | Exenta | Factura | Imponible | de IVA | Repercutida | Recargo Eq. | Recargo Eq. | Fecha | Importe | Medio utilizado | Identificación medio utilizado | Tipo Retención del IRPF | Importe Retenido del IRPF | Facturación | Situación | Referencia Catastral | (vacío)
+
+- RECIBIDAS_GASTOS
+  - Row 0 (titles): Autoliquidación | Actividad | Tipo de Factura | Gasto | Deducible | Fecha Expedición | Fecha Operación | Identificación de la factura (Serie-Número, Número-final) | Fecha Recepción (Recepción, Recepción, Recepción final) | NIF Expedidor (Tipo, Código País, Identificación) | Nombre Expedidor | Clave Operación | Inversión Bienes de Inversión | Inversión Sujeto Pasivo | Periodo Posterior (Ejercicio, Periodo) | Total Factura | Base Imponible | Tipo de IVA | Cuota IVA Soportado | Cuota Deducible | Tipo de Recargo Eq. | Cuota Recargo Eq. | Pago (Fecha, Importe, Medio utilizado, Identificación medio utilizado) | Retención IRPF | Importe del IRPF | Registro Acuerdo Facturación | Inmueble (Situación, Referencia Catastral) | (vacío)
+  - Row 1 (field names): Ejercicio | Periodo | Código | Tipo | Grupo o Epígrafe del IAE | Factura | Gasto | Deducible | Expedición | Operación | (Serie-Número) | Número-final | Recepción | Recepción | Recepción final | Tipo | Código País | Identificación | Expedidor | Operación | Inversión | Sujeto Pasivo | Periodo Posterior | Ejercicio | Periodo | Factura | Imponible | de IVA | Soportado | Deducible | Recargo Eq. | Recargo Eq. | Fecha | Importe | Medio utilizado | Identificación medio utilizado | IRPF | del IRPF | Facturación | Situación | Referencia Catastral | (vacío)
+
+Notes
+- The template files (LSI.xlsx) contain instructions and data dictionary rows above the header; in the Ejemplo file, headers occupy the first two rows, then data rows begin.
+- For generation, we will ship a template and write data starting at the first data row expected by AEAT (after headers), preserving column order.
 
 Data Types & Formats (global)
 - Date: Excel date (no time), displayed as `dd/mm/yyyy` [verify]

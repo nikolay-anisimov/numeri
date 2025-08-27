@@ -9,6 +9,7 @@ export interface BuildLibroOptions {
   }
 }
 
+// Provisional headers for unified 'T' format (to be replaced with exact AEAT headers)
 const HEADERS_EXPEDIDAS = [
   'Fecha',
   'FechaOperacion',
@@ -128,9 +129,9 @@ export function buildLibroWorkbook(
   opts: BuildLibroOptions = {}
 ): XLSX.WorkBook {
   const wb = XLSX.utils.book_new()
-  // Official AEAT sheet names for IVA books
-  const shex = opts.sheetNames?.expedidas ?? 'EXPEDIDAS'
-  const shrx = opts.sheetNames?.recibidas ?? 'RECIBIDAS'
+  // Official AEAT sheet names for unified IVA+IRPF book (Tipo T)
+  const shex = opts.sheetNames?.expedidas ?? 'EXPEDIDAS_INGRESOS'
+  const shrx = opts.sheetNames?.recibidas ?? 'RECIBIDAS_GASTOS'
 
   const dataExp = [HEADERS_EXPEDIDAS, ...expedidas.map(rowForExpedida)]
   const wsExp = XLSX.utils.aoa_to_sheet(dataExp)
