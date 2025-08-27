@@ -20,8 +20,9 @@
 - Data source: app DB, not TaxScouts libro. We’ll keep a separate future importer for historic trimestres de TaxScouts.
 - Mapping:
   - Internals: continue using `packages/utils` tax calculators (`calc130Ytd`, `calc303`, `build349Lines`).
-  - Libro AEAT XLSX: implement a new writer per AEAT spec with the required sheets/columns (Ingresos/Libro de Ventas; Gastos/Libro de Compras) as defined in the PDF.
-- Filing guide generator: produce a markdown with instructions for AEAT portals (links), what options to choose, and what values to put in each casilla (sourced from our calcs). If AEAT allows importing libros to prefill anything, document the precise path; otherwise, give explicit manual steps.
+  - Libro AEAT XLSX (unified Tipo T): generate an XLSX with sheets `EXPEDIDAS_INGRESOS` and `RECIBIDAS_GASTOS` (and `BIENES-INVERSIÓN` if aplica) per `docs/AEAT/LSI.xlsx` and `docs/AEAT/Ejemplo_2_1T_2023.xlsx`.
+  - Prefer template-driven writer: load a clean LSI.xlsx template and write data rows at the correct offsets to preserve header/dictionary/validation rows.
+- Filing guide generator: produce a markdown with instructions for AEAT portals (links), what options to choose, and what values to put in each casilla (sourced from our calcs). Include the XLSX filename pattern (Ejercicio+NIF+Tipo+Nombre). If AEAT allows importing libros to prefill anything, document the precise path; otherwise, give explicit manual steps.
 
 **Work Plan**
 1) Confirm AEAT Libro spec
@@ -32,10 +33,11 @@
 - Ensure Prisma models support: Client, InvoiceOut, InvoiceIn, ExpenseManual (for Seguridad Social), with date, base, IVA, total, currency.
 - Minimal UI to add these entries for each month (or seeded via script for tests).
 
-3) Libro XLSX writer
-- New util: `packages/utils/src/aeat-libro-xlsx.ts` using `xlsx` to produce XLSX that matches the PDF (headers, formats; basic validation where feasible).
-- Mapper from our DB entities → Libro rows.
-- Unit tests: header mapping, a few rows, workbook integrity.
+3) Libro XLSX writer (Unified)
+- New util: `packages/utils/src/aeat-libro-xlsx.ts` using `xlsx` to produce XLSX per unified template.
+- Approach: load LSI.xlsx (bundled in repo) as template; append data rows under headers for `EXPEDIDAS_INGRESOS` and `RECIBIDAS_GASTOS`.
+- Mapper from our DB entities → column array order per template; leave non-applicable fields blank initially (e.g., recargo equivalencia, retención IRPF) and expand later.
+- Unit tests: verify template header preservation and correct data row offsets for both sheets; sanity-check numeric cells.
 
 4) Quarter close service
 - New service in API: `closeQuarter(year, q)` → computes:
@@ -54,7 +56,7 @@
 - Location: `apps/api/test/quarter-close.int.test.ts`.
 - Setup: seed 3 months of data (1 income/month, some expenses, Seguridad Social entries).
 - Run: call the quarter close function (not a subprocess).
-- Assert: XLSX file exists and has expected sheets/headers/row counts; guide markdown exists and contains key casillas/values; calculators return consistent totals.
+- Assert: XLSX file exists and has expected unified sheet names; headers untouched; data rows present; guide markdown exists and contains key casillas/values; calculators return consistent totals.
 
 7) Unit tests (coverage focus)
 - Mappers: DB entities → 303 entries, → 349 inputs, → Libro rows.
@@ -70,6 +72,5 @@
 - Integration and unit tests pass locally and in CI; no network required.
 
 **Open Questions / To Validate**
-- Exact AEAT columns for autónomos (IRPF) vs. IVA books—some taxpayers keep both. We’ll implement the pro books per PDF first.
-- Whether AEAT portals accept Excel libro uploads to prefill forms. If not, guide remains manual.
-
+- Which columns are mandatory for our scenario (servicios B2B UE sin IVA repercutido en ventas; gastos con IVA soportado deducible corriente). Capture in `docs/AEAT/template-notes.md`.
+- Whether AEAT portals accept Excel libro uploads to prefill models; if so, document exact import path and constraints. If not, guide remains manual.
