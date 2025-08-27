@@ -176,18 +176,30 @@ export class ImportsService {
       const supplier =
         (await this.prisma.thirdParty.findFirst({ where: { type: 'SUPPLIER', name: supplierName } })) ||
         (await this.prisma.thirdParty.create({ data: { type: 'SUPPLIER', name: supplierName, nif: supplierNif, countryCode: 'ES' } }))
+      const reverseCharge: boolean = !!parsed.reverseCharge
+      const sellerNif = String(supplierNif)
+      const isOss = /^EU[A-Z0-9]{8,}/.test(sellerNif) || !!parsed.euOss
+      const isCountryVat = /^[A-Z]{2}[A-Z0-9]{8,}/.test(sellerNif) && !isOss
+      const isEuSupplier = isCountryVat && /^(AT|BE|BG|HR|CY|CZ|DE|DK|EE|EL|ES|FI|FR|HU|IE|IT|LT|LU|LV|MT|NL|PL|PT|RO|SE|SI|SK)$/i.test(sellerNif.slice(0, 2))
+      // Classification
+      const euOperation = isEuSupplier && reverseCharge
+      const category = reverseCharge ? (isEuSupplier ? 'reverse-charge-eu' : 'reverse-charge-non-eu') : undefined
+      // For reverse charge, VAT on supplier is zero
+      const vatRateEff = reverseCharge ? 0 : vatRate
+      const vatAmountEff = reverseCharge ? 0 : vatAmount
       let inv
       if (!dryRun) {
         inv = await this.invoices.createIn({
           issueDate,
           supplierId: supplier.id,
           base,
-          vatRate,
-          vatAmount,
+          vatRate: vatRateEff,
+          vatAmount: vatAmountEff,
           total,
           currency,
           createdById,
-          euOperation: euFlag
+          euOperation,
+          category
         })
         try {
           await (this.prisma as any).attachment.create({ data: { invoiceInId: (inv as any).id, relPath, filename: path.basename(abs), kind: 'pdf' } })

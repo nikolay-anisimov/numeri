@@ -55,6 +55,30 @@ export function fromFilenameInvoice(filename?: string): string | undefined {
   return undefined
 }
 
+function extractEuVat(text: string): string | undefined {
+  // Look for patterns like EU372041333 or country-prefixed VATs near 'VAT'
+  const aroundVat = text.match(/(EU[0-9]{8,12}|[A-Z]{2}[A-Z0-9]{8,12})/)
+  if (aroundVat) return aroundVat[1]
+  return undefined
+}
+
+function hasReverseCharge(text: string): boolean {
+  return /reverse\s*charge/i.test(text) || /inversion\s+del\s+sujeto\s+pasivo/i.test(text)
+}
+
+function detectCountry(text: string): string | undefined {
+  const t = text.toLowerCase()
+  if (t.includes('united states')) return 'US'
+  if (t.includes('spain') || t.includes('españa')) return 'ES'
+  if (t.includes('poland') || t.includes('polska')) return 'PL'
+  if (t.includes('germany') || t.includes('deutschland')) return 'DE'
+  if (t.includes('ireland')) return 'IE'
+  if (t.includes('united kingdom') || t.includes('uk')) return 'GB'
+  if (t.includes('france')) return 'FR'
+  if (t.includes('italy') || t.includes('italia')) return 'IT'
+  return undefined
+}
+
 export function parseOpenAI(text: string, filename?: string) {
   const issueDate = parseDate(text) || new Date().toISOString().slice(0, 10)
   const invoiceNumber = fromFilenameInvoice(filename) || text.match(/Invoice\s*(?:No|#)\s*([A-Z0-9-]+)/i)?.[1]
@@ -62,11 +86,15 @@ export function parseOpenAI(text: string, filename?: string) {
   const vatRate = parseNumber(text.match(/\b(VAT|IVA)\s*(\d{1,2}[.,]?\d*)%/i)?.[2]) || 0
   const vat = findLabeledAmount(text, ['vat', 'iva'], 'last') || (base != null ? Math.round(base * ((vatRate || 0) / 100) * 100) / 100 : undefined)
   const total = findLabeledAmount(text, ['total'], 'first') || (base != null && vat != null ? base + vat : undefined)
+  const sellerNIF = extractEuVat(text) || ''
+  const reverseCharge = hasReverseCharge(text)
+  const euOss = /^EU[A-Z0-9]{8,}/.test(sellerNIF) || /\bEU\s+OSS\s+VAT/i.test(text)
+  const country = detectCountry(text)
   return {
     issueDate,
     invoiceNumber: invoiceNumber || 'UNKNOWN',
     sellerName: 'OpenAI',
-    sellerNIF: '',
+    sellerNIF,
     buyerName: '',
     buyerNIF: '',
     baseAmount: base ?? 0,
@@ -74,7 +102,10 @@ export function parseOpenAI(text: string, filename?: string) {
     vatAmount: vat ?? 0,
     totalAmount: total ?? (base ?? 0) + (vat ?? 0),
     currency: detectCurrency(text),
-    euCustomer: false
+    euCustomer: false,
+    reverseCharge,
+    euOss,
+    country
   }
 }
 
@@ -131,11 +162,15 @@ export function genericParse(text: string, filename?: string) {
   const vatRate = parseNumber(text.match(/\b(VAT|IVA)\s*(\d{1,2}[.,]?\d*)%/i)?.[2]) || 0
   const vat = findLabeledAmount(text, ['iva', 'vat'], 'last') || (base != null ? Math.round(base * ((vatRate || 0) / 100) * 100) / 100 : undefined)
   const total = findLabeledAmount(text, ['total'], 'first') || (base != null && vat != null ? base + vat : undefined)
+  const sellerNIF = extractEuVat(text) || ''
+  const reverseCharge = hasReverseCharge(text)
+  const euOss = /^EU[A-Z0-9]{8,}/.test(sellerNIF) || /\bEU\s+OSS\s+VAT/i.test(text)
+  const country = detectCountry(text)
   return {
     issueDate,
     invoiceNumber: (invoiceNumber || 'UNKNOWN').toString(),
     sellerName: '',
-    sellerNIF: '',
+    sellerNIF,
     buyerName: '',
     buyerNIF: '',
     baseAmount: base ?? 0,
@@ -143,7 +178,10 @@ export function genericParse(text: string, filename?: string) {
     vatAmount: vat ?? 0,
     totalAmount: total ?? (base ?? 0) + (vat ?? 0),
     currency: detectCurrency(text),
-    euCustomer: false
+    euCustomer: false,
+    reverseCharge,
+    euOss,
+    country
   }
 }
 

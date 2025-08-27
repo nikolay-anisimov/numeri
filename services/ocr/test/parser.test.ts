@@ -4,13 +4,17 @@ import { cleanText, parseFromText, chooseVendor } from '../src/parser'
 describe('OCR parser for gastos', () => {
   it('parses OpenAI invoice', () => {
     const filename = 'OpenAI Invoice-728FD5FD-0024.pdf'
-    const raw = `Invoice # 728FD5FD-0024\nDate: 2025-06-20\nSubtotal 100.00\nVAT 21% 21.00\nTotal 121.00\n`
+    const raw = `Invoice # 728FD5FD-0024\nDate: 2025-06-20\nOpenAI, LLC\nSan Francisco, California\nUnited States\nEU OSS VAT EU372041333\n[1] Tax to be paid on reverse charge basis\nSubtotal 100.00\nVAT 21% 21.00\nTotal 121.00\n`
     const { vendor, parsed } = parseFromText(cleanText(raw), filename)
     expect(vendor).toBe('openai')
     expect(parsed.invoiceNumber).toContain('728FD5FD-0024')
     expect(parsed.baseAmount).toBe(100)
     expect(parsed.vatRate).toBe(21)
     expect(parsed.totalAmount).toBe(121)
+    expect(parsed.sellerNIF).toMatch(/^EU/)
+    expect(parsed.reverseCharge).toBe(true)
+    expect(parsed.euOss).toBe(true)
+    expect(parsed.country).toBe('US')
   })
 
   it('parses Anthropic invoice', () => {
