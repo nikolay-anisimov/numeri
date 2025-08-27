@@ -7,11 +7,20 @@ Purpose
 Status
 - Draft. Marked fields with [verify] require confirmation against the PDF. This file will drive implementation in `packages/utils/src/aeat-libro-xlsx.ts`.
 
+Verification Checklist (to do with the PDF)
+- [ ] Confirm mandatory sheets and exact Spanish sheet titles required by AEAT.
+- [ ] Confirm the exact column names, order, and data types for Expedidas (ventas).
+- [ ] Confirm the exact column names, order, and data types for Recibidas (compras).
+- [ ] Confirm whether IRPF books are mandatory alongside IVA for our scenario.
+- [ ] Confirm encoding/codes for "Clave de operación" (AIB/ISP/intracomunitaria/etc.).
+- [ ] Confirm handling for multi-type IVA per invoice (0/4/10/21 in the same line vs multiple lines).
+- [ ] Confirm whether non-EUR currency is permitted and how to report it.
+
 Sheets To Produce
-- IVA – Facturas expedidas (ventas) [verify names]
-- IVA – Facturas recibidas (compras) [verify names]
-- IRPF – Libro de ingresos (estimación directa) [verify applicability]
-- IRPF – Libro de gastos (estimación directa) [verify applicability]
+- IVA – Libro registro de facturas expedidas [verify exact title]
+- IVA – Libro registro de facturas recibidas [verify exact title]
+- IRPF – Libro registro de ingresos (estimación directa) [verify applicability]
+- IRPF – Libro registro de gastos (estimación directa) [verify applicability]
 
 Data Types & Formats (global)
 - Date: Excel date (no time), displayed as `dd/mm/yyyy` [verify]
@@ -120,4 +129,3 @@ Example (Expedidas) — Single Line
 Implementation Notes
 - The XLSX writer will generate four sheets (two if IRPF not required), with exact headers and basic data validation.
 - Unit tests will assert headers, types (numeric cells), and a couple of example rows.
-
