@@ -19,6 +19,11 @@ export interface InvoiceOutLike {
   currency: string
   fxToEUR: number
   euOperation?: boolean
+  codeTipoFactura?: string
+  codeConceptoIngreso?: string
+  codeClaveOperacion?: string
+  codeCalificacionOp?: string
+  codeExencion?: string
 }
 
 export interface InvoiceInLike {
@@ -32,6 +37,9 @@ export interface InvoiceInLike {
   fxToEUR: number
   assetFlag?: boolean
   deductible?: boolean
+  codeTipoFactura?: string
+  codeConceptoGasto?: string
+  codeClaveOperacion?: string
 }
 
 export function quarterFromMonth(m: number): 1 | 2 | 3 | 4 {
@@ -58,9 +66,18 @@ export function mapInvoiceOutToUnifiedRow(inv: InvoiceOutLike): any[] {
   const row: any[] = new Array(36).fill('')
   row[0] = yearFromDate(inv.issueDate)
   row[1] = periodLabelFromDate(inv.issueDate)
+  // Codes (approximate columns; will be refined with template-driven writer)
+  // Tipo de Factura ~ col 5
+  if (inv.codeTipoFactura) row[5] = inv.codeTipoFactura
+  // Concepto de Ingreso ~ col 6
+  if (inv.codeConceptoIngreso) row[6] = inv.codeConceptoIngreso
   row[10] = inv.series ?? ''
   row[11] = inv.number
   row[16] = inv.client.name ?? ''
+  // Clave/Calificación/Exención ~ col 17..19
+  if (inv.codeClaveOperacion) row[17] = inv.codeClaveOperacion
+  if (inv.codeCalificacionOp) row[18] = inv.codeCalificacionOp
+  if (inv.codeExencion) row[19] = inv.codeExencion
   row[20] = inv.total
   row[21] = inv.base
   row[22] = inv.vatRate
@@ -76,8 +93,14 @@ export function mapInvoiceInToUnifiedRow(inv: InvoiceInLike): any[] {
   const row: any[] = new Array(40).fill('')
   row[0] = yearFromDate(inv.issueDate)
   row[1] = periodLabelFromDate(inv.issueDate)
+  // Tipo de Factura ~ col 5
+  if (inv.codeTipoFactura) row[5] = inv.codeTipoFactura
+  // Concepto de Gasto ~ col 6
+  if (inv.codeConceptoGasto) row[6] = inv.codeConceptoGasto
   // Serie-Número not available in model; leave blank or derive externally
   row[18] = inv.supplier.name ?? ''
+  // Clave de Operación ~ col 19
+  if (inv.codeClaveOperacion) row[19] = inv.codeClaveOperacion
   row[24] = inv.total
   row[25] = inv.base
   row[26] = inv.vatRate
@@ -118,4 +141,3 @@ export function build349Inputs(outs: InvoiceOutLike[]): InvoiceOutFor349[] {
     clave: o.euOperation ? 'S' : undefined
   }))
 }
-

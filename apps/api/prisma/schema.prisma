@@ -52,6 +52,12 @@ model InvoiceOut {
   fxToEUR     Decimal  @db.Decimal(18, 6)
   notes       String?
   euOperation Boolean  @default(false)
+  // AEAT unified Libro codes (optional UI selections)
+  codeTipoFactura         String?
+  codeConceptoIngreso     String?
+  codeClaveOperacion      String?
+  codeCalificacionOp      String?
+  codeExencion            String?
   createdBy   User     @relation(fields: [createdById], references: [id])
   createdById String
 
@@ -79,6 +85,10 @@ model InvoiceIn {
   assetFlag    Boolean  @default(false)
   notes        String?
   euOperation  Boolean  @default(false)
+  // AEAT unified Libro codes (optional UI selections)
+  codeTipoFactura     String?
+  codeConceptoGasto   String?
+  codeClaveOperacion  String?
   createdBy    User     @relation(fields: [createdById], references: [id])
   createdById  String
 

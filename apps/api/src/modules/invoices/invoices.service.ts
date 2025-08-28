@@ -34,6 +34,9 @@ export class InvoicesService {
     assetFlag?: boolean
     notes?: string
     euOperation?: boolean
+    codeTipoFactura?: string
+    codeConceptoGasto?: string
+    codeClaveOperacion?: string
     createdById: string
   }) {
     const fxToEUR = await this.computeFxToEUR(body.issueDate, body.currency, body.fxToEUR)
@@ -53,6 +56,11 @@ export class InvoicesService {
     fxToEUR?: number
     notes?: string
     euOperation?: boolean
+    codeTipoFactura?: string
+    codeConceptoIngreso?: string
+    codeClaveOperacion?: string
+    codeCalificacionOp?: string
+    codeExencion?: string
     createdById: string
   }) {
     const fxToEUR = await this.computeFxToEUR(body.issueDate, body.currency, body.fxToEUR)
