@@ -3,7 +3,8 @@ import { InvoicesService } from './invoices.service'
 describe('InvoicesService', () => {
   const prismaMock = {
     invoiceIn: { create: jest.fn() },
-    invoiceOut: { create: jest.fn() }
+    invoiceOut: { create: jest.fn() },
+    thirdParty: { findFirst: jest.fn(), create: jest.fn(), findUnique: jest.fn() }
   } as any
 
   const fxMock = {
@@ -12,6 +13,7 @@ describe('InvoicesService', () => {
 
   beforeEach(() => {
     jest.resetAllMocks()
+    prismaMock.thirdParty = { findFirst: jest.fn(), create: jest.fn(), findUnique: jest.fn() }
   })
 
   it('sets fxToEUR=1 for EUR invoices (in)', async () => {
@@ -55,7 +57,7 @@ describe('InvoicesService', () => {
   it('marks EU B2B and zero VAT when client has EU VAT', async () => {
     // Arrange mocks
     prismaMock.invoiceOut.create.mockImplementation(({ data }: any) => data)
-    prismaMock.thirdParty = { findUnique: jest.fn().mockResolvedValue({ id: 'cli', euVatNumber: 'PL123456789' }) }
+    prismaMock.thirdParty.findUnique = jest.fn().mockResolvedValue({ id: 'cli', euVatNumber: 'PL123456789' })
     fxMock.getRateByDate.mockResolvedValue({ rate: 1.1 })
     const svc = new InvoicesService(prismaMock, fxMock)
     // Act
@@ -75,5 +77,22 @@ describe('InvoicesService', () => {
     expect(res.vatRate).toBe(0)
     expect(res.vatAmount).toBe(0)
     expect(res.total).toBe(100)
+  })
+
+  it('creates Seguridad Social manual expense via TGSS supplier', async () => {
+    // Arrange
+    prismaMock.thirdParty.findFirst.mockResolvedValueOnce(null)
+    prismaMock.thirdParty.create.mockResolvedValueOnce({ id: 'tgss' })
+    prismaMock.invoiceIn.create.mockImplementation(({ data }: any) => data)
+    const svc = new InvoicesService(prismaMock, fxMock)
+    // Act
+    const res = await svc.createSeguridadSocial({ issueDate: '2025-01-31', amountEUR: 300.5, createdById: 'u1' })
+    // Assert
+    expect(prismaMock.thirdParty.create).toHaveBeenCalled()
+    expect(res.base).toBe(300.5)
+    expect(res.vatRate).toBe(0)
+    expect(res.vatAmount).toBe(0)
+    expect(res.currency).toBe('EUR')
+    expect(res.category).toBe('seguridad-social')
   })
 })

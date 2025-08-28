@@ -135,4 +135,31 @@ export class InvoicesService {
       createdById: body.createdById
     })
   }
+
+  private async getOrCreateTGSS() {
+    const existing = await this.prisma.thirdParty.findFirst({ where: { type: 'SUPPLIER', nif: 'Q2810001D' } })
+    if (existing) return existing
+    return this.prisma.thirdParty.create({
+      data: { type: 'SUPPLIER', name: 'TESORERIA GENERAL DE LA SEGURIDAD SOCIAL', nif: 'Q2810001D', countryCode: 'ES' }
+    })
+  }
+
+  async createSeguridadSocial(input: { issueDate: string; amountEUR: number; createdById: string }) {
+    const tgss = await this.getOrCreateTGSS()
+    const amount = round2(input.amountEUR)
+    return this.createIn({
+      issueDate: input.issueDate,
+      supplierId: tgss.id,
+      base: amount,
+      vatRate: 0,
+      vatAmount: 0,
+      total: amount,
+      currency: 'EUR',
+      deductible: true,
+      category: 'seguridad-social',
+      assetFlag: false,
+      notes: 'Cuota Seguridad Social',
+      createdById: input.createdById
+    })
+  }
 }
