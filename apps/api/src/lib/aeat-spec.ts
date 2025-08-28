@@ -72,3 +72,37 @@ export function validateCodesForOut(input: {
   }
 }
 
+function isIsoDate(s: string) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(s)
+}
+
+function approxEqual(a: number, b: number, tol = 0.02) {
+  return Math.abs(a - b) <= tol
+}
+
+export function validateCommonIn(payload: {
+  issueDate: string
+  base: number
+  vatRate: number
+  vatAmount: number
+  total: number
+  currency: string
+}) {
+  if (!isIsoDate(payload.issueDate)) throw new BadRequestException('issueDate must be YYYY-MM-DD')
+  if (!/^[A-Z]{3}$/.test(payload.currency)) throw new BadRequestException('currency must be 3-letter ISO code')
+  for (const [k, v] of Object.entries({ base: payload.base, vatRate: payload.vatRate, vatAmount: payload.vatAmount, total: payload.total })) {
+    if (!Number.isFinite(v as number)) throw new BadRequestException(`${k} must be a number`)
+  }
+  if (!approxEqual(payload.base + payload.vatAmount, payload.total)) throw new BadRequestException('total must equal base + vatAmount (±0.02)')
+}
+
+export function validateCommonOut(payload: {
+  issueDate: string
+  base: number
+  vatRate: number
+  vatAmount: number
+  total: number
+  currency: string
+}) {
+  return validateCommonIn(payload)
+}

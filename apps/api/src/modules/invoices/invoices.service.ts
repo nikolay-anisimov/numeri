@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service'
 import { FxService } from '../fx/fx.service'
 import { round2 } from '@packages/utils'
-import { validateCodesForIn, validateCodesForOut } from '../../lib/aeat-spec'
+import { validateCodesForIn, validateCodesForOut, validateCommonIn, validateCommonOut } from '../../lib/aeat-spec'
 
 function round6(n: number) {
   return Math.round(n * 1_000_000) / 1_000_000
@@ -41,11 +41,8 @@ export class InvoicesService {
     createdById: string
   }) {
     // Validate AEAT codes if present
-    try {
-      validateCodesForIn(body)
-    } catch (e) {
-      throw e
-    }
+    validateCommonIn(body)
+    validateCodesForIn(body)
     const fxToEUR = await this.computeFxToEUR(body.issueDate, body.currency, body.fxToEUR)
     return this.prisma.invoiceIn.create({ data: { ...body, fxToEUR, issueDate: new Date(body.issueDate) } })
   }
@@ -71,11 +68,8 @@ export class InvoicesService {
     createdById: string
   }) {
     const fxToEUR = await this.computeFxToEUR(body.issueDate, body.currency, body.fxToEUR)
-    try {
-      validateCodesForOut(body)
-    } catch (e) {
-      throw e
-    }
+    validateCommonOut(body)
+    validateCodesForOut(body)
     // EU B2B rule of thumb (services): if client has EU VAT, mark as EU operation and set VAT 0
     const client = await this.prisma.thirdParty.findUnique({ where: { id: body.clientId } })
     let vatRate = body.vatRate
