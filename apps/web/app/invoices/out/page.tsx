@@ -21,6 +21,12 @@ export default function OutInvoicesPage() {
   const [createdById, setCreatedById] = useState('')
   const [base, setBase] = useState('')
   const [clientId, setClientId] = useState('')
+  const [codes, setCodes] = useState<any | null>(null)
+  const [codeTipoFactura, setCodeTipoFactura] = useState('F1')
+  const [codeConceptoIngreso, setCodeConceptoIngreso] = useState('I01')
+  const [codeClaveOperacion, setCodeClaveOperacion] = useState('01')
+  const [codeCalificacionOp, setCodeCalificacionOp] = useState('S1')
+  const [codeExencion, setCodeExencion] = useState('')
 
   useEffect(() => {
     ;(async () => {
@@ -34,11 +40,34 @@ export default function OutInvoicesPage() {
     })()
   }, [api])
 
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const res = await fetch(`${api.replace(/\/$/, '')}/aeat/codes`)
+        if (res.ok) setCodes(await res.json())
+      } catch (e) {
+        console.error('Failed to load AEAT codes', e)
+      }
+    })()
+  }, [api])
+
+  const headerItems = (sheet: string, header: string): { code: string; label: string }[] => {
+    const it = codes?.sheets?.[sheet]?.[header]?.items as any[] | undefined
+    return (it || []) as any
+  }
+
   const emitFromLast = async () => {
     try {
       if (!createdById) return alert('Indica createdById')
       setLoading(true)
-      const payload: any = { createdById }
+      const payload: any = {
+        createdById,
+        codeTipoFactura,
+        codeConceptoIngreso,
+        codeClaveOperacion,
+        codeCalificacionOp,
+        codeExencion: codeExencion || undefined
+      }
       if (base) payload.base = Number(base)
       if (clientId) payload.clientId = clientId
       const res = await fetch(`${api}/invoices/out/emit`, {
@@ -71,6 +100,37 @@ export default function OutInvoicesPage() {
           <input className="border p-2" value={base} onChange={(e) => setBase(e.target.value)} placeholder="usa base anterior por defecto" />
           <label className="text-sm">ClientId (opcional)</label>
           <input className="border p-2" value={clientId} onChange={(e) => setClientId(e.target.value)} placeholder="usa cliente anterior por defecto" />
+          <label className="text-sm">Tipo Factura</label>
+          <select className="border p-2" value={codeTipoFactura} onChange={(e) => setCodeTipoFactura(e.target.value)}>
+            {headerItems('EXPEDIDAS_INGRESOS', 'Tipo de Factura').map((it) => (
+              <option key={it.code} value={it.code}>{`${it.code} — ${it.label}`}</option>
+            ))}
+          </select>
+          <label className="text-sm">Concepto Ingreso</label>
+          <select className="border p-2" value={codeConceptoIngreso} onChange={(e) => setCodeConceptoIngreso(e.target.value)}>
+            {headerItems('EXPEDIDAS_INGRESOS', 'Concepto de Ingreso').map((it) => (
+              <option key={it.code} value={it.code}>{`${it.code} — ${it.label}`}</option>
+            ))}
+          </select>
+          <label className="text-sm">Clave Operación</label>
+          <select className="border p-2" value={codeClaveOperacion} onChange={(e) => setCodeClaveOperacion(e.target.value)}>
+            {headerItems('EXPEDIDAS_INGRESOS', 'Clave de Operación').map((it) => (
+              <option key={it.code} value={it.code}>{`${it.code} — ${it.label}`}</option>
+            ))}
+          </select>
+          <label className="text-sm">Calificación</label>
+          <select className="border p-2" value={codeCalificacionOp} onChange={(e) => setCodeCalificacionOp(e.target.value)}>
+            {headerItems('EXPEDIDAS_INGRESOS', 'Calificación de la Operación').map((it) => (
+              <option key={it.code} value={it.code}>{`${it.code} — ${it.label}`}</option>
+            ))}
+          </select>
+          <label className="text-sm">Exención (si aplica)</label>
+          <select className="border p-2" value={codeExencion} onChange={(e) => setCodeExencion(e.target.value)}>
+            <option value="">—</option>
+            {headerItems('EXPEDIDAS_INGRESOS', 'Operación Exenta').map((it) => (
+              <option key={it.code} value={it.code}>{`${it.code} — ${it.label}`}</option>
+            ))}
+          </select>
           <button className="col-span-2 md:col-span-1 px-3 py-2 bg-blue-600 text-white rounded" onClick={emitFromLast} disabled={loading}>
             {loading ? 'Emitiendo…' : 'Emitir desde última'}
           </button>

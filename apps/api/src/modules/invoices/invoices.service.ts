@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service'
 import { FxService } from '../fx/fx.service'
 import { round2 } from '@packages/utils'
+import { validateCodesForIn, validateCodesForOut } from '../../lib/aeat-spec'
 
 function round6(n: number) {
   return Math.round(n * 1_000_000) / 1_000_000
@@ -39,6 +40,12 @@ export class InvoicesService {
     codeClaveOperacion?: string
     createdById: string
   }) {
+    // Validate AEAT codes if present
+    try {
+      validateCodesForIn(body)
+    } catch (e) {
+      throw e
+    }
     const fxToEUR = await this.computeFxToEUR(body.issueDate, body.currency, body.fxToEUR)
     return this.prisma.invoiceIn.create({ data: { ...body, fxToEUR, issueDate: new Date(body.issueDate) } })
   }
@@ -64,6 +71,11 @@ export class InvoicesService {
     createdById: string
   }) {
     const fxToEUR = await this.computeFxToEUR(body.issueDate, body.currency, body.fxToEUR)
+    try {
+      validateCodesForOut(body)
+    } catch (e) {
+      throw e
+    }
     // EU B2B rule of thumb (services): if client has EU VAT, mark as EU operation and set VAT 0
     const client = await this.prisma.thirdParty.findUnique({ where: { id: body.clientId } })
     let vatRate = body.vatRate
@@ -110,7 +122,17 @@ export class InvoicesService {
     return d
   }
 
-  async emitFromLast(body: { createdById: string; clientId?: string; base?: number; issueDate?: string }) {
+  async emitFromLast(body: {
+    createdById: string
+    clientId?: string
+    base?: number
+    issueDate?: string
+    codeTipoFactura?: string
+    codeConceptoIngreso?: string
+    codeClaveOperacion?: string
+    codeCalificacionOp?: string
+    codeExencion?: string
+  }) {
     // Find last invoice (optionally for given client)
     const where = body.clientId ? { clientId: body.clientId } : {}
     const last = await this.prisma.invoiceOut.findFirst({ where, orderBy: { issueDate: 'desc' } })
@@ -140,6 +162,11 @@ export class InvoicesService {
       currency,
       notes: last.notes ?? undefined,
       euOperation: !!euVat,
+      codeTipoFactura: body.codeTipoFactura,
+      codeConceptoIngreso: body.codeConceptoIngreso,
+      codeClaveOperacion: body.codeClaveOperacion,
+      codeCalificacionOp: body.codeCalificacionOp,
+      codeExencion: body.codeExencion,
       createdById: body.createdById
     })
   }
