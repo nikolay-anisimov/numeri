@@ -76,7 +76,10 @@ export default function InInvoicesPage() {
     category: '',
     assetFlag: false,
     notes: '',
-    createdById: ''
+    createdById: '',
+    codeTipoFactura: 'F1',
+    codeConceptoGasto: 'G01',
+    codeClaveOperacion: '01'
   })
 
   useEffect(() => {
@@ -108,6 +111,9 @@ export default function InInvoicesPage() {
         category: formState.category || undefined,
         assetFlag: formState.assetFlag,
         notes: formState.notes || undefined,
+        codeTipoFactura: formState.codeTipoFactura,
+        codeConceptoGasto: formState.codeConceptoGasto,
+        codeClaveOperacion: formState.codeClaveOperacion,
         createdById: formState.createdById
       }
       const res = await fetch(`${api}/invoices/in`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
@@ -173,6 +179,35 @@ export default function InInvoicesPage() {
               <input className="border p-2" type="number" value={formState.total} onChange={(e) => setFormState({ ...formState, total: e.target.value })} />
               <label className="text-sm">Divisa</label>
               <input className="border p-2" value={formState.currency} onChange={(e) => setFormState({ ...formState, currency: e.target.value.toUpperCase() })} />
+              <label className="text-sm">Tipo de Factura</label>
+              <select className="border p-2" value={formState.codeTipoFactura} onChange={(e) => setFormState({ ...formState, codeTipoFactura: e.target.value })}>
+                <option value="F1">F1 — Identifica destinatario</option>
+                <option value="F2">F2 — Sin identificar destinatario</option>
+                <option value="F3">F3 — Sustitutiva</option>
+                <option value="F4">F4 — Asiento resumen</option>
+                <option value="R1">R1 — Rectif. (varios)</option>
+                <option value="R2">R2 — Rectif. (concurso)</option>
+                <option value="R3">R3 — Rectif. (incobrable)</option>
+                <option value="R4">R4 — Rectif. (resto)</option>
+                <option value="R5">R5 — Rectif. (simplificadas)</option>
+                <option value="SF">SF — Asiento sin factura</option>
+              </select>
+              <label className="text-sm">Concepto de Gasto</label>
+              <select className="border p-2" value={formState.codeConceptoGasto} onChange={(e) => setFormState({ ...formState, codeConceptoGasto: e.target.value })}>
+                <option value="G01">G01 — Compra de existencias</option>
+                <option value="G03">G03 — Otros consumos</option>
+                <option value="G04">G04 — Sueldos y salarios</option>
+                <option value="G05">G05 — SS empresa</option>
+                <option value="G45">G45 — SS titular (recomendado)</option>
+                <option value="G46">G46 — Mutualidades titular</option>
+              </select>
+              <label className="text-sm">Clave de Operación</label>
+              <select className="border p-2" value={formState.codeClaveOperacion} onChange={(e) => setFormState({ ...formState, codeClaveOperacion: e.target.value })}>
+                <option value="01">01 — Régimen general</option>
+                <option value="07">07 — Criterio de caja</option>
+                <option value="08">08 — IPSI/IGIC</option>
+                <option value="09">09 — AAVV mediación</option>
+              </select>
               <label className="text-sm">Categoría</label>
               <input className="border p-2" value={formState.category} onChange={(e) => setFormState({ ...formState, category: e.target.value })} />
               <label className="text-sm">Notas</label>
