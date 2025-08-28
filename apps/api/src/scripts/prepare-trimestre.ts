@@ -67,7 +67,12 @@ async function main() {
       total: Number(o.total),
       currency: o.currency,
       fxToEUR: Number(o.fxToEUR),
-      euOperation: o.euOperation
+      euOperation: o.euOperation,
+      codeTipoFactura: o.codeTipoFactura || undefined,
+      codeConceptoIngreso: o.codeConceptoIngreso || undefined,
+      codeClaveOperacion: o.codeClaveOperacion || undefined,
+      codeCalificacionOp: o.codeCalificacionOp || undefined,
+      codeExencion: o.codeExencion || undefined
     })
   )
   const recRows = ins.map((i) =>
@@ -81,7 +86,10 @@ async function main() {
       currency: i.currency,
       fxToEUR: Number(i.fxToEUR),
       assetFlag: i.assetFlag,
-      deductible: i.deductible
+      deductible: i.deductible,
+      codeTipoFactura: i.codeTipoFactura || undefined,
+      codeConceptoGasto: i.codeConceptoGasto || undefined,
+      codeClaveOperacion: i.codeClaveOperacion || undefined
     })
   )
 

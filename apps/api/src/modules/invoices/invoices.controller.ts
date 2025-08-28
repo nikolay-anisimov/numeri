@@ -32,6 +32,9 @@ export class InvoicesController {
       assetFlag?: boolean
       notes?: string
       euOperation?: boolean
+      codeTipoFactura?: string
+      codeConceptoGasto?: string
+      codeClaveOperacion?: string
       createdById: string
     }
   ) {
@@ -59,6 +62,11 @@ export class InvoicesController {
       fxToEUR?: number
       notes?: string
       euOperation?: boolean
+      codeTipoFactura?: string
+      codeConceptoIngreso?: string
+      codeClaveOperacion?: string
+      codeCalificacionOp?: string
+      codeExencion?: string
       createdById: string
     }
   ) {
