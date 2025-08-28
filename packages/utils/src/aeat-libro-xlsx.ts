@@ -173,10 +173,63 @@ export function writeLibroFromTemplate(
   if (!wsExp || !wsRec) throw new Error(`Template missing required sheets ${shex} or ${shrx}`)
 
   // Read existing sheet to AoA, pad to startRow, and append rows
+  function findTitleIndexes(ws: any, targets: string[]): Record<string, number> {
+    const rows: any[][] = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' }) as any
+    const row0 = rows[0] || []
+    const norm = (s: any) => String(s || '').replace(/\r?\n/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase()
+    const idx: Record<string, number> = {}
+    for (let c = 0; c < row0.length; c++) {
+      const v = norm(row0[c])
+      for (const t of targets) {
+        if (!(t in idx) && v === norm(t)) idx[t] = c
+      }
+    }
+    return idx
+  }
+
+  function adjustCodesForSheet(sheetName: string, ws: any, row: any[]) {
+    if (sheetName === shex) {
+      const idxs = findTitleIndexes(ws, [
+        'tipo de factura',
+        'concepto de ingreso',
+        'clave de operación',
+        'calificación de la operación',
+        'operación exenta'
+      ])
+      const approx = {
+        'tipo de factura': 5,
+        'concepto de ingreso': 6,
+        'clave de operación': 17,
+        'calificación de la operación': 18,
+        'operación exenta': 19
+      } as Record<string, number>
+      for (const key of Object.keys(approx)) {
+        const from = approx[key]
+        const to = idxs[key]
+        if (to != null && row[from] != null && row[from] !== '') {
+          row[to] = row[from]
+        }
+      }
+    } else if (sheetName === shrx) {
+      const idxs = findTitleIndexes(ws, ['tipo de factura', 'concepto de gasto', 'clave de operación'])
+      const approx = { 'tipo de factura': 5, 'concepto de gasto': 6, 'clave de operación': 19 } as Record<string, number>
+      for (const key of Object.keys(approx)) {
+        const from = approx[key]
+        const to = idxs[key]
+        if (to != null && row[from] != null && row[from] !== '') {
+          row[to] = row[from]
+        }
+      }
+    }
+  }
+
   function appendRows(wsName: string, ws: any, rows: any[][]) {
     const data: any[][] = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' }) as any
     while (data.length < startRow) data.push([])
-    for (const r of rows) data.push(r)
+    for (const r of rows) {
+      adjustCodesForSheet(wsName, ws, r)
+      data.push(r)
+    }
     const next = XLSX.utils.aoa_to_sheet(data)
     // Replace sheet in workbook by name
     wb.Sheets[wsName] = next

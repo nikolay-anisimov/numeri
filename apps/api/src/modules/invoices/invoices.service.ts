@@ -152,7 +152,7 @@ export class InvoicesService {
     })
   }
 
-  async createSeguridadSocial(input: { issueDate: string; amountEUR: number; createdById: string }) {
+  async createSeguridadSocial(input: { issueDate: string; amountEUR: number; createdById: string; codeConceptoGasto?: string }) {
     const tgss = await this.getOrCreateTGSS()
     const amount = round2(input.amountEUR)
     return this.createIn({
@@ -167,6 +167,7 @@ export class InvoicesService {
       category: 'seguridad-social',
       assetFlag: false,
       notes: 'Cuota Seguridad Social',
+      codeConceptoGasto: input.codeConceptoGasto || 'G45',
       createdById: input.createdById
     })
   }

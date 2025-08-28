@@ -73,6 +73,19 @@ export class InvoicesController {
     return this.svc.createOut(body)
   }
 
+  @Post('in/ss')
+  async createSeguridadSocial(
+    @Body()
+    body: { issueDate: string; amountEUR: number; createdById: string; codeConceptoGasto?: string }
+  ) {
+    return this.svc.createSeguridadSocial({
+      issueDate: body.issueDate,
+      amountEUR: body.amountEUR,
+      createdById: body.createdById,
+      codeConceptoGasto: body.codeConceptoGasto
+    } as any)
+  }
+
   @Post('out/emit')
   async emitFromLast(
     @Body()
