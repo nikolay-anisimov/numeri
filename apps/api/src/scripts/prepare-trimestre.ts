@@ -45,7 +45,7 @@ async function main() {
   const quarter = Number(getArg('quarter'))
   const nif = String(getArg('nif') || process.env.TAX_NIF || '').trim()
   const name = String(getArg('name') || process.env.TAX_NAME || '').trim()
-  const template = String(getArg('template') || path.resolve(__dirname, '../../../docs/AEAT/LSI.xlsx'))
+  const template = String(getArg('template') || path.resolve(__dirname, '../../../docs/AEAT/PLANTILLA_LIBROS_UNIFICADOS.xlsx'))
   const outDir = String(getArg('outDir') || path.resolve(__dirname, '../../../testdata', String(year), `trimestre-${quarter}`, 'artifacts'))
   if (!year || !quarter || !nif || !name) throw new Error('--year --quarter --nif --name required')
 
