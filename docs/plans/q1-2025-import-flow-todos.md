@@ -1,25 +1,24 @@
 # Q1 2025 Import & Quarter Close — TODOs
 
 Done
-- AEAT mapping (unified Tipo T): extracted sheet names, filename pattern, data row offsets; docs updated in `docs/AEAT/mapping-libro.md` and `docs/AEAT/template-notes.md`.
-- Libro writer (template-driven): added `writeLibroFromTemplate` targeting `EXPEDIDAS_INGRESOS` and `RECIBIDAS_GASTOS`; tests added in utils.
+- Extract spec (LSI): columns/types/VALIDACIONES → `docs/AEAT/unificados-format.json/md`; add index `docs/AEAT/README.md` and `crosswalk.md`.
+- Extract codes (PLANTILLA): full lists (incl. valid group/alternative concepts) → `docs/AEAT/unificados-codes.json`.
+- Template-driven writer: `writeLibroFromTemplate` with title-aware code placement; tests in utils.
+- Prisma: add AEAT code fields on invoices; Seguridad Social manual (TGSS) API + minimal UI (default `G45`).
+
+In progress
+- UI selects (In): basic selects present; next is to load from `unificados-codes.json` and render groups (GY4/G19 allowed) instead of hardcoded options.
 
 Next
-- Domain check: ensure DB models support the flow (Client, InvoiceOut, InvoiceIn) and manual monthly Seguridad Social.
-  - Option A: model Seguridad Social as `LedgerEntry` with `type=OTHER` and link to a special ThirdParty (TGSS). Add small UI form.
-  - Option B: add a dedicated `ManualExpense` entity and map to 303 deductible entries. Decide and implement minimal path (A likely sufficient).
-- Mappers (pure functions):
-  - DB → unified Libro rows (column order per template; non-applicable fields blank initially).
-  - DB → 303 entries (`Tax303Entry[]`).
-  - DB → 349 inputs (`InvoiceOutFor349[]`).
-- Quarter-close service (API): implement `closeQuarter(year, q)` to compute 130/303/349 and call the template writer; return artifact paths and suggested filename `Ejercicio_NIF_T_NOMBRE.xlsx`.
-- Filing guide: generate `guia-presentacion-130-303-349.md` with AEAT steps, casillas, filename pattern; include validator link (https://www2.agenciatributaria.gob.es/wlpl/PACM-SERV/validarLLRs.html). Surface link in UI next to download.
-- Integration test: seed 3 months (income, gastos, Seguridad Social), run quarter-close, assert unified sheets present, headers preserved, data rows written, guide contains key values.
-- Unit tests: expand coverage for calculators (130/303/349), mappers, and writer (template load, row positions, numeric formatting).
-- Scripts: add `prepare:trimestre` runner and a small wrapper to inspect templates (uses `packages/utils/scripts/aeat-dump.js`).
+- UI selects (Out): add Tipo Factura, Concepto Ingreso, Clave/Calificación/Exención; wire to code fields; use `unificados-codes.json`.
+- Server validation helper: load `unificados-format.json` + `unificados-codes.json` to validate payloads (accept valid groups; reject unknown codes); enforce basic types/lengths on key fields.
+- Quarter-close service (API): implement `closeQuarter(year,q)` to compute 130/303/349; include Seguridad Social (G45/G06) in 130; call writer; return artifact paths + filename.
+- Filing guide: generate `guia-presentacion-130-303-349.md` (steps, casillas); add AEAT validator link; show link in UI.
+- Integration test: seed 3 months (income/gastos/SS), run quarter-close, assert unified sheets present, headers preserved, data rows written, filename pattern ok, guide contains key values.
+- Unit tests: expand coverage (calculators, mappers, writer); add validation helper tests (NIF tipo/código país, Conceptos con GY4/G19, Decimal/Fecha formats).
+- Optional preflight: `prepare-trimestre --validate` to run local validations against extracted specs before writing.
 
-UI/Domain additions (new)
-- Use `PLANTILLA_LIBROS_UNIFICADOS.xlsx` to drive select options (see `docs/AEAT/unificados-codes.md`).
-- Add settings for Actividad (IAE) Código/Tipo por contribuyente y sugerir en nuevas líneas.
-- For Seguridad Social del titular, asignar Concepto de Gasto G45 (o G06 si aplica a ejercicios previos). Permitir override manual.
-- Add UI selects for: Tipo de Factura, Concepto (Ingreso/Gasto), Clave/Calificación de Operación, Exención, Tipo NIF, Medio de cobro/pago, Situación de inmueble. Recordar por proveedor/cliente.
+UI/Domain additions
+- Use `unificados-codes.json` to drive selects; display groups (GY4/G19) as optgroups/entries as per LSI.
+- Add settings for Actividad (IAE) default (Código/Tipo) per contribuyente and apply to new lines.
+- When `assetFlag` is true, include BIENES-INVERSIÓN sheet (later milestone).
