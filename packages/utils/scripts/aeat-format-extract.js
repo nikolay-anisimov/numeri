@@ -34,12 +34,25 @@ function extractRefs(text) {
   return out
 }
 
+function propagateTop(topRow) {
+  const out = []
+  let last = ''
+  for (let c = 0; c < topRow.length; c++) {
+    const v = String(topRow[c] || '').replace(/\r?\n/g, ' ').trim()
+    if (v) last = v
+    out[c] = last
+  }
+  return out
+}
+
 function extractSheet(ws) {
   const rows = sheetRows(ws)
-  const titles = rows[0] || []
-  const subs = rows[1] || []
   const typesRow = detectTypesRow(rows)
   const types = typesRow != null ? rows[typesRow] || [] : []
+  // Heuristic: subheaders row sits directly above the types row; top (group) row is one above subheaders
+  const subRow = typesRow != null && typesRow - 1 >= 0 ? rows[typesRow - 1] || [] : []
+  const topRowRaw = typesRow != null && typesRow - 2 >= 0 ? rows[typesRow - 2] || [] : []
+  const topRow = propagateTop(topRowRaw)
   const validationsStart = findValidationsStart(rows)
   const validations = []
   if (validationsStart != null) {
@@ -54,13 +67,13 @@ function extractSheet(ws) {
     }
   }
   const columns = []
-  const maxCols = Math.max(titles.length, subs.length, types.length)
+  const maxCols = Math.max(subRow.length, types.length)
   for (let c = 0; c < maxCols; c++) {
-    const top = String(titles[c] || '').replace(/\r?\n/g, ' ').trim()
-    const sub = String(subs[c] || '').replace(/\r?\n/g, ' ').trim()
+    const sub = String(subRow[c] || '').replace(/\r?\n/g, ' ').trim()
+    const top = String(topRow[c] || '').replace(/\r?\n/g, ' ').trim()
     const type = String(types[c] || '').trim()
-    if (!top && !sub && !type) continue
-    const header = sub ? `${top}.${sub}` : top
+    if (!sub && !type) continue // ignore non-columns
+    const header = sub ? (top ? `${top}.${sub}` : sub) : top
     const refs = [...extractRefs(top), ...extractRefs(sub)]
     columns.push({ index: c, top, sub, header, type, refs: Array.from(new Set(refs)) })
   }
@@ -109,4 +122,3 @@ function main() {
 }
 
 main()
-

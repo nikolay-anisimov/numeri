@@ -1,294 +1,352 @@
 {
   "source": "LSI.xlsx",
-  "generatedAt": "2025-08-28T13:48:53.839Z",
+  "generatedAt": "2025-08-28T13:57:33.642Z",
   "sheets": {
     "EXPEDIDAS_INGRESOS": {
       "columns": [
         {
           "index": 0,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Autoliquidación(11)",
+          "sub": "Ejercicio",
+          "header": "Autoliquidación(11).Ejercicio",
           "type": "Decimal (4,0)",
-          "refs": []
+          "refs": [
+            11
+          ]
         },
         {
           "index": 1,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Autoliquidación(11)",
+          "sub": "Periodo",
+          "header": "Autoliquidación(11).Periodo",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            11
+          ]
         },
         {
           "index": 2,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Actividad(16)",
+          "sub": "Código",
+          "header": "Actividad(16).Código",
           "type": "Alfanumérico (1)",
-          "refs": []
+          "refs": [
+            16
+          ]
         },
         {
           "index": 3,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Actividad(16)",
+          "sub": "Tipo",
+          "header": "Actividad(16).Tipo",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            16
+          ]
         },
         {
           "index": 4,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Actividad(16)",
+          "sub": "Grupo o Epígrafe del IAE",
+          "header": "Actividad(16).Grupo o Epígrafe del IAE",
           "type": "Alfanumérico (4)",
-          "refs": []
+          "refs": [
+            16
+          ]
         },
         {
           "index": 5,
-          "top": "",
+          "top": "Tipo de Factura(9)",
           "sub": "",
-          "header": "",
+          "header": "Tipo de Factura(9)",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            9
+          ]
         },
         {
           "index": 6,
-          "top": "",
+          "top": "Concepto de Ingreso(10) (17)",
           "sub": "",
-          "header": "",
+          "header": "Concepto de Ingreso(10) (17)",
           "type": "Alfanumérico (3)",
-          "refs": []
+          "refs": [
+            10,
+            17
+          ]
         },
         {
           "index": 7,
-          "top": "",
+          "top": "Ingreso Computable(13) (17)",
           "sub": "",
-          "header": "",
+          "header": "Ingreso Computable(13) (17)",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            13,
+            17
+          ]
         },
         {
           "index": 8,
-          "top": "",
-          "sub": "Ejercicio: 2025",
-          "header": ".Ejercicio: 2025",
+          "top": "Fecha Expedición(25)",
+          "sub": "",
+          "header": "Fecha Expedición(25)",
           "type": "Fecha(dd/mm/yyyy)",
-          "refs": []
+          "refs": [
+            25
+          ]
         },
         {
           "index": 9,
-          "top": "LIBRO REGISTRO FACTURAS EXPEDIDAS Y LIBRO REGISTRO DE VENTAS E INGRESOS (Nombre del fichero: 202599999999R@español español, juan)",
+          "top": "Fecha Operación(1)",
           "sub": "",
-          "header": "LIBRO REGISTRO FACTURAS EXPEDIDAS Y LIBRO REGISTRO DE VENTAS E INGRESOS (Nombre del fichero: 202599999999R@español español, juan)",
+          "header": "Fecha Operación(1)",
           "type": "Fecha(dd/mm/yyyy)",
-          "refs": []
+          "refs": [
+            1
+          ]
         },
         {
           "index": 10,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Identificación de la Factura",
+          "sub": "Serie",
+          "header": "Identificación de la Factura.Serie",
           "type": "Alfanumérico (20)",
           "refs": []
         },
         {
           "index": 11,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Identificación de la Factura",
+          "sub": "Número",
+          "header": "Identificación de la Factura.Número",
           "type": "Alfanumérico (20)",
           "refs": []
         },
         {
           "index": 12,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Identificación de la Factura",
+          "sub": "Número-Final",
+          "header": "Identificación de la Factura.Número-Final",
           "type": "Alfanumérico (20)",
           "refs": []
         },
         {
           "index": 13,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "NIF Destinatario(2)",
+          "sub": "Tipo",
+          "header": "NIF Destinatario(2).Tipo",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            2
+          ]
         },
         {
           "index": 14,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "NIF Destinatario(2)",
+          "sub": "Código País",
+          "header": "NIF Destinatario(2).Código País",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            2
+          ]
         },
         {
           "index": 15,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "NIF Destinatario(2)",
+          "sub": "Identificación",
+          "header": "NIF Destinatario(2).Identificación",
           "type": "Alfanumérico (20)",
-          "refs": []
+          "refs": [
+            2
+          ]
         },
         {
           "index": 16,
-          "top": "",
+          "top": "Nombre Destinatario",
           "sub": "",
-          "header": "",
+          "header": "Nombre Destinatario",
           "type": "Alfanumérico (40)",
           "refs": []
         },
         {
           "index": 17,
-          "top": "",
+          "top": "Clave de Operación(6)(23)",
           "sub": "",
-          "header": "",
+          "header": "Clave de Operación(6)(23)",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            6,
+            23
+          ]
         },
         {
           "index": 18,
-          "top": "",
+          "top": "Calificación de la Operación(19) (21) (22) (23) (24) (30)",
           "sub": "",
-          "header": "",
+          "header": "Calificación de la Operación(19) (21) (22) (23) (24) (30)",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            19,
+            21,
+            22,
+            23,
+            24,
+            30
+          ]
         },
         {
           "index": 19,
-          "top": "",
+          "top": "Operación Exenta(20)",
           "sub": "",
-          "header": "",
+          "header": "Operación Exenta(20)",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            20
+          ]
         },
         {
           "index": 20,
-          "top": "",
+          "top": "Total Factura(37)",
           "sub": "",
-          "header": "",
+          "header": "Total Factura(37)",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            37
+          ]
         },
         {
           "index": 21,
-          "top": "",
+          "top": "Base Imponible",
           "sub": "",
-          "header": "",
+          "header": "Base Imponible",
           "type": "Decimal(12,2)",
           "refs": []
         },
         {
           "index": 22,
-          "top": "",
+          "top": "Tipo de IVA(39)",
           "sub": "",
-          "header": "",
+          "header": "Tipo de IVA(39)",
           "type": "Decimal(4,2)",
-          "refs": []
+          "refs": [
+            39
+          ]
         },
         {
           "index": 23,
-          "top": "",
+          "top": "Cuota IVA Repercutida",
           "sub": "",
-          "header": "",
+          "header": "Cuota IVA Repercutida",
           "type": "Decimal(12,2)",
           "refs": []
         },
         {
           "index": 24,
-          "top": "",
+          "top": "Tipo de Recargo Eq.",
           "sub": "",
-          "header": "",
+          "header": "Tipo de Recargo Eq.",
           "type": "Decimal(4,2)",
           "refs": []
         },
         {
           "index": 25,
-          "top": "",
+          "top": "Cuota Recargo Eq.(35)",
           "sub": "",
-          "header": "",
+          "header": "Cuota Recargo Eq.(35)",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            35
+          ]
         },
         {
           "index": 26,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Cobro (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF)",
+          "sub": "Fecha",
+          "header": "Cobro (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Fecha",
           "type": "Fecha(dd/mm/yyyy)",
           "refs": []
         },
         {
           "index": 27,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Cobro (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF)",
+          "sub": "Importe",
+          "header": "Cobro (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Importe",
           "type": "Decimal(12,2)",
           "refs": []
         },
         {
           "index": 28,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Cobro (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF)",
+          "sub": "Medio Utilizado",
+          "header": "Cobro (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Medio Utilizado",
           "type": "Alfanumérico (2)",
           "refs": []
         },
         {
           "index": 29,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Cobro (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF)",
+          "sub": "Identificación Medio Utilizado",
+          "header": "Cobro (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Identificación Medio Utilizado",
           "type": "Alfanumérico (34)",
           "refs": []
         },
         {
           "index": 30,
-          "top": "",
+          "top": "Tipo Retención del IRPF(15) (17)",
           "sub": "",
-          "header": "",
+          "header": "Tipo Retención del IRPF(15) (17)",
           "type": "Decimal(4,2)",
-          "refs": []
+          "refs": [
+            15,
+            17
+          ]
         },
         {
           "index": 31,
-          "top": "",
+          "top": "Importe Retenido del IRPF(15) (17)",
           "sub": "",
-          "header": "",
+          "header": "Importe Retenido del IRPF(15) (17)",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            15,
+            17
+          ]
         },
         {
           "index": 32,
-          "top": "",
+          "top": "Registro Acuerdo Facturación(18)",
           "sub": "",
-          "header": "",
+          "header": "Registro Acuerdo Facturación(18)",
           "type": "Alfanumérico (15)",
-          "refs": []
+          "refs": [
+            18
+          ]
         },
         {
           "index": 33,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Inmueble(40)",
+          "sub": "Situación",
+          "header": "Inmueble(40).Situación",
           "type": "Alfanumérico (1)",
-          "refs": []
+          "refs": [
+            40
+          ]
         },
         {
           "index": 34,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Inmueble(40)",
+          "sub": "Referencia Catastral",
+          "header": "Inmueble(40).Referencia Catastral",
           "type": "Alfanumérico (20)",
-          "refs": []
+          "refs": [
+            40
+          ]
         },
         {
           "index": 35,
-          "top": "",
+          "top": "Referencia Externa",
           "sub": "",
-          "header": "",
+          "header": "Referencia Externa",
           "type": "Alfanumérico (40)",
           "refs": []
         }
@@ -458,337 +516,398 @@
       "columns": [
         {
           "index": 0,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Autoliquidación(12)",
+          "sub": "Ejercicio",
+          "header": "Autoliquidación(12).Ejercicio",
           "type": "Decimal (4,0)",
-          "refs": []
+          "refs": [
+            12
+          ]
         },
         {
           "index": 1,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Autoliquidación(12)",
+          "sub": "Periodo",
+          "header": "Autoliquidación(12).Periodo",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            12
+          ]
         },
         {
           "index": 2,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Actividad(17)",
+          "sub": "Código",
+          "header": "Actividad(17).Código",
           "type": "Alfanumérico (1)",
-          "refs": []
+          "refs": [
+            17
+          ]
         },
         {
           "index": 3,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Actividad(17)",
+          "sub": "Tipo",
+          "header": "Actividad(17).Tipo",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            17
+          ]
         },
         {
           "index": 4,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Actividad(17)",
+          "sub": "Grupo o Epígrafe del IAE",
+          "header": "Actividad(17).Grupo o Epígrafe del IAE",
           "type": "Alfanumérico (4)",
-          "refs": []
+          "refs": [
+            17
+          ]
         },
         {
           "index": 5,
-          "top": "",
+          "top": "Tipo de Factura(10)",
           "sub": "",
-          "header": "",
+          "header": "Tipo de Factura(10)",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            10
+          ]
         },
         {
           "index": 6,
-          "top": "",
+          "top": "Concepto de Gasto(11) (18)",
           "sub": "",
-          "header": "",
+          "header": "Concepto de Gasto(11) (18)",
           "type": "Alfanumérico (3)",
-          "refs": []
+          "refs": [
+            11,
+            18
+          ]
         },
         {
           "index": 7,
-          "top": "",
+          "top": "Gasto Deducible(13) (18)",
           "sub": "",
-          "header": "",
+          "header": "Gasto Deducible(13) (18)",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            13,
+            18
+          ]
         },
         {
           "index": 8,
-          "top": "",
-          "sub": "Ejercicio: 2025",
-          "header": ".Ejercicio: 2025",
+          "top": "Fecha Expedición",
+          "sub": "",
+          "header": "Fecha Expedición",
           "type": "Fecha(dd/mm/yyyy)",
           "refs": []
         },
         {
           "index": 9,
-          "top": "LIBRO REGISTRO FACTURAS RECIBIDAS Y LIBRO REGISTRO DE COMPRAS Y GASTOS (Nombre del fichero: 202599999999R@español español, juan)",
+          "top": "Fecha Operación(1)",
           "sub": "",
-          "header": "LIBRO REGISTRO FACTURAS RECIBIDAS Y LIBRO REGISTRO DE COMPRAS Y GASTOS (Nombre del fichero: 202599999999R@español español, juan)",
+          "header": "Fecha Operación(1)",
           "type": "Fecha(dd/mm/yyyy)",
-          "refs": []
+          "refs": [
+            1
+          ]
         },
         {
           "index": 10,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Identificación Factura del Expedidor",
+          "sub": "(Serie-Número)",
+          "header": "Identificación Factura del Expedidor.(Serie-Número)",
           "type": "Alfanumérico (40)",
           "refs": []
         },
         {
           "index": 11,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Identificación Factura del Expedidor",
+          "sub": "Número-Final",
+          "header": "Identificación Factura del Expedidor.Número-Final",
           "type": "Alfanumérico (20)",
           "refs": []
         },
         {
           "index": 12,
-          "top": "",
+          "top": "Fecha Recepción(19)",
           "sub": "",
-          "header": "",
+          "header": "Fecha Recepción(19)",
           "type": "Fecha(dd/mm/yyyy)",
-          "refs": []
+          "refs": [
+            19
+          ]
         },
         {
           "index": 13,
-          "top": "",
+          "top": "Número Recepción(37)",
           "sub": "",
-          "header": "",
+          "header": "Número Recepción(37)",
           "type": "Alfanumérico (20)",
-          "refs": []
+          "refs": [
+            37
+          ]
         },
         {
           "index": 14,
-          "top": "",
+          "top": "Número Recepción Final(37)",
           "sub": "",
-          "header": "",
+          "header": "Número Recepción Final(37)",
           "type": "Alfanumérico (20)",
-          "refs": []
+          "refs": [
+            37
+          ]
         },
         {
           "index": 15,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "NIF Expedidor(2)",
+          "sub": "Tipo",
+          "header": "NIF Expedidor(2).Tipo",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            2
+          ]
         },
         {
           "index": 16,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "NIF Expedidor(2)",
+          "sub": "Código País",
+          "header": "NIF Expedidor(2).Código País",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            2
+          ]
         },
         {
           "index": 17,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "NIF Expedidor(2)",
+          "sub": "Identificación",
+          "header": "NIF Expedidor(2).Identificación",
           "type": "Alfanumérico (20)",
-          "refs": []
+          "refs": [
+            2
+          ]
         },
         {
           "index": 18,
-          "top": "",
+          "top": "Nombre Expedidor",
           "sub": "",
-          "header": "",
+          "header": "Nombre Expedidor",
           "type": "Alfanumérico (40)",
           "refs": []
         },
         {
           "index": 19,
-          "top": "",
+          "top": "Clave de Operación(7)",
           "sub": "",
-          "header": "",
+          "header": "Clave de Operación(7)",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            7
+          ]
         },
         {
           "index": 20,
-          "top": "",
+          "top": "Bien de Inversión(20)",
           "sub": "",
-          "header": "",
+          "header": "Bien de Inversión(20)",
           "type": "Alfanumérico (1)",
-          "refs": []
+          "refs": [
+            20
+          ]
         },
         {
           "index": 21,
-          "top": "",
+          "top": "Inversión del Sujeto Pasivo(23)",
           "sub": "",
-          "header": "",
+          "header": "Inversión del Sujeto Pasivo(23)",
           "type": "Alfanumérico (1)",
-          "refs": []
+          "refs": [
+            23
+          ]
         },
         {
           "index": 22,
-          "top": "",
+          "top": "Deducible en Periodo Posterior(21) (35)",
           "sub": "",
-          "header": "",
+          "header": "Deducible en Periodo Posterior(21) (35)",
           "type": "Alfanumérico (1)",
-          "refs": []
+          "refs": [
+            21,
+            35
+          ]
         },
         {
           "index": 23,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Periodo Deducción(22) (34)",
+          "sub": "Ejercicio",
+          "header": "Periodo Deducción(22) (34).Ejercicio",
           "type": "Decimal (4,0)",
-          "refs": []
+          "refs": [
+            22,
+            34
+          ]
         },
         {
           "index": 24,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Periodo Deducción(22) (34)",
+          "sub": "Periodo",
+          "header": "Periodo Deducción(22) (34).Periodo",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            22,
+            34
+          ]
         },
         {
           "index": 25,
-          "top": "",
+          "top": "Total Factura",
           "sub": "",
-          "header": "",
+          "header": "Total Factura",
           "type": "Decimal(12,2)",
           "refs": []
         },
         {
           "index": 26,
-          "top": "",
+          "top": "Base Imponible",
           "sub": "",
-          "header": "",
+          "header": "Base Imponible",
           "type": "Decimal(12,2)",
           "refs": []
         },
         {
           "index": 27,
-          "top": "",
+          "top": "Tipo de IVA",
           "sub": "",
-          "header": "",
+          "header": "Tipo de IVA",
           "type": "Decimal(4,2)",
           "refs": []
         },
         {
           "index": 28,
-          "top": "",
+          "top": "Cuota IVA Soportado",
           "sub": "",
-          "header": "",
+          "header": "Cuota IVA Soportado",
           "type": "Decimal(12,2)",
           "refs": []
         },
         {
           "index": 29,
-          "top": "",
+          "top": "Cuota Deducible(36)",
           "sub": "",
-          "header": "",
+          "header": "Cuota Deducible(36)",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            36
+          ]
         },
         {
           "index": 30,
-          "top": "",
+          "top": "Tipo de Recargo Eq.",
           "sub": "",
-          "header": "",
+          "header": "Tipo de Recargo Eq.",
           "type": "Decimal(4,2)",
           "refs": []
         },
         {
           "index": 31,
-          "top": "",
+          "top": "Cuota Recargo Eq.",
           "sub": "",
-          "header": "",
+          "header": "Cuota Recargo Eq.",
           "type": "Decimal(12,2)",
           "refs": []
         },
         {
           "index": 32,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Pago (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF)",
+          "sub": "Fecha",
+          "header": "Pago (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Fecha",
           "type": "Fecha(dd/mm/yyyy)",
           "refs": []
         },
         {
           "index": 33,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Pago (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF)",
+          "sub": "Importe",
+          "header": "Pago (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Importe",
           "type": "Decimal(12,2)",
           "refs": []
         },
         {
           "index": 34,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Pago (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF)",
+          "sub": "Medio Utilizado",
+          "header": "Pago (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Medio Utilizado",
           "type": "Alfanumérico (2)",
           "refs": []
         },
         {
           "index": 35,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Pago (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF)",
+          "sub": "Identificación Medio Utilizado",
+          "header": "Pago (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Identificación Medio Utilizado",
           "type": "Alfanumérico (34)",
           "refs": []
         },
         {
           "index": 36,
-          "top": "",
+          "top": "Tipo Retención del IRPF(16) (18)",
           "sub": "",
-          "header": "",
+          "header": "Tipo Retención del IRPF(16) (18)",
           "type": "Decimal(4,2)",
-          "refs": []
+          "refs": [
+            16,
+            18
+          ]
         },
         {
           "index": 37,
-          "top": "",
+          "top": "Importe Retenido del IRPF(16) (18)",
           "sub": "",
-          "header": "",
+          "header": "Importe Retenido del IRPF(16) (18)",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            16,
+            18
+          ]
         },
         {
           "index": 38,
-          "top": "",
+          "top": "Registro Acuerdo Facturación(24)",
           "sub": "",
-          "header": "",
+          "header": "Registro Acuerdo Facturación(24)",
           "type": "Alfanumérico (15)",
-          "refs": []
+          "refs": [
+            24
+          ]
         },
         {
           "index": 39,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Inmueble(39)",
+          "sub": "Situación",
+          "header": "Inmueble(39).Situación",
           "type": "Alfanumérico (1)",
-          "refs": []
+          "refs": [
+            39
+          ]
         },
         {
           "index": 40,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Inmueble(39)",
+          "sub": "Referencia Catastral",
+          "header": "Inmueble(39).Referencia Catastral",
           "type": "Alfanumérico (20)",
-          "refs": []
+          "refs": [
+            39
+          ]
         },
         {
           "index": 41,
-          "top": "",
+          "top": "Referencia Externa",
           "sub": "",
-          "header": "",
+          "header": "Referencia Externa",
           "type": "Alfanumérico (40)",
           "refs": []
         }
@@ -958,321 +1077,389 @@
       "columns": [
         {
           "index": 0,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Autoliquidación(1)",
+          "sub": "Ejercicio",
+          "header": "Autoliquidación(1).Ejercicio",
           "type": "Decimal (4,0)",
-          "refs": []
+          "refs": [
+            1
+          ]
         },
         {
           "index": 1,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Autoliquidación(1)",
+          "sub": "Periodo",
+          "header": "Autoliquidación(1).Periodo",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            1
+          ]
         },
         {
           "index": 2,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Actividad(17)",
+          "sub": "Código",
+          "header": "Actividad(17).Código",
           "type": "Alfanumérico (1)",
-          "refs": []
+          "refs": [
+            17
+          ]
         },
         {
           "index": 3,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Actividad(17)",
+          "sub": "Tipo",
+          "header": "Actividad(17).Tipo",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            17
+          ]
         },
         {
           "index": 4,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Actividad(17)",
+          "sub": "Grupo o Epígrafe del IAE",
+          "header": "Actividad(17).Grupo o Epígrafe del IAE",
           "type": "Alfanumérico (4)",
-          "refs": []
+          "refs": [
+            17
+          ]
         },
         {
           "index": 5,
-          "top": "",
+          "top": "Tipo de Bien(2)",
           "sub": "",
-          "header": "",
+          "header": "Tipo de Bien(2)",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            2
+          ]
         },
         {
           "index": 6,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Descripción del Bien(16) (11)",
+          "sub": "Identificador",
+          "header": "Descripción del Bien(16) (11).Identificador",
           "type": "Alfanumérico (40)",
-          "refs": []
+          "refs": [
+            16,
+            11
+          ]
         },
         {
           "index": 7,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Descripción del Bien(16) (11)",
+          "sub": "Literal",
+          "header": "Descripción del Bien(16) (11).Literal",
           "type": "Alfanumérico (160)",
-          "refs": []
+          "refs": [
+            16,
+            11
+          ]
         },
         {
           "index": 8,
-          "top": "",
+          "top": "Fecha Inicio Utilización",
           "sub": "",
-          "header": "",
+          "header": "Fecha Inicio Utilización",
           "type": "Fecha(dd/mm/yyyy)",
           "refs": []
         },
         {
           "index": 9,
-          "top": "",
+          "top": "Valor Adquisición(11)",
           "sub": "",
-          "header": "",
+          "header": "Valor Adquisición(11)",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            11
+          ]
         },
         {
           "index": 10,
-          "top": "LIBRO REGISTRO DE BIENES DE INVERSIÓN (Nombre del fichero: 202599999999R@español español, juan)",
-          "sub": "Ejercicio: 2025",
-          "header": "LIBRO REGISTRO DE BIENES DE INVERSIÓN (Nombre del fichero: 202599999999R@español español, juan).Ejercicio: 2025",
+          "top": "Valor Amortizable(11)",
+          "sub": "",
+          "header": "Valor Amortizable(11)",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            11
+          ]
         },
         {
           "index": 11,
-          "top": "",
+          "top": "Método de Amortización(4) (11)",
           "sub": "",
-          "header": "",
+          "header": "Método de Amortización(4) (11)",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            4,
+            11
+          ]
         },
         {
           "index": 12,
-          "top": "",
+          "top": "Porcentaje de Amortización(11)",
           "sub": "",
-          "header": "",
+          "header": "Porcentaje de Amortización(11)",
           "type": "Decimal (4,2)",
-          "refs": []
+          "refs": [
+            11
+          ]
         },
         {
           "index": 13,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Amortización(11)",
+          "sub": "Acumulada al Inicio",
+          "header": "Amortización(11).Acumulada al Inicio",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            11
+          ]
         },
         {
           "index": 14,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Amortización(11)",
+          "sub": "Cuota Resultante",
+          "header": "Amortización(11).Cuota Resultante",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            11
+          ]
         },
         {
           "index": 15,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Amortización(11)",
+          "sub": "Acumulada al final",
+          "header": "Amortización(11).Acumulada al final",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            11
+          ]
         },
         {
           "index": 16,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Amortización(11)",
+          "sub": "Pendiente",
+          "header": "Amortización(11).Pendiente",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            11
+          ]
         },
         {
           "index": 17,
-          "top": "",
+          "top": "Fecha Expedición",
           "sub": "",
-          "header": "",
+          "header": "Fecha Expedición",
           "type": "Fecha(dd/mm/yyyy)",
           "refs": []
         },
         {
           "index": 18,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Identificación Factura del Expedidor",
+          "sub": "(Serie-Número)",
+          "header": "Identificación Factura del Expedidor.(Serie-Número)",
           "type": "Alfanumérico (40)",
           "refs": []
         },
         {
           "index": 19,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Identificación Factura del Expedidor",
+          "sub": "Número-Final",
+          "header": "Identificación Factura del Expedidor.Número-Final",
           "type": "Alfanumérico (20)",
           "refs": []
         },
         {
           "index": 20,
-          "top": "",
+          "top": "Número Recepción(11)",
           "sub": "",
-          "header": "",
+          "header": "Número Recepción(11)",
           "type": "Alfanumérico (20)",
-          "refs": []
+          "refs": [
+            11
+          ]
         },
         {
           "index": 21,
-          "top": "",
+          "top": "Número Recepción Final(11)",
           "sub": "",
-          "header": "",
+          "header": "Número Recepción Final(11)",
           "type": "Alfanumérico (20)",
-          "refs": []
+          "refs": [
+            11
+          ]
         },
         {
           "index": 22,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "NIF Expedidor(3)",
+          "sub": "Tipo",
+          "header": "NIF Expedidor(3).Tipo",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            3
+          ]
         },
         {
           "index": 23,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "NIF Expedidor(3)",
+          "sub": "Código País",
+          "header": "NIF Expedidor(3).Código País",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            3
+          ]
         },
         {
           "index": 24,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "NIF Expedidor(3)",
+          "sub": "Identificación",
+          "header": "NIF Expedidor(3).Identificación",
           "type": "Alfanumérico (20)",
-          "refs": []
+          "refs": [
+            3
+          ]
         },
         {
           "index": 25,
-          "top": "",
+          "top": "Nombre Expedidor",
           "sub": "",
-          "header": "",
+          "header": "Nombre Expedidor",
           "type": "Alfanumérico (40)",
           "refs": []
         },
         {
           "index": 26,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Año de Inicio Utilización",
+          "sub": "Base Imponible",
+          "header": "Año de Inicio Utilización.Base Imponible",
           "type": "Decimal(12,2)",
           "refs": []
         },
         {
           "index": 27,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Año de Inicio Utilización",
+          "sub": "Tipo de IVA",
+          "header": "Año de Inicio Utilización.Tipo de IVA",
           "type": "Decimal(4,2)",
           "refs": []
         },
         {
           "index": 28,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Año de Inicio Utilización",
+          "sub": "Prorrata Definitiva(14)",
+          "header": "Año de Inicio Utilización.Prorrata Definitiva(14)",
           "type": "Decimal(5,2)",
-          "refs": []
+          "refs": [
+            14
+          ]
         },
         {
           "index": 29,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Año de Inicio Utilización",
+          "sub": "Cuota Deducible(14)",
+          "header": "Año de Inicio Utilización.Cuota Deducible(14)",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            14
+          ]
         },
         {
           "index": 30,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Regularización Anual(15)",
+          "sub": "Prorrata Definitiva",
+          "header": "Regularización Anual(15).Prorrata Definitiva",
           "type": "Decimal(5,2)",
-          "refs": []
+          "refs": [
+            15
+          ]
         },
         {
           "index": 31,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Regularización Anual(15)",
+          "sub": "Cuota Deducible",
+          "header": "Regularización Anual(15).Cuota Deducible",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            15
+          ]
         },
         {
           "index": 32,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Regularización Anual(15)",
+          "sub": "Cuota a Regularizar",
+          "header": "Regularización Anual(15).Cuota a Regularizar",
           "type": "Decimal(12,2)",
-          "refs": []
+          "refs": [
+            15
+          ]
         },
         {
           "index": 33,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Baja del Bien",
+          "sub": "Fecha(18)",
+          "header": "Baja del Bien.Fecha(18)",
           "type": "Fecha(dd/mm/yyyy)",
-          "refs": []
+          "refs": [
+            18
+          ]
         },
         {
           "index": 34,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Baja del Bien",
+          "sub": "Causa(8) (11)",
+          "header": "Baja del Bien.Causa(8) (11)",
           "type": "Alfanumérico (2)",
-          "refs": []
+          "refs": [
+            8,
+            11
+          ]
         },
         {
           "index": 35,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Identificación de la Factura de Transmisión del Bien(9)",
+          "sub": "Serie",
+          "header": "Identificación de la Factura de Transmisión del Bien(9).Serie",
           "type": "Alfanumérico (20)",
-          "refs": []
+          "refs": [
+            9
+          ]
         },
         {
           "index": 36,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Identificación de la Factura de Transmisión del Bien(9)",
+          "sub": "Número",
+          "header": "Identificación de la Factura de Transmisión del Bien(9).Número",
           "type": "Alfanumérico (20)",
-          "refs": []
+          "refs": [
+            9
+          ]
         },
         {
           "index": 37,
-          "top": "",
-          "sub": "",
-          "header": "",
+          "top": "Identificación de la Factura de Transmisión del Bien(9)",
+          "sub": "Número-Final",
+          "header": "Identificación de la Factura de Transmisión del Bien(9).Número-Final",
           "type": "Alfanumérico (20)",
-          "refs": []
+          "refs": [
+            9
+          ]
         },
         {
           "index": 38,
-          "top": "",
+          "top": "Registro Acuerdo Facturación(19)",
           "sub": "",
-          "header": "",
+          "header": "Registro Acuerdo Facturación(19)",
           "type": "Alfanumérico (15)",
-          "refs": []
+          "refs": [
+            19
+          ]
         },
         {
           "index": 39,
-          "top": "",
+          "top": "Referencia Externa",
           "sub": "",
-          "header": "",
+          "header": "Referencia Externa",
           "type": "Alfanumérico (40)",
           "refs": []
         }

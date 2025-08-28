@@ -6,42 +6,42 @@ Columns (index, header, type, refs)
 
 | # | Header | Type | Refs |
 |---:|---|---|---|
-| 0 |  | Decimal (4,0) |  |
-| 1 |  | Alfanumérico (2) |  |
-| 2 |  | Alfanumérico (1) |  |
-| 3 |  | Alfanumérico (2) |  |
-| 4 |  | Alfanumérico (4) |  |
-| 5 |  | Alfanumérico (2) |  |
-| 6 |  | Alfanumérico (3) |  |
-| 7 |  | Decimal(12,2) |  |
-| 8 | .Ejercicio: 2025 | Fecha(dd/mm/yyyy) |  |
-| 9 | LIBRO REGISTRO FACTURAS EXPEDIDAS Y LIBRO REGISTRO DE VENTAS E INGRESOS (Nombre del fichero: 202599999999R@español español, juan) | Fecha(dd/mm/yyyy) |  |
-| 10 |  | Alfanumérico (20) |  |
-| 11 |  | Alfanumérico (20) |  |
-| 12 |  | Alfanumérico (20) |  |
-| 13 |  | Alfanumérico (2) |  |
-| 14 |  | Alfanumérico (2) |  |
-| 15 |  | Alfanumérico (20) |  |
-| 16 |  | Alfanumérico (40) |  |
-| 17 |  | Alfanumérico (2) |  |
-| 18 |  | Alfanumérico (2) |  |
-| 19 |  | Alfanumérico (2) |  |
-| 20 |  | Decimal(12,2) |  |
-| 21 |  | Decimal(12,2) |  |
-| 22 |  | Decimal(4,2) |  |
-| 23 |  | Decimal(12,2) |  |
-| 24 |  | Decimal(4,2) |  |
-| 25 |  | Decimal(12,2) |  |
-| 26 |  | Fecha(dd/mm/yyyy) |  |
-| 27 |  | Decimal(12,2) |  |
-| 28 |  | Alfanumérico (2) |  |
-| 29 |  | Alfanumérico (34) |  |
-| 30 |  | Decimal(4,2) |  |
-| 31 |  | Decimal(12,2) |  |
-| 32 |  | Alfanumérico (15) |  |
-| 33 |  | Alfanumérico (1) |  |
-| 34 |  | Alfanumérico (20) |  |
-| 35 |  | Alfanumérico (40) |  |
+| 0 | Autoliquidación(11).Ejercicio | Decimal (4,0) | 11 |
+| 1 | Autoliquidación(11).Periodo | Alfanumérico (2) | 11 |
+| 2 | Actividad(16).Código | Alfanumérico (1) | 16 |
+| 3 | Actividad(16).Tipo | Alfanumérico (2) | 16 |
+| 4 | Actividad(16).Grupo o Epígrafe del IAE | Alfanumérico (4) | 16 |
+| 5 | Tipo de Factura(9) | Alfanumérico (2) | 9 |
+| 6 | Concepto de Ingreso(10) (17) | Alfanumérico (3) | 10, 17 |
+| 7 | Ingreso Computable(13) (17) | Decimal(12,2) | 13, 17 |
+| 8 | Fecha Expedición(25) | Fecha(dd/mm/yyyy) | 25 |
+| 9 | Fecha Operación(1) | Fecha(dd/mm/yyyy) | 1 |
+| 10 | Identificación de la Factura.Serie | Alfanumérico (20) |  |
+| 11 | Identificación de la Factura.Número | Alfanumérico (20) |  |
+| 12 | Identificación de la Factura.Número-Final | Alfanumérico (20) |  |
+| 13 | NIF Destinatario(2).Tipo | Alfanumérico (2) | 2 |
+| 14 | NIF Destinatario(2).Código País | Alfanumérico (2) | 2 |
+| 15 | NIF Destinatario(2).Identificación | Alfanumérico (20) | 2 |
+| 16 | Nombre Destinatario | Alfanumérico (40) |  |
+| 17 | Clave de Operación(6)(23) | Alfanumérico (2) | 6, 23 |
+| 18 | Calificación de la Operación(19) (21) (22) (23) (24) (30) | Alfanumérico (2) | 19, 21, 22, 23, 24, 30 |
+| 19 | Operación Exenta(20) | Alfanumérico (2) | 20 |
+| 20 | Total Factura(37) | Decimal(12,2) | 37 |
+| 21 | Base Imponible | Decimal(12,2) |  |
+| 22 | Tipo de IVA(39) | Decimal(4,2) | 39 |
+| 23 | Cuota IVA Repercutida | Decimal(12,2) |  |
+| 24 | Tipo de Recargo Eq. | Decimal(4,2) |  |
+| 25 | Cuota Recargo Eq.(35) | Decimal(12,2) | 35 |
+| 26 | Cobro (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Fecha | Fecha(dd/mm/yyyy) |  |
+| 27 | Cobro (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Importe | Decimal(12,2) |  |
+| 28 | Cobro (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Medio Utilizado | Alfanumérico (2) |  |
+| 29 | Cobro (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Identificación Medio Utilizado | Alfanumérico (34) |  |
+| 30 | Tipo Retención del IRPF(15) (17) | Decimal(4,2) | 15, 17 |
+| 31 | Importe Retenido del IRPF(15) (17) | Decimal(12,2) | 15, 17 |
+| 32 | Registro Acuerdo Facturación(18) | Alfanumérico (15) | 18 |
+| 33 | Inmueble(40).Situación | Alfanumérico (1) | 40 |
+| 34 | Inmueble(40).Referencia Catastral | Alfanumérico (20) | 40 |
+| 35 | Referencia Externa | Alfanumérico (40) |  |
 
 Validations
 
@@ -91,48 +91,48 @@ Columns (index, header, type, refs)
 
 | # | Header | Type | Refs |
 |---:|---|---|---|
-| 0 |  | Decimal (4,0) |  |
-| 1 |  | Alfanumérico (2) |  |
-| 2 |  | Alfanumérico (1) |  |
-| 3 |  | Alfanumérico (2) |  |
-| 4 |  | Alfanumérico (4) |  |
-| 5 |  | Alfanumérico (2) |  |
-| 6 |  | Alfanumérico (3) |  |
-| 7 |  | Decimal(12,2) |  |
-| 8 | .Ejercicio: 2025 | Fecha(dd/mm/yyyy) |  |
-| 9 | LIBRO REGISTRO FACTURAS RECIBIDAS Y LIBRO REGISTRO DE COMPRAS Y GASTOS (Nombre del fichero: 202599999999R@español español, juan) | Fecha(dd/mm/yyyy) |  |
-| 10 |  | Alfanumérico (40) |  |
-| 11 |  | Alfanumérico (20) |  |
-| 12 |  | Fecha(dd/mm/yyyy) |  |
-| 13 |  | Alfanumérico (20) |  |
-| 14 |  | Alfanumérico (20) |  |
-| 15 |  | Alfanumérico (2) |  |
-| 16 |  | Alfanumérico (2) |  |
-| 17 |  | Alfanumérico (20) |  |
-| 18 |  | Alfanumérico (40) |  |
-| 19 |  | Alfanumérico (2) |  |
-| 20 |  | Alfanumérico (1) |  |
-| 21 |  | Alfanumérico (1) |  |
-| 22 |  | Alfanumérico (1) |  |
-| 23 |  | Decimal (4,0) |  |
-| 24 |  | Alfanumérico (2) |  |
-| 25 |  | Decimal(12,2) |  |
-| 26 |  | Decimal(12,2) |  |
-| 27 |  | Decimal(4,2) |  |
-| 28 |  | Decimal(12,2) |  |
-| 29 |  | Decimal(12,2) |  |
-| 30 |  | Decimal(4,2) |  |
-| 31 |  | Decimal(12,2) |  |
-| 32 |  | Fecha(dd/mm/yyyy) |  |
-| 33 |  | Decimal(12,2) |  |
-| 34 |  | Alfanumérico (2) |  |
-| 35 |  | Alfanumérico (34) |  |
-| 36 |  | Decimal(4,2) |  |
-| 37 |  | Decimal(12,2) |  |
-| 38 |  | Alfanumérico (15) |  |
-| 39 |  | Alfanumérico (1) |  |
-| 40 |  | Alfanumérico (20) |  |
-| 41 |  | Alfanumérico (40) |  |
+| 0 | Autoliquidación(12).Ejercicio | Decimal (4,0) | 12 |
+| 1 | Autoliquidación(12).Periodo | Alfanumérico (2) | 12 |
+| 2 | Actividad(17).Código | Alfanumérico (1) | 17 |
+| 3 | Actividad(17).Tipo | Alfanumérico (2) | 17 |
+| 4 | Actividad(17).Grupo o Epígrafe del IAE | Alfanumérico (4) | 17 |
+| 5 | Tipo de Factura(10) | Alfanumérico (2) | 10 |
+| 6 | Concepto de Gasto(11) (18) | Alfanumérico (3) | 11, 18 |
+| 7 | Gasto Deducible(13) (18) | Decimal(12,2) | 13, 18 |
+| 8 | Fecha Expedición | Fecha(dd/mm/yyyy) |  |
+| 9 | Fecha Operación(1) | Fecha(dd/mm/yyyy) | 1 |
+| 10 | Identificación Factura del Expedidor.(Serie-Número) | Alfanumérico (40) |  |
+| 11 | Identificación Factura del Expedidor.Número-Final | Alfanumérico (20) |  |
+| 12 | Fecha Recepción(19) | Fecha(dd/mm/yyyy) | 19 |
+| 13 | Número Recepción(37) | Alfanumérico (20) | 37 |
+| 14 | Número Recepción Final(37) | Alfanumérico (20) | 37 |
+| 15 | NIF Expedidor(2).Tipo | Alfanumérico (2) | 2 |
+| 16 | NIF Expedidor(2).Código País | Alfanumérico (2) | 2 |
+| 17 | NIF Expedidor(2).Identificación | Alfanumérico (20) | 2 |
+| 18 | Nombre Expedidor | Alfanumérico (40) |  |
+| 19 | Clave de Operación(7) | Alfanumérico (2) | 7 |
+| 20 | Bien de Inversión(20) | Alfanumérico (1) | 20 |
+| 21 | Inversión del Sujeto Pasivo(23) | Alfanumérico (1) | 23 |
+| 22 | Deducible en Periodo Posterior(21) (35) | Alfanumérico (1) | 21, 35 |
+| 23 | Periodo Deducción(22) (34).Ejercicio | Decimal (4,0) | 22, 34 |
+| 24 | Periodo Deducción(22) (34).Periodo | Alfanumérico (2) | 22, 34 |
+| 25 | Total Factura | Decimal(12,2) |  |
+| 26 | Base Imponible | Decimal(12,2) |  |
+| 27 | Tipo de IVA | Decimal(4,2) |  |
+| 28 | Cuota IVA Soportado | Decimal(12,2) |  |
+| 29 | Cuota Deducible(36) | Decimal(12,2) | 36 |
+| 30 | Tipo de Recargo Eq. | Decimal(4,2) |  |
+| 31 | Cuota Recargo Eq. | Decimal(12,2) |  |
+| 32 | Pago (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Fecha | Fecha(dd/mm/yyyy) |  |
+| 33 | Pago (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Importe | Decimal(12,2) |  |
+| 34 | Pago (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Medio Utilizado | Alfanumérico (2) |  |
+| 35 | Pago (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF).Identificación Medio Utilizado | Alfanumérico (34) |  |
+| 36 | Tipo Retención del IRPF(16) (18) | Decimal(4,2) | 16, 18 |
+| 37 | Importe Retenido del IRPF(16) (18) | Decimal(12,2) | 16, 18 |
+| 38 | Registro Acuerdo Facturación(24) | Alfanumérico (15) | 24 |
+| 39 | Inmueble(39).Situación | Alfanumérico (1) | 39 |
+| 40 | Inmueble(39).Referencia Catastral | Alfanumérico (20) | 39 |
+| 41 | Referencia Externa | Alfanumérico (40) |  |
 
 Validations
 
@@ -182,46 +182,46 @@ Columns (index, header, type, refs)
 
 | # | Header | Type | Refs |
 |---:|---|---|---|
-| 0 |  | Decimal (4,0) |  |
-| 1 |  | Alfanumérico (2) |  |
-| 2 |  | Alfanumérico (1) |  |
-| 3 |  | Alfanumérico (2) |  |
-| 4 |  | Alfanumérico (4) |  |
-| 5 |  | Alfanumérico (2) |  |
-| 6 |  | Alfanumérico (40) |  |
-| 7 |  | Alfanumérico (160) |  |
-| 8 |  | Fecha(dd/mm/yyyy) |  |
-| 9 |  | Decimal(12,2) |  |
-| 10 | LIBRO REGISTRO DE BIENES DE INVERSIÓN (Nombre del fichero: 202599999999R@español español, juan).Ejercicio: 2025 | Decimal(12,2) |  |
-| 11 |  | Alfanumérico (2) |  |
-| 12 |  | Decimal (4,2) |  |
-| 13 |  | Decimal(12,2) |  |
-| 14 |  | Decimal(12,2) |  |
-| 15 |  | Decimal(12,2) |  |
-| 16 |  | Decimal(12,2) |  |
-| 17 |  | Fecha(dd/mm/yyyy) |  |
-| 18 |  | Alfanumérico (40) |  |
-| 19 |  | Alfanumérico (20) |  |
-| 20 |  | Alfanumérico (20) |  |
-| 21 |  | Alfanumérico (20) |  |
-| 22 |  | Alfanumérico (2) |  |
-| 23 |  | Alfanumérico (2) |  |
-| 24 |  | Alfanumérico (20) |  |
-| 25 |  | Alfanumérico (40) |  |
-| 26 |  | Decimal(12,2) |  |
-| 27 |  | Decimal(4,2) |  |
-| 28 |  | Decimal(5,2) |  |
-| 29 |  | Decimal(12,2) |  |
-| 30 |  | Decimal(5,2) |  |
-| 31 |  | Decimal(12,2) |  |
-| 32 |  | Decimal(12,2) |  |
-| 33 |  | Fecha(dd/mm/yyyy) |  |
-| 34 |  | Alfanumérico (2) |  |
-| 35 |  | Alfanumérico (20) |  |
-| 36 |  | Alfanumérico (20) |  |
-| 37 |  | Alfanumérico (20) |  |
-| 38 |  | Alfanumérico (15) |  |
-| 39 |  | Alfanumérico (40) |  |
+| 0 | Autoliquidación(1).Ejercicio | Decimal (4,0) | 1 |
+| 1 | Autoliquidación(1).Periodo | Alfanumérico (2) | 1 |
+| 2 | Actividad(17).Código | Alfanumérico (1) | 17 |
+| 3 | Actividad(17).Tipo | Alfanumérico (2) | 17 |
+| 4 | Actividad(17).Grupo o Epígrafe del IAE | Alfanumérico (4) | 17 |
+| 5 | Tipo de Bien(2) | Alfanumérico (2) | 2 |
+| 6 | Descripción del Bien(16) (11).Identificador | Alfanumérico (40) | 16, 11 |
+| 7 | Descripción del Bien(16) (11).Literal | Alfanumérico (160) | 16, 11 |
+| 8 | Fecha Inicio Utilización | Fecha(dd/mm/yyyy) |  |
+| 9 | Valor Adquisición(11) | Decimal(12,2) | 11 |
+| 10 | Valor Amortizable(11) | Decimal(12,2) | 11 |
+| 11 | Método de Amortización(4) (11) | Alfanumérico (2) | 4, 11 |
+| 12 | Porcentaje de Amortización(11) | Decimal (4,2) | 11 |
+| 13 | Amortización(11).Acumulada al Inicio | Decimal(12,2) | 11 |
+| 14 | Amortización(11).Cuota Resultante | Decimal(12,2) | 11 |
+| 15 | Amortización(11).Acumulada al final | Decimal(12,2) | 11 |
+| 16 | Amortización(11).Pendiente | Decimal(12,2) | 11 |
+| 17 | Fecha Expedición | Fecha(dd/mm/yyyy) |  |
+| 18 | Identificación Factura del Expedidor.(Serie-Número) | Alfanumérico (40) |  |
+| 19 | Identificación Factura del Expedidor.Número-Final | Alfanumérico (20) |  |
+| 20 | Número Recepción(11) | Alfanumérico (20) | 11 |
+| 21 | Número Recepción Final(11) | Alfanumérico (20) | 11 |
+| 22 | NIF Expedidor(3).Tipo | Alfanumérico (2) | 3 |
+| 23 | NIF Expedidor(3).Código País | Alfanumérico (2) | 3 |
+| 24 | NIF Expedidor(3).Identificación | Alfanumérico (20) | 3 |
+| 25 | Nombre Expedidor | Alfanumérico (40) |  |
+| 26 | Año de Inicio Utilización.Base Imponible | Decimal(12,2) |  |
+| 27 | Año de Inicio Utilización.Tipo de IVA | Decimal(4,2) |  |
+| 28 | Año de Inicio Utilización.Prorrata Definitiva(14) | Decimal(5,2) | 14 |
+| 29 | Año de Inicio Utilización.Cuota Deducible(14) | Decimal(12,2) | 14 |
+| 30 | Regularización Anual(15).Prorrata Definitiva | Decimal(5,2) | 15 |
+| 31 | Regularización Anual(15).Cuota Deducible | Decimal(12,2) | 15 |
+| 32 | Regularización Anual(15).Cuota a Regularizar | Decimal(12,2) | 15 |
+| 33 | Baja del Bien.Fecha(18) | Fecha(dd/mm/yyyy) | 18 |
+| 34 | Baja del Bien.Causa(8) (11) | Alfanumérico (2) | 8, 11 |
+| 35 | Identificación de la Factura de Transmisión del Bien(9).Serie | Alfanumérico (20) | 9 |
+| 36 | Identificación de la Factura de Transmisión del Bien(9).Número | Alfanumérico (20) | 9 |
+| 37 | Identificación de la Factura de Transmisión del Bien(9).Número-Final | Alfanumérico (20) | 9 |
+| 38 | Registro Acuerdo Facturación(19) | Alfanumérico (15) | 19 |
+| 39 | Referencia Externa | Alfanumérico (40) |  |
 
 Validations
 
