@@ -82,6 +82,28 @@ export default function InInvoicesPage() {
     codeClaveOperacion: '01'
   })
 
+  const [codes, setCodes] = useState<any | null>(null)
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const res = await fetch(`${api.replace(/\/$/, '')}/aeat/codes`)
+        if (res.ok) {
+          const json = await res.json()
+          setCodes(json)
+        }
+      } catch (e) {
+        console.error('Failed to fetch AEAT codes', e)
+      }
+    })()
+  }, [api])
+
+  const headerItems = (sheet: string, header: string): { code: string; label: string; kind?: string }[] => {
+    const it = codes?.sheets?.[sheet]?.[header]?.items as any[] | undefined
+    if (!it) return []
+    return it as any
+  }
+
   useEffect(() => {
     if (!parsed) return
     setFormState((s) => ({
@@ -181,32 +203,21 @@ export default function InInvoicesPage() {
               <input className="border p-2" value={formState.currency} onChange={(e) => setFormState({ ...formState, currency: e.target.value.toUpperCase() })} />
               <label className="text-sm">Tipo de Factura</label>
               <select className="border p-2" value={formState.codeTipoFactura} onChange={(e) => setFormState({ ...formState, codeTipoFactura: e.target.value })}>
-                <option value="F1">F1 — Identifica destinatario</option>
-                <option value="F2">F2 — Sin identificar destinatario</option>
-                <option value="F3">F3 — Sustitutiva</option>
-                <option value="F4">F4 — Asiento resumen</option>
-                <option value="R1">R1 — Rectif. (varios)</option>
-                <option value="R2">R2 — Rectif. (concurso)</option>
-                <option value="R3">R3 — Rectif. (incobrable)</option>
-                <option value="R4">R4 — Rectif. (resto)</option>
-                <option value="R5">R5 — Rectif. (simplificadas)</option>
-                <option value="SF">SF — Asiento sin factura</option>
+                {headerItems('RECIBIDAS_GASTOS', 'Tipo de Factura').map((it) => (
+                  <option key={it.code} value={it.code}>{`${it.code} — ${it.label}`}</option>
+                ))}
               </select>
               <label className="text-sm">Concepto de Gasto</label>
               <select className="border p-2" value={formState.codeConceptoGasto} onChange={(e) => setFormState({ ...formState, codeConceptoGasto: e.target.value })}>
-                <option value="G01">G01 — Compra de existencias</option>
-                <option value="G03">G03 — Otros consumos</option>
-                <option value="G04">G04 — Sueldos y salarios</option>
-                <option value="G05">G05 — SS empresa</option>
-                <option value="G45">G45 — SS titular (recomendado)</option>
-                <option value="G46">G46 — Mutualidades titular</option>
+                {headerItems('RECIBIDAS_GASTOS', 'Concepto de Gasto').map((it) => (
+                  <option key={it.code} value={it.code}>{`${it.code} — ${it.label}`}</option>
+                ))}
               </select>
               <label className="text-sm">Clave de Operación</label>
               <select className="border p-2" value={formState.codeClaveOperacion} onChange={(e) => setFormState({ ...formState, codeClaveOperacion: e.target.value })}>
-                <option value="01">01 — Régimen general</option>
-                <option value="07">07 — Criterio de caja</option>
-                <option value="08">08 — IPSI/IGIC</option>
-                <option value="09">09 — AAVV mediación</option>
+                {headerItems('RECIBIDAS_GASTOS', 'Clave de Operación').map((it) => (
+                  <option key={it.code} value={it.code}>{`${it.code} — ${it.label}`}</option>
+                ))}
               </select>
               <label className="text-sm">Categoría</label>
               <input className="border p-2" value={formState.category} onChange={(e) => setFormState({ ...formState, category: e.target.value })} />

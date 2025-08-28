@@ -8,6 +8,7 @@ import { ThirdPartiesModule } from './third-parties/third-parties.module'
 import { FilesModule } from './files/files.module'
 import { PrismaModule } from './prisma/prisma.module'
 import { ImportsModule } from './imports/imports.module'
+import { AeatModule } from './aeat/aeat.module'
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { ImportsModule } from './imports/imports.module'
     TaxesModule,
     ThirdPartiesModule,
     FilesModule,
-    ImportsModule
+    ImportsModule,
+    AeatModule
   ]
 })
 export class AppModule {}
