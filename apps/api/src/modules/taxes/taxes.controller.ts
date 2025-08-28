@@ -1,12 +1,13 @@
-import { Controller, Get, Query } from '@nestjs/common'
+import { Controller, Get, Post, Body, Query } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { PrismaService } from '../prisma/prisma.service'
+import { QuarterService } from './quarter.service'
 import { calcModelo303BaseAndVat, exportAeatCsv, type BookEntry, build349Lines, calc130Ytd, calc303 } from '@packages/utils'
 
 @ApiTags('taxes')
 @Controller('taxes')
 export class TaxesController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private quarter: QuarterService) {}
 
   @Get('303')
   async modelo303(@Query('from') from: string, @Query('to') to: string) {
@@ -94,5 +95,13 @@ export class TaxesController {
     ]
     const csv = exportAeatCsv(rows)
     return csv
+  }
+
+  @Post('quarter/close')
+  async closeQuarter(
+    @Body()
+    body: { year: number; quarter: 1 | 2 | 3 | 4; nif: string; name: string; outDir?: string }
+  ) {
+    return this.quarter.closeQuarter(body)
   }
 }
