@@ -1,6 +1,14 @@
-**Libro Unificado (Tipo T) — Códigos y listas de valores (extraídos de PLANTILLA_LIBROS_UNIFICADOS.xlsx)**
+**Libro Unificado (Tipo T) — Códigos y listas de valores**
 
-Nota: Estos valores proceden de los comentarios (tooltips) de celdas en la plantilla oficial. Sirven para validar/normalizar los campos codificados del libro. En la UI, se deben presentar como selectores o valores sugeridos por defecto cuando sea posible.
+Nota: Estos valores proceden de los comentarios (tooltips) de celdas en la plantilla oficial (`PLANTILLA_LIBROS_UNIFICADOS.xlsx`). Sirven para validar/normalizar los campos codificados del libro. En la UI, se deben presentar como selectores o valores sugeridos por defecto cuando sea posible.
+
+Conjunto completo (JSON generado)
+- Archivo: `docs/AEAT/unificados-codes.json` — generado con `node packages/utils/scripts/aeat-codes-extract.js docs/AEAT/PLANTILLA_LIBROS_UNIFICADOS.xlsx`.
+- Estructura: por hoja y por columna (incluye items {code,label} y texto bruto `raw`).
+- Este documento resume los códigos más relevantes; el JSON contiene la lista completa extraída.
+ 
+Validación
+- Ver `docs/AEAT/validation.md` para reglas formales (patrones válidos y reconocimiento de agrupaciones válidas como GY4/G19 según LSI).
 
 Expedidas_INGRESOS — Códigos principales
 - Tipo de Factura (columna "Tipo de Factura"): F1, F2, F3, F4, R1, R2, R3, R4, R5, SF
@@ -48,7 +56,7 @@ Inmueble
 
 RECIBIDAS_GASTOS — Códigos principales
 - Tipo de Factura: (mismo esquema F1..R5)
-- Concepto de Gasto ("Concepto de Gasto"): G01..G46 (extracto)
+- Concepto de Gasto ("Concepto de Gasto"): G01..G46 y códigos de agrupación (GYx)
   - G01: Compra de existencias
   - G02: Variación de existencias (disminución)
   - G03: Otros consumos de explotación
@@ -57,6 +65,9 @@ RECIBIDAS_GASTOS — Códigos principales
   - G06: Seguridad Social y Aportaciones a mutualidades alternativas del titular (admitido hasta 1T 2024)
   - G45: Seguridad Social del titular de la actividad (usar desde 2025)
   - G46: Aportaciones a mutualidades alternativas del titular (usar desde 2025)
+  - GY4 (grupo): Suministros (electricidad, agua, gas, telefonía, internet) — agrupa G14..G17 y G18
+  - GY8 (grupo): Dotaciones amortización inmovilizado material — agrupa G27..G33 (ver JSON para detalle)
+  Nota: Algunos códigos de grupo (GYx) pueden ser seleccionables según LSI (p. ej., `GY4` Suministros); otros actúan solo como encabezados. La UI debe apoyarse en el JSON para diferenciar.
 - Clave de Operación: 01..09 (incluye REAGYP, criterio de caja, IPSI/IGIC, adquisiciones interiores, etc.)
 
 Bienes de Inversión — Tipo de Bien (extracto)
@@ -71,4 +82,3 @@ Recomendaciones UI (MVP)
 - Ingresos B2B UE (servicios): sugerir Tipo de Factura F1, Concepto de Ingreso I01, Calificación S1, Operación Exenta vacía. Clave de operación según flags (intracomunitaria, ISP, etc.).
 - Seguridad Social del titular: mapear a G45 (desde 2025). Para ejercicios anteriores, permitir G06.
 - Permitir selección manual cuando haya ambigüedad y recordar la elección por proveedor/categoría.
-

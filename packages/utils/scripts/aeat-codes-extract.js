@@ -35,8 +35,8 @@ function headerNameForCell(ws, addr) {
 function regexForHeader(header) {
   const h = (header || '').toLowerCase()
   if (h.includes('tipo de factura')) return /(\b(?:SF|DV|AJ|F\d|R\d)\b)/g
-  if (h.includes('concepto de ingreso')) return /(\bI\d{2}\b)/g
-  if (h.includes('concepto de gasto')) return /(\bG\d{2}\b)/g
+  if (h.includes('concepto de ingreso')) return /(\bI[A-Z]?\d{2}\b)/g
+  if (h.includes('concepto de gasto')) return /(\bG[A-Z]?\d{1,2}\b)/g
   if (h.includes('calificación')) return /(\b(?:S\d|N\d)\b)/g
   if (h.includes('exenta')) return /(\bE\d\b)/g
   if (h.includes('clave de operación')) return /(\b(?:0[1-9]|1[0-5])\b)/g
@@ -47,7 +47,7 @@ function regexForHeader(header) {
   if (h.includes('situación')) return /(\b[1-5]\b)/g
   if (h.includes('tipo de bien')) return /(\b\d{2}\b)/g
   // fallback broad
-  return /(\b(?:SF|DV|AJ|F\d|R\d|I\d{2}|G\d{2}|E\d|S\d|N\d|0[1-9]|1[0-5]|[1-5])\b)/g
+  return /(\b(?:SF|DV|AJ|F\d|R\d|I[A-Z]?\d{2}|G[A-Z]?\d{1,2}|E\d|S\d|N\d|0[1-9]|1[0-5]|[1-5])\b)/g
 }
 
 function splitCodes(text, header) {
@@ -64,7 +64,9 @@ function splitCodes(text, header) {
     const start = cur.idx + cur.code.length
     const end = next ? next.idx : s.length
     const label = s.slice(start, end).replace(/^[:\-–—\s]+/, '').trim()
-    out.push({ code: cur.code, label })
+    const code = cur.code
+    const isGroup = /^(?:G|I)[A-Z]\d{1,2}$/.test(code)
+    out.push({ code, label, kind: isGroup ? 'group' : 'code' })
   }
   // Fallback: if nothing matched, return raw text
   if (out.length === 0 && s) return [{ code: '', label: s }]
