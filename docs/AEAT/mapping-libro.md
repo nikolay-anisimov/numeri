@@ -53,6 +53,7 @@ Unified (T) — Column Headers (from docs/AEAT/Ejemplo_2_1T_2023.xlsx)
 Notes
 - The template files (LSI.xlsx) contain instructions and data dictionary rows above the header; in the Ejemplo file, headers occupy the first two rows, then data rows begin.
 - For generation, we will ship a template and write data starting at the first data row expected by AEAT (after headers), preserving column order.
+ - Preferencia: usar `PLANTILLA_LIBROS_UNIFICADOS.xlsx` como plantilla base. Los códigos y listas de valores de columnas están recogidos en `docs/AEAT/unificados-codes.md`.
 
 Data Types & Formats (global)
 - Date: Excel date (no time), displayed as `dd/mm/yyyy` [verify]

@@ -17,3 +17,9 @@ Next
 - Integration test: seed 3 months (income, gastos, Seguridad Social), run quarter-close, assert unified sheets present, headers preserved, data rows written, guide contains key values.
 - Unit tests: expand coverage for calculators (130/303/349), mappers, and writer (template load, row positions, numeric formatting).
 - Scripts: add `prepare:trimestre` runner and a small wrapper to inspect templates (uses `packages/utils/scripts/aeat-dump.js`).
+
+UI/Domain additions (new)
+- Use `PLANTILLA_LIBROS_UNIFICADOS.xlsx` to drive select options (see `docs/AEAT/unificados-codes.md`).
+- Add settings for Actividad (IAE) Código/Tipo por contribuyente y sugerir en nuevas líneas.
+- For Seguridad Social del titular, asignar Concepto de Gasto G45 (o G06 si aplica a ejercicios previos). Permitir override manual.
+- Add UI selects for: Tipo de Factura, Concepto (Ingreso/Gasto), Clave/Calificación de Operación, Exención, Tipo NIF, Medio de cobro/pago, Situación de inmueble. Recordar por proveedor/cliente.
